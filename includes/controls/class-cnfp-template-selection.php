@@ -18,7 +18,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 						<?php foreach ( $this->choices as $key => $value ) { ?>
                             <label class="colorlib-single-template-wrapper">
                                 <img
-                                        src="<?php echo CNFP_URL . 'templates/' . esc_attr( $key ) . '/' . esc_attr( $key ) . '.jpg' ?>">
+                                        src="<?php echo CNFP_URL . 'templates/' . esc_attr( $key ) . '/' . esc_attr( $key ) . '.png' ?>">
                                 <input class="colorlib-template-radio" type="radio"
                                        name="<?php echo esc_attr( $this->id ); ?>"
                                        value="<?php echo esc_attr( $key ); ?>" <?php $this->link(); ?> <?php checked( esc_attr( $key ), $this->value() ); ?>/>

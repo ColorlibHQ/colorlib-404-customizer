@@ -34,50 +34,6 @@ jQuery(window).load(function () {
             }
         });
     });
-
-    jQuery('.colorlib-single-template-wrapper img').click(function () {
-
-        //declare arrays
-        var pageContentArray = ['template_02', 'template_04', 'template_05', 'template_06', 'template_08', 'template_10', 'template_12', 'template_14'];
-        var pageFooterArray = ['template_01', 'template_03', 'template_04', 'template_06'];
-        var negativeBackgroundImageArray = ['template_03', 'template_04'];
-        var backgroundColorArray = ['template_03', 'template_04'];
-
-        //get control value
-        var controlValue = wp.customize.control('cnfp_settings[colorlib_coming_soon_template_selection]').setting._value;
-
-        //get controls
-        var pageContent = wp.customize.control('cnfp_settings[colorlib_coming_soon_page_content]');
-        var pageFooter = wp.customize.control('cnfp_settings[colorlib_coming_soon_page_footer]');
-        var backgroundImage = wp.customize.control('cnfp_settings[colorlib_coming_soon_background_image]');
-        var backgroundColor = wp.customize.control('cnfp_settings[colorlib_coming_soon_background_color]');
-
-        //do action
-        if (jQuery.inArray(controlValue, pageContentArray)) {
-            pageContent.activate();
-        } else {
-            pageContent.deactivate();
-        }
-
-        if (jQuery.inArray(controlValue, pageFooterArray)) {
-            pageFooter.activate();
-        } else {
-            pageFooter.deactivate();
-        }
-
-        if (jQuery.inArray(controlValue, negativeBackgroundImageArray)) {
-            backgroundImage.deactivate();
-        } else {
-            backgroundImage.activate();
-        }
-
-        if (jQuery.inArray(controlValue, backgroundColorArray)) {
-            backgroundColor.activate();
-        } else {
-            backgroundColor.deactivate();
-        }
-
-    });
 });
 
 

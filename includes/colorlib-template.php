@@ -12,13 +12,7 @@
 		$template = $cnfp_options['colorlib_404_customizer_select_template'];
 	}
 
-	?>
-    <!--TODO think we should remove this or add option in the customizer-->
-    <!--<link rel="icon" type="image/png"
-          href="<?php /*echo CNFP_URL . 'templates/' . $template; */ ?>/images/icons/favicon.ico"/>-->
-
-	<?php
-	include( CNFP_PATH . 'templates/' . $template . '/index.php' );
+	include( CNFP_PATH . 'templates/' . $template . '/' . $template . '.php' );
 	?>
     </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

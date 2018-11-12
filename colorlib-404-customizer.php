@@ -72,7 +72,7 @@ function cnfp_template_redirect() {
 	//global $wp_customize;
 	$cnfp_options = get_option( 'cnfp_settings' );
 	//Checks for if user is logged in and CNFP is activated  OR if customizer is open on CNFP customization panel
-	if ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == 1 || is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) ) {
+	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == 1 ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) ) ) {
 
 		$file = plugin_dir_path( __FILE__ ) . 'includes/colorlib-template.php'; //get path of our 404 display page and redirecting
 		include( $file );
@@ -151,6 +151,10 @@ function cnfp_style_enqueue( $template_name ) {
 				'name'     => 'main',
 				'location' => 'css/style.css',
 			),
+			array(
+				'name'     => 'font-awesome',
+				'location' => 'css/font-awesome.min.css',
+			),
 		),
 		'template_12' => array(
 			array(
@@ -169,17 +173,29 @@ function cnfp_style_enqueue( $template_name ) {
 				'name'     => 'main',
 				'location' => 'css/style.css',
 			),
+			array(
+				'name'     => 'font-awesome',
+				'location' => 'css/font-awesome.min.css',
+			),
 		),
 		'template_15' => array(
 			array(
 				'name'     => 'main',
 				'location' => 'css/style.css',
 			),
+			array(
+				'name'     => 'font-awesome',
+				'location' => 'css/font-awesome.min.css',
+			),
 		),
 		'template_16' => array(
 			array(
 				'name'     => 'main',
 				'location' => 'css/style.css',
+			),
+			array(
+				'name'     => 'font-awesome',
+				'location' => 'css/font-awesome.min.css',
 			),
 		),
 		'template_17' => array(
@@ -198,6 +214,10 @@ function cnfp_style_enqueue( $template_name ) {
 			array(
 				'name'     => 'main',
 				'location' => 'css/style.css',
+			),
+			array(
+				'name'     => 'font-awesome',
+				'location' => 'css/font-awesome.min.css',
 			),
 		),
 		'template_20' => array(
