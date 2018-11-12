@@ -1,4 +1,5 @@
 jQuery(window).load(function () {
+
     jQuery('textarea.js-cnfp-editor').each(function () {
         var textareaId = jQuery(this).attr('id');
         var textareaEditor = jQuery(this);
@@ -24,12 +25,12 @@ jQuery(window).load(function () {
     wp.customize.panel('colorlib_404_customizer_panel', function (section) {
         section.expanded.bind(function (isExpanding) {
             var loginURL = CNFPurls.siteurl + '?colorlib-404-customization=true';
-
             // Value of isExpanding will = true if you're entering the section, false if you're leaving it.
             if (isExpanding) {
                 wp.customize.previewer.previewUrl.set(loginURL);
             } else {
                 wp.customize.previewer.previewUrl.set(CNFPurls.siteurl);
+
             }
         });
     });

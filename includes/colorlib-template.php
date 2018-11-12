@@ -20,6 +20,5 @@
 	<?php
 	include( CNFP_PATH . 'templates/' . $template . '/index.php' );
 	?>
-
     </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

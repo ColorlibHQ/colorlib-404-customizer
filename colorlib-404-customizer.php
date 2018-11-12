@@ -71,8 +71,6 @@ function cnfp_template_redirect() {
 
 	//global $wp_customize;
 	$cnfp_options = get_option( 'cnfp_settings' );
-	var_dump( is_customize_preview(), isset( $_REQUEST['colorlib-404-customization'] ) );
-	die();
 	//Checks for if user is logged in and CNFP is activated  OR if customizer is open on CNFP customization panel
 	if ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == 1 || is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) ) {
 
