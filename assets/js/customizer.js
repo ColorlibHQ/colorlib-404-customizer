@@ -1,5 +1,5 @@
 jQuery(window).load(function () {
-    jQuery('textarea.js-ccsm-editor').each(function () {
+    jQuery('textarea.js-cnfp-editor').each(function () {
         var textareaId = jQuery(this).attr('id');
         var textareaEditor = jQuery(this);
 
@@ -21,15 +21,15 @@ jQuery(window).load(function () {
         });
     });
 
-    wp.customize.panel('colorlib_coming_soon_general_panel', function (section) {
+    wp.customize.panel('colorlib_404_customizer_panel', function (section) {
         section.expanded.bind(function (isExpanding) {
-            var loginURL = CCSMurls.siteurl + '?colorlib-coming-soon-customization=true';
+            var loginURL = CNFPurls.siteurl + '?colorlib-404-customization=true';
 
             // Value of isExpanding will = true if you're entering the section, false if you're leaving it.
             if (isExpanding) {
                 wp.customize.previewer.previewUrl.set(loginURL);
             } else {
-                wp.customize.previewer.previewUrl.set(CCSMurls.siteurl);
+                wp.customize.previewer.previewUrl.set(CNFPurls.siteurl);
             }
         });
     });
@@ -43,13 +43,13 @@ jQuery(window).load(function () {
         var backgroundColorArray = ['template_03', 'template_04'];
 
         //get control value
-        var controlValue = wp.customize.control('ccsm_settings[colorlib_coming_soon_template_selection]').setting._value;
+        var controlValue = wp.customize.control('cnfp_settings[colorlib_coming_soon_template_selection]').setting._value;
 
         //get controls
-        var pageContent = wp.customize.control('ccsm_settings[colorlib_coming_soon_page_content]');
-        var pageFooter = wp.customize.control('ccsm_settings[colorlib_coming_soon_page_footer]');
-        var backgroundImage = wp.customize.control('ccsm_settings[colorlib_coming_soon_background_image]');
-        var backgroundColor = wp.customize.control('ccsm_settings[colorlib_coming_soon_background_color]');
+        var pageContent = wp.customize.control('cnfp_settings[colorlib_coming_soon_page_content]');
+        var pageFooter = wp.customize.control('cnfp_settings[colorlib_coming_soon_page_footer]');
+        var backgroundImage = wp.customize.control('cnfp_settings[colorlib_coming_soon_background_image]');
+        var backgroundColor = wp.customize.control('cnfp_settings[colorlib_coming_soon_background_color]');
 
         //do action
         if (jQuery.inArray(controlValue, pageContentArray)) {
@@ -77,10 +77,6 @@ jQuery(window).load(function () {
         }
 
     });
-
-    /*wp.customize.control('ccsm_settings[colorlib_coming_soon_template_selection]', function (control) {
-        console.log(control.setting._value);
-    });*/
 });
 
 

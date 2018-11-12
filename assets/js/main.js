@@ -7,5 +7,5 @@ jQuery(window).load(function ($) {
             jQuery('input[type="radio"]').not(btn).parent('.colorlib-single-template-wrapper').removeClass('active');
         }
     });
-    jQuery('#accordion-section-colorlib_coming_soon_section_templates').attr('style', 'display:block !important;');
+    jQuery('#accordion-section-colorlib_404_customizer_template_selection').attr('style', 'display:block !important;');
 });

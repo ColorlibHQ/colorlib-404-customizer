@@ -1,9 +1,9 @@
 <?php
 if ( class_exists( 'WP_Customize_Control' ) ) {
 
-	if ( ! class_exists( 'CCSM_Control_Toggle' ) ) {
+	if ( ! class_exists( 'CNFP_Control_Toggle' ) ) {
 
-		class CCSM_Control_Toggle extends WP_Customize_Control {
+		class CNFP_Control_Toggle extends WP_Customize_Control {
 
 			/**
 			 * The type of customize control being rendered.
@@ -12,10 +12,10 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			 * @access public
 			 * @var    string
 			 */
-			public $type = 'ccsm-toggle';
+			public $type = 'cnfp-toggle';
 
 			/**
-			 * CCSM_Control_Toggle constructor.
+			 * CNFP_Control_Toggle constructor.
 			 *
 			 * @param WP_Customize_Manager $manager
 			 * @param string $id
@@ -23,7 +23,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			 */
 			public function __construct( WP_Customize_Manager $manager, $id, array $args = array() ) {
 				parent::__construct( $manager, $id, $args );
-				$manager->register_control_type( 'CCSM_Control_Toggle' );
+				$manager->register_control_type( 'CNFP_Control_Toggle' );
 			}
 
 			/**
@@ -61,7 +61,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			public function content_template() {
 				//@formatter:off
 				?>
-                <div class="colorlib_csmm">
+                <div class="colorlib_cnfp">
                     <div class="checkbox_switch">
                         <div>
                             <div class="cf toggle-wrapper">

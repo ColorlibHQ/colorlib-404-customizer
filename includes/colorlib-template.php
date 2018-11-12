@@ -6,20 +6,20 @@
 		$site_description = get_bloginfo( 'description' ); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<?php
-	$ccsm_options = get_option( 'ccsm_settings' );
+	$cnfp_options = get_option( 'cnfp_settings' );
 
-	if ( $ccsm_options['colorlib_coming_soon_template_selection'] ) {
-		$template = $ccsm_options['colorlib_coming_soon_template_selection'];
+	if ( $cnfp_options['colorlib_404_customizer_select_template'] ) {
+		$template = $cnfp_options['colorlib_404_customizer_select_template'];
 	}
-	
+
 	?>
     <!--TODO think we should remove this or add option in the customizer-->
     <!--<link rel="icon" type="image/png"
-          href="<?php /*echo CCSM_URL . 'templates/' . $template; */ ?>/images/icons/favicon.ico"/>-->
+          href="<?php /*echo CNFP_URL . 'templates/' . $template; */ ?>/images/icons/favicon.ico"/>-->
 
 	<?php
-	include( CCSM_PATH . 'templates/' . $template . '/' . $template . '.php' );
+	include( CNFP_PATH . 'templates/' . $template . '/index.php' );
 	?>
 
-    </body>
+    </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
