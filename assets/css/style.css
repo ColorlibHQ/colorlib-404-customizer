@@ -1,0 +1,597 @@
+﻿/*
+  Plugin Name: Colorlib Coming Soon and Maintenance for WordPress
+  Plugin URI: http://colorlib.com
+  Description: Colorlib Coming soon is a responsive coming soon WordPress plugin that comes with well designed landing pages and lots of useful features including customization via Live Customizer, MailChimp integration, Export option, and more.
+  Version: 1.0.0
+  Author: Colorlib
+  Author URI: https://colorlib.com/
+  License: GPL V3
+  Text Domain: colorlib-coming-soon
+  Domain Path: /languages
+*/
+
+
+/***********************************************************************************
+  
+Normalization
+  
+************************************************************************************/
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+
+
+/***********************************************************************************
+  
+Setup
+  
+************************************************************************************/
+
+html,
+body, #body-background {
+    width: 100%;
+    height: auto;
+    
+    overflow: visible;
+}
+
+.mce_inline_error,
+#mce-responses  {
+	padding-top:10px;
+	font-weight:bold;
+}
+
+
+
+
+
+/***********************************************************************************
+  
+Typography
+  
+************************************************************************************/
+
+body {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    background-position: center ;
+}
+
+h1, h2, h3 {
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 38px;
+    
+    margin-bottom: 22px;
+}
+
+h2 {
+    font-size: 28px;
+    
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 18px;
+    
+    margin-bottom: 5px;
+}
+
+h1 a,
+h2 a,
+h3 a {
+    border-bottom: 1px solid;
+    font-weight: 700;
+}
+
+p {
+    line-height: 1.4;
+    
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    
+    transition-duration: 0.25s;
+}
+
+p a,
+strong {
+    font-weight: 700;
+}
+
+p a {
+    border-bottom: 1px solid;
+}
+
+footer {
+    margin-top: 50px;
+}
+
+/***********************************************************************************
+  
+Icons
+  
+************************************************************************************/
+
+@font-face { 
+    font-family: "ionicons"; 
+    src: url("../icons/ionicons.eot?v=1.4.1"); 
+    src: url("../icons/ionicons.eot?v=1.4.1#iefix") format("embedded-opentype"), 
+         url("../icons/ionicons.ttf?v=1.4.1") format("truetype"), 
+         url("../icons/ionicons.woff?v=1.4.1") format("woff"), 
+         url("../icons/ionicons.svg?v=1.4.1#Ionicons") format("svg"); 
+    font-weight: normal; 
+    font-style: normal; 
+}
+
+.icon { 
+    font-family: "ionicons"; 
+    speak: none; 
+    font-style: normal; 
+    font-weight: normal; 
+    font-variant: normal; 
+    text-transform: none; 
+    text-rendering: auto; 
+    line-height: 1; 
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale; 
+    
+    display: inline-block; 
+}
+
+.icon.twitter:before { content: "\f243"; }
+.icon.facebook:before { content: "\f231"; }
+.icon.email:before { content: "\f10f"; }
+.icon.submit:before { content: "\f3fd"; }
+.icon.error:before { content: "\f404"; }
+.icon.success:before { content: "\f3fd"; }
+
+/***********************************************************************************
+  
+Containers
+  
+************************************************************************************/
+
+.row {
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+.content {
+    width: 500px;
+    
+    margin-left: 200px;
+}
+
+/***********************************************************************************
+  
+Body
+  
+************************************************************************************/
+
+body {
+}
+
+body::after {
+    border-right: 1px dashed;
+    
+    width: 1px;
+    height: 100%;
+    
+    position: fixed;
+    top: 0;
+    left: 100px;
+    z-index: -1;
+    
+    content: "";
+}
+
+/***********************************************************************************
+  
+Header
+  
+************************************************************************************/
+
+#header {
+    border-bottom: 1px dashed;
+    
+    line-height: 200px;
+    
+    display: none;
+}
+
+#header .content span.logo {
+    display: block;
+}
+
+#header .content span.logo img {
+	max-width:100%;
+	position:relative;
+	top:40px;
+}
+
+#header .status {
+    height: 1px;
+    
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+}
+
+#header .status span {
+    border-left: 1px solid;
+    
+    font-size: 12px;
+    line-height: 20px;
+    
+    width: 1px;
+    height: 21px;
+    
+    padding-left: 5px;
+    
+    position: absolute;
+    top: -10px;
+    right: -6px;
+}
+
+/***********************************************************************************
+  
+Intro
+  
+************************************************************************************/
+
+#intro {
+    padding: 83px 0 100px;
+    
+    display: none;
+}
+
+/***********************************************************************************
+  
+Post Subscribe
+  
+************************************************************************************/
+
+#post-subscribe h1 {
+    margin-bottom: 32px;
+}
+
+/***********************************************************************************
+  
+Subscribe
+  
+************************************************************************************/
+
+#subscribe {
+    margin: 15px 0 40px;
+}
+
+input[type="text"],
+input[type="email"] {
+    background: none;
+    outline: none;
+    
+    border-radius: 20px 0 0 20px;
+    border: none;
+    border: 1px solid;
+    
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 38px;
+    
+    width: 200px;
+    height: 38px;
+    
+    padding: 0 20px;
+    
+    -webkit-appearance: none;
+}
+
+input:focus {
+    outline: 0;
+}
+
+.button {
+    outline: none;
+    
+    border-radius: 50%;
+    border: none;
+    
+    font-size: 38px;
+    line-height: 19px;
+    text-align: center;
+    
+    width: 40px;
+    height: 40px;
+    
+    padding: 0;
+    
+    position: absolute;
+    top: 0;
+    left: 221px;
+    
+    cursor: pointer;
+    
+    transition-duration: 0.25s;
+}
+
+#post-subscribe {
+    display: none;
+}
+
+/***********************************************************************************
+  
+Social
+  
+************************************************************************************/
+
+#social a.icon {
+    border-radius: 50%;
+    
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    
+    width: 40px;
+    height: 40px;
+    
+    float: left;
+    margin-right: -5px;
+}
+
+/***********************************************************************************
+  
+Status
+  
+************************************************************************************/
+
+#loading {
+    width: 100%;
+    height: 100%;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    
+    display: none;
+}
+
+#loading .status {
+    border-radius: 50%;
+    
+    font-size: 80px;
+    line-height: 120px;
+    text-align: center;
+    
+    width: 120px;
+    height: 120px;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 200;
+    
+    margin: -60px 0 0 -60px;
+    
+    display: none;
+}
+
+
+
+/***************************************************************************************
+  
+Containers
+  
+****************************************************************************************/
+
+@media (max-width: 800px) {
+    .content {
+        margin-left: 10%;
+    }
+}
+
+@media (max-width: 600px) {
+    .content {
+        width: 80%;
+        
+        margin-left: 10%;
+    }
+}
+
+/***************************************************************************************
+  
+Body
+  
+****************************************************************************************/
+
+@media (max-width: 800px) {
+    body::after {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    body::after {
+        display: none;
+    }
+}
+
+/***************************************************************************************
+  
+Subscribe
+  
+****************************************************************************************/
+
+@media (max-width: 300px) {
+    input[type="text"],
+    input[type="email"] {
+        width: 180px;
+    }
+    
+    .button {
+        left: 201px;
+    }
+}
+
+
+/***********************************************************************************
+  
+Typography
+  
+************************************************************************************/
+
+body {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+h1, h2, h3 {
+    color: #ffffff;
+}
+
+a {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+p a {
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/***********************************************************************************
+  
+Body
+  
+************************************************************************************/
+
+body::after {
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/***********************************************************************************
+  
+Header
+  
+************************************************************************************/
+
+#header {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+#header .status {
+    background-color: #ffffff;
+}
+
+#header .status span {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+/***********************************************************************************
+  
+Forms
+  
+************************************************************************************/
+
+input[type="text"],
+input[type="email"] {
+    border-color: #ffffff;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+::-webkit-input-placeholder {
+   color: rgba(255, 255, 255, 0.85);
+}
+
+:-moz-placeholder { 
+   color: rgba(255, 255, 255, 0.85); 
+}
+
+::-moz-placeholder {
+   color: rgba(255, 255, 255, 0.85);  
+}
+
+:-ms-input-placeholder {  
+   color: rgba(255, 255, 255, 0.85); 
+}
+
+.button {
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.button:hover {
+    background-color: #49b266;
+    color: #ffffff;
+}
+
+/***********************************************************************************
+  
+Social
+  
+************************************************************************************/
+
+#social a.icon {
+    color: rgba(0, 0, 0, 0.55);
+}
+
+#social a.icon:nth-child(1) {
+    background-color: #dcdcdc;
+}
+
+#social a.icon:nth-child(2) {
+    background-color: #f1f1f1;
+}
+
+#social a.icon:nth-child(3) {
+    background-color: #ffffff;
+}
+
+#social a.icon:hover {
+    color: #ffffff;
+}
+
+#social a.icon.twitter:hover {
+    background-color: #55acee;
+}
+
+#social a.icon.facebook:hover {
+    background-color: #4e69a2;
+}
+
+#social a.icon.email:hover {
+    background-color: #49b266;
+}
+
+/***********************************************************************************
+  
+Status
+  
+************************************************************************************/
+
+#loading {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.status {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.status.icon.error {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.status.icon.success {
+    background-color: #49b266;
+}
