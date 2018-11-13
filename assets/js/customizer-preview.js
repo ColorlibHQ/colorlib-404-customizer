@@ -1,7 +1,7 @@
 (function ($) {
 
     //Page heading preview
-    /*wp.customize('cnfp_settings[colorlib_coming_soon_page_heading]', function (text) {
+    wp.customize('cnfp_settings[colorlib_404_customizer_page_heading]', function (text) {
         text.bind(function (textValue) {
             jQuery('#colorlib_coming_soon_page_heading').html(textValue);
         });
@@ -30,7 +30,7 @@
                 jQuery('#' + controllerID).html(textValue);
             });
         });
-    });*/
+    });
 
 
 })(jQuery);

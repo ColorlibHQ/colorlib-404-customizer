@@ -14,7 +14,7 @@
         <a href="#">Go To Homepage</a>
     </div>
 </div>
-<?php if ( is_preview() ) {
+<?php if ( is_customize_preview() ) {
 	wp_footer();
 } ?>
 

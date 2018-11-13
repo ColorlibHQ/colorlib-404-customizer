@@ -11,7 +11,6 @@
 	if ( $cnfp_options['colorlib_404_customizer_select_template'] ) {
 		$template = $cnfp_options['colorlib_404_customizer_select_template'];
 	}
-
 	include( CNFP_PATH . 'templates/' . $template . '/' . $template . '.php' );
 	?>
     </body><!-- This templates was made by Colorlib (https://colorlib.com) -->

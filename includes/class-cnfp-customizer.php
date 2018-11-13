@@ -81,12 +81,12 @@ class CNFP_Customizer {
 		);
 
 		/* Setting - 404 Page - Custom CSS */
-		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_custom_css]', array(
+		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_custom_css_control]', array(
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
 		) );
 
-		$wp_customize->add_control( new WP_Customize_Code_Editor_Control ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_custom_css]', array(
+		$wp_customize->add_control( new WP_Customize_Code_Editor_Control ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_custom_css_control]', array(
 				'label'       => esc_html__( 'Custom CSS on 404 page', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_custom_css',
 				'code_type'   => 'text/css',
@@ -125,23 +125,23 @@ class CNFP_Customizer {
 					'template_13' => esc_html__( 'Template 13', 'colorlib-404-customizer' ),
 					'template_14' => esc_html__( 'Template 14', 'colorlib-404-customizer' ),
 					'template_15' => esc_html__( 'Template 15', 'colorlib-404-customizer' ),
-					'template_16' => esc_html__( 'Template 15', 'colorlib-404-customizer' ),
-					'template_17' => esc_html__( 'Template 15', 'colorlib-404-customizer' ),
-					'template_18' => esc_html__( 'Template 15', 'colorlib-404-customizer' ),
-					'template_19' => esc_html__( 'Template 15', 'colorlib-404-customizer' ),
-					'template_20' => esc_html__( 'Template 15', 'colorlib-404-customizer' ),
+					'template_16' => esc_html__( 'Template 16', 'colorlib-404-customizer' ),
+					'template_17' => esc_html__( 'Template 17', 'colorlib-404-customizer' ),
+					'template_18' => esc_html__( 'Template 18', 'colorlib-404-customizer' ),
+					'template_19' => esc_html__( 'Template 19', 'colorlib-404-customizer' ),
+					'template_20' => esc_html__( 'Template 20', 'colorlib-404-customizer' ),
 				),
 			)
 		) );
 
 		/* Setting - General - Site Logo */
-		$wp_customize->add_setting( 'cnfp_settings[colorlib_cnfp_plugin_logo]', array(
+		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_plugin_logo]', array(
 			'default'           => CNFP_URL . 'assets/images/logo.jpg',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
 		) );
 
-		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cnfp_settings[colorlib_cnfp_plugin_logo]', array(
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cnfp_settings[colorlib_404_customizer_plugin_logo]', array(
 				'label'       => esc_html__( 'Logo Image', 'colorlib-coming-soon' ),
 				'description' => esc_html__( 'Recommended size: 80px by 80px', 'colorlib-coming-soon' ),
 				'section'     => 'colorlib_404_customizer_general',
@@ -150,13 +150,13 @@ class CNFP_Customizer {
 		);
 
 		/* Setting - General - Site Background Image */
-		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_page_background_image]', array(
+		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_image]', array(
 			'default'           => CNFP_URL . 'assets/images/logo.jpg',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
 		) );
 
-		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cnfp_settings[colorlib_404_page_background_image]', array(
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cnfp_settings[colorlib_404_customizer_background_image]', array(
 				'label'           => esc_html__( 'Background Image', 'colorlib-coming-soon' ),
 				'description'     => esc_html__( '', 'colorlib-coming-soon' ),
 				'section'         => 'colorlib_404_customizer_general',
@@ -198,7 +198,7 @@ class CNFP_Customizer {
 
 		/* Setting - Coming Soon - Page Heading */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_page_heading]', array(
-			'default'           => 'Something <strong>really good</strong> is coming <strong>very soon</strong>',
+			'default'           => 'Ooooops!',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'transport'         => 'postMessage',
 			'type'              => 'option'
@@ -214,7 +214,7 @@ class CNFP_Customizer {
 
 		/* Setting - 404 Page - Page Content */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_content]', array(
-			'default'           => 'If you have something new you’re looking to launch, you’re going to want to start building a community of people interested in what you’re launching.',
+			'default'           => 'Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'transport'         => 'postMessage',
 			'type'              => 'option'
@@ -231,7 +231,7 @@ class CNFP_Customizer {
 
 		/* Setting - 404 Page - Button Text */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_button_text]', array(
-			'default'           => 'And don\'t worry, we hate spam too! You can unsubscribe at any time.',
+			'default'           => 'Back to home',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'transport'         => 'postMessage',
 			'type'              => 'option'
@@ -339,7 +339,7 @@ class CNFP_Customizer {
 
 	public function cnfp_add_menu_item() {
 		$page = add_menu_page(
-			esc_html__( 'Colorlib 404 Page', 'colorlib-404-customizer' ), esc_html__( '404 Page', 'colorlib-404-customizer' ), 'manage_options', 'cnfp_settings', array(
+			esc_html__( 'Colorlib 404 Customizer', 'colorlib-404-customizer' ), esc_html__( '404 Customizer', 'colorlib-404-customizer' ), 'manage_options', 'cnfp_settings', array(
 			$this,
 			'settings_page',
 		), 'dashicons-share-alt'

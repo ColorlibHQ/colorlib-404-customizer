@@ -17,7 +17,7 @@
         <a href="#"><span class="arrow"></span>Go Back</a>
     </div>
 </div>
-<?php if ( is_preview() ) {
+<?php if ( is_customize_preview() ) {
 	wp_footer();
 } ?>
 

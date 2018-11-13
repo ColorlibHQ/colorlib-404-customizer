@@ -15,6 +15,6 @@
         <a href="#">Back to homepage</a>
     </div>
 </div>
-<?php if ( is_preview() ) {
+<?php if ( is_customize_preview() ) {
 	wp_footer();
 } ?>

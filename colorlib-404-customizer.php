@@ -24,9 +24,9 @@ define( 'CNFP_FILE_', __FILE__ );
 add_action( 'init', 'cnfp_skip_redirect_on_login' );
 add_action( 'plugins_loaded', 'cnfp_load_plugin_textdomain' );
 add_filter( 'plugin_action_links', 'cnfp_add_settings_link', 10, 5 );
-add_action( 'customize_controls_enqueue_scripts', 'cnfp_customizer_scripts', 30 );
-add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts', 30 );
-add_action( 'cnfp_header', 'cnfp_style_enqueue', 20 );
+add_action( 'customize_controls_enqueue_scripts', 'cnfp_customizer_scripts' );
+add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts' );
+add_action( 'cnfp_header', 'cnfp_style_enqueue' );
 add_action( 'cnfp_header', 'wp_print_scripts' );
 
 
@@ -72,7 +72,8 @@ function cnfp_template_redirect() {
 	//global $wp_customize;
 	$cnfp_options = get_option( 'cnfp_settings' );
 	//Checks for if user is logged in and CNFP is activated  OR if customizer is open on CNFP customization panel
-	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == 1 ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) ) ) {
+
+	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == 1 ) || ( is_customize_preview() && isset($_REQUEST['colorlib-404-customization'])  ) ) {
 
 		$file = plugin_dir_path( __FILE__ ) . 'includes/colorlib-template.php'; //get path of our 404 display page and redirecting
 		include( $file );
@@ -284,7 +285,7 @@ function cnfp_check_on_activation() {
 			'colorlib_404_customizer_select_template' => 'template_01',
 			'colorlib_cnfp_plugin_logo'               => CNFP_URL . 'assets/images/logo.jpg',
 			'colorlib_404_customizer_page_heading'    => 'Ooops !',
-			'colorlib_404_customizer_content'         => 'Something went wrong',
+			'colorlib_404_customizer_content'         => 'Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable',
 			'colorlib_404_customizer_button_text'     => 'Back to homepage'
 		);
 		update_option( 'cnfp_settings', $defaultSets );
