@@ -16,7 +16,7 @@
             <button type="button"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
         </form>
         <a href="<?php echo get - home_url(); ?>"><span class="arrow"></span><span
-                    id="colorlib_404_customizer_button_text"><?php $cnfp_options['colorlib_404-customizer_button_text']; ?></span></a>
+                    id="colorlib_404_customizer_button_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text']; ?></span></a>
     </div>
 </div>
 <?php if ( is_customize_preview() ) {

@@ -10,7 +10,7 @@
         <div class="notfound-404">
             <h1>404</h1>
         </div>
-        <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colrolib_404_customizer_page_heading'] ?></h2>
+        <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading'] ?></h2>
         <form class="notfound-search">
             <input type="text" placeholder="<?php echo esc_html__( 'Search...', 'colorlib-404-customizer' ); ?>">
             <button type="button"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
