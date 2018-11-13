@@ -46,6 +46,24 @@
                             class="fa fa-google-plus"></i></a>
 				<?php
 			}
+			if ( $cnfp_options['colorlib_404_customizer_social_email'] ) {
+				?>
+                <a href="mailto:<?php echo $cnfp_options['colorlib_404_customizer_social_email'] ?>"
+                   id="colorlib_404_customizer_social_email"><i class="fa fa-envelope"></i></a>
+				<?php
+			}
+			if ( $cnfp_options['colorlib_404_customizer_social_youtube'] ) {
+				?>
+                <a href="<?php echo $cnfp_options['colorlib_404_customizer_social_youtube'] ?>"
+                   id="colorlib_404_customizer_social_youtube"><i class="fa fa-youtube"></i></a>
+				<?php
+			}
+			if ( $cnfp_options['colorlib_404_customizer_social_instagram'] ) {
+				?>
+                <a href="<?php echo $cnfp_options['colorlib_404_customizer_social_instagram'] ?>"
+                   id="colorlib_404_customizer_social_instagram"><i class="fa fa-instagram"></i></a>
+				<?php
+			}
 			?>
         </div>
     </div>
