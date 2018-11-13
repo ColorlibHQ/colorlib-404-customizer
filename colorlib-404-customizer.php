@@ -281,19 +281,18 @@ register_activation_hook( __FILE__, 'cnfp_check_on_activation' );
 function cnfp_check_on_activation() {
 	if ( get_option( 'cnfp_settings' ) == null ) {
 		$defaultSets = array(
-			'colorlib_404_customizer_activation'      => '1',
-			'colorlib_404_customizer_select_template' => 'template_01',
-			'colorlib_cnfp_plugin_logo'               => CNFP_URL . 'assets/images/logo.jpg',
-			'colorlib_404_customizer_page_heading'    => 'Ooops !',
-			'colorlib_404_customizer_content'         => 'Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable',
-			'colorlib_404_customizer_button_text'     => 'Back to homepage',
-			'colorlib_404_customizer_social_facebook'     => 'https://facebook.com/',
-			'colorlib_404_customizer_social_twitter'     => 'https://twitter.com/',
-			'colorlib_404_customizer_social_pinterest'     => 'https://pinterest.com/',
-			'colorlib_404_customizer_social_youtube'     => 'https://youtube.com/',
+			'colorlib_404_customizer_activation'       => '1',
+			'colorlib_404_customizer_select_template'  => 'template_01',
+			'colorlib_404_customizer_page_heading'     => 'Ooops !',
+			'colorlib_404_customizer_content'          => 'Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable',
+			'colorlib_404_customizer_button_text'      => 'Back to homepage',
+			'colorlib_404_customizer_social_facebook'  => 'https://facebook.com/',
+			'colorlib_404_customizer_social_twitter'   => 'https://twitter.com/',
+			'colorlib_404_customizer_social_pinterest' => 'https://pinterest.com/',
+			'colorlib_404_customizer_social_youtube'   => 'https://youtube.com/',
 			'colorlib_404_customizer_social_email'     => 'your@domain.to',
-			'colorlib_404_customizer_social_instagram'     => 'https://instagram.com/',
-			'colorlib_404_customizer_social_google'     => 'https://plus.google.com/'
+			'colorlib_404_customizer_social_instagram' => 'https://instagram.com/',
+			'colorlib_404_customizer_social_google'    => 'https://plus.google.com/'
 		);
 		update_option( 'cnfp_settings', $defaultSets );
 	}

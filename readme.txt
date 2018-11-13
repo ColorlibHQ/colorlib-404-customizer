@@ -1,6 +1,6 @@
-=== Colorlib Coming Soon & Maintenance Mode ===
+=== Colorlib 404 Customizer===
   Plugin URI: https://colorlib.com/
-  Description: Colorlib Coming soon is a responsive coming soon WordPress plugin that comes with well designed coming soon page and lots of useful features including customization via Live Customizer, MailChimp integration, custom forms, and more.
+  Description: Colorlib 404 Customizer is a responsive coming soon WordPress plugin that comes with well designed coming soon page and lots of useful features including customization via Live Customizer, MailChimp integration, custom forms, and more.
   Tags: coming soon, maintenance mode, under construction, landing page, launch, launch page, maintenance, notify, offline, offline mode, subscribe, under construction, ultimate coming soon, wordpress landing page, wordpress coming soon, best coming soon, mailchimp, getresponse, admin, wordpress under construction page, ultimate landing page, live customizer coming soon
   Requires at least: 4.0
   Tested up to: 4.5

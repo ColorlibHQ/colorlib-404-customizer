@@ -134,20 +134,6 @@ class CNFP_Customizer {
 			)
 		) );
 
-		/* Setting - General - Site Logo */
-		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_plugin_logo]', array(
-			'default'           => CNFP_URL . 'assets/images/logo.jpg',
-			'sanitize_callback' => 'cnfp_sanitize_text',
-			'type'              => 'option'
-		) );
-
-		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cnfp_settings[colorlib_404_customizer_plugin_logo]', array(
-				'label'       => esc_html__( 'Logo Image', 'colorlib-coming-soon' ),
-				'description' => esc_html__( 'Recommended size: 80px by 80px', 'colorlib-coming-soon' ),
-				'section'     => 'colorlib_404_customizer_general',
-				'priority'    => 10,
-			) )
-		);
 
 		/* Setting - General - Site Background Image */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_image]', array(
@@ -161,13 +147,57 @@ class CNFP_Customizer {
 				'description' => esc_html__( '', 'colorlib-coming-soon' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
-				//'active_callback' => 'cnfp_template_has_background_image',
 			) )
+		);
+
+		/* Setting - General - Site Background Repeat */
+		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_repeat]', array(
+			'default'           => 'no-repeat',
+			'sanitize_callback' => 'cnfp_sanitize_text',
+			'type'              => 'option'
+		) );
+
+		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_background_repeat]', array(
+				'label'       => esc_html__( 'Background Repeat', 'colorlib-coming-soon' ),
+				'description' => esc_html__( '', 'colorlib-coming-soon' ),
+				'section'     => 'colorlib_404_customizer_general',
+				'priority'    => 10,
+				'type'        => 'select',
+				'choices'     => array(
+					'repeat'    => esc_html__( 'Repeat', 'colorlib-404-customizer' ),
+					'no-repeat' => esc_html__( 'No Repeat', 'colorlib-404-customizer' ),
+					'repeat-X'  => esc_html__( 'Repeat X', 'colorlib-404-customizer' ),
+					'repeat-Y'  => esc_html__( 'Repeat-Y', 'colorlib-404-customizer' ),
+					'round'     => esc_html__( 'Round', 'colorlib-404-customizer' ),
+					'space'     => esc_html__( 'Space', 'colorlib-404-customizer' ),
+				)
+			)
+		);
+
+		/* Setting - General - Site Background Position */
+		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_size]', array(
+			'default'           => 'auto',
+			'sanitize_callback' => 'cnfp_sanitize_text',
+			'type'              => 'option'
+		) );
+
+		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_background_size]', array(
+				'label'       => esc_html__( 'Background Size', 'colorlib-coming-soon' ),
+				'description' => esc_html__( '', 'colorlib-coming-soon' ),
+				'section'     => 'colorlib_404_customizer_general',
+				'priority'    => 10,
+				'type'        => 'select',
+				'choices'     => array(
+					'cover'   => esc_html__( 'Cover', 'colorlib-404-customizer' ),
+					'contain' => esc_html__( 'Contain', 'colorlib-404-customizer' ),
+					'auto'    => esc_html__( 'Auto', 'colorlib-404-customizer' ),
+				)
+			)
 		);
 
 		/* Setting - General - Site Background Color */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_color]', array(
-			'default'           => CNFP_URL . 'assets/images/logo.jpg',
+			'default'           => '#fff',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
 		) );
@@ -177,13 +207,12 @@ class CNFP_Customizer {
 				'description' => esc_html__( '', 'colorlib-coming-soon' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
-				//'active_callback' => 'cnfp_template_has_background_color',
 			) )
 		);
 
 		/* Setting - General - Site Text Color */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_text_color]', array(
-			'default'           => CNFP_URL . 'assets/images/logo.jpg',
+			'default'           => '#000',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
 		) );
@@ -222,7 +251,6 @@ class CNFP_Customizer {
 				'label'    => esc_html__( 'Main Content', 'colorlib-coming-soon' ),
 				'section'  => 'colorlib_404_customizer_general',
 				'priority' => 30,
-				//'active_callback' => 'cnfp_template_has_content',
 			) )
 		);
 
@@ -238,7 +266,6 @@ class CNFP_Customizer {
 				'label'    => esc_html__( 'Return to home text', 'colorlib-coming-soon' ),
 				'section'  => 'colorlib_404_customizer_general',
 				'priority' => 40,
-				//'active_callback' => 'cnfp_template_has_footer',
 			) )
 		);
 
