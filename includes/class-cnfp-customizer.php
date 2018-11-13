@@ -335,6 +335,21 @@ class CNFP_Customizer {
 				'priority' => 60,
 			)
 		);
+
+		/* Setting - 404 Page - Social Links Instagram*/
+		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_google]', array(
+			'default'           => 'https://plus.google.com/',
+			'sanitize_callback' => 'cnfp_sanitize_text',
+			'type'              => 'option'
+		) );
+
+		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_social_google]', array(
+				'label'    => esc_html__( 'Google plus', 'colorlib-coming-soon' ),
+				'section'  => 'colorlib_404_customizer_social_settings',
+				'type'     => 'text',
+				'priority' => 60,
+			)
+		);
 	}
 
 	public function cnfp_add_menu_item() {

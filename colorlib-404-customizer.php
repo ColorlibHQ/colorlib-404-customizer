@@ -73,7 +73,7 @@ function cnfp_template_redirect() {
 	$cnfp_options = get_option( 'cnfp_settings' );
 	//Checks for if user is logged in and CNFP is activated  OR if customizer is open on CNFP customization panel
 
-	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == 1 ) || ( is_customize_preview() && isset($_REQUEST['colorlib-404-customization'])  ) ) {
+	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) ) ) {
 
 		$file = plugin_dir_path( __FILE__ ) . 'includes/colorlib-template.php'; //get path of our 404 display page and redirecting
 		include( $file );
@@ -286,7 +286,14 @@ function cnfp_check_on_activation() {
 			'colorlib_cnfp_plugin_logo'               => CNFP_URL . 'assets/images/logo.jpg',
 			'colorlib_404_customizer_page_heading'    => 'Ooops !',
 			'colorlib_404_customizer_content'         => 'Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable',
-			'colorlib_404_customizer_button_text'     => 'Back to homepage'
+			'colorlib_404_customizer_button_text'     => 'Back to homepage',
+			'colorlib_404_customizer_social_facebook'     => 'https://facebook.com/',
+			'colorlib_404_customizer_social_twitter'     => 'https://twitter.com/',
+			'colorlib_404_customizer_social_pinterest'     => 'https://pinterest.com/',
+			'colorlib_404_customizer_social_youtube'     => 'https://youtube.com/',
+			'colorlib_404_customizer_social_email'     => 'your@domain.to',
+			'colorlib_404_customizer_social_instagram'     => 'https://instagram.com/',
+			'colorlib_404_customizer_social_google'     => 'https://plus.google.com/'
 		);
 		update_option( 'cnfp_settings', $defaultSets );
 	}

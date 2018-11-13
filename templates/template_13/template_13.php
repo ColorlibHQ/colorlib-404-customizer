@@ -1,4 +1,5 @@
 <?php do_action( 'cnfp_header', 'template_13' ); ?>
+<?php $cnfp_options = get_option( 'cnfp_settings' ); ?>
 
 </head>
 
@@ -12,8 +13,10 @@
             </div>
             <h2>Error<br>404</h2>
         </div>
-        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable. <a
-                    href="#">Back to homepage</a></p>
+        <p id="colorlib_404_customizer_content"><?php echo $cnfp_options['colorlib_404_customizer_content'] ?>
+            <a href="<?php echo get_home_url(); ?>"
+               id="colorlib_404_customizer_button_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text'] ?></a>
+        </p>
     </div>
 </div>
 <?php if ( is_customize_preview() ) {

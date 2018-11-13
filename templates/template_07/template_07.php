@@ -1,4 +1,5 @@
 <?php do_action( 'cnfp_header', 'template_07' ); ?>
+<?php $cnfp_options = get_option( 'cnfp_settings' ); ?>
 
 </head>
 
@@ -9,12 +10,13 @@
         <div class="notfound-404">
             <h1>404</h1>
         </div>
-        <h2>Oops, The Page you are looking for can't be found!</h2>
+        <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading']; ?></h2>
         <form class="notfound-search">
-            <input type="text" placeholder="Search...">
-            <button type="button">Search</button>
+            <input type="text" placeholder="<?php echo esc_html__( 'Search...', 'colorlib-404-customizer' ); ?>">
+            <button type="button"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
         </form>
-        <a href="#"><span class="arrow"></span>Return To Homepage</a>
+        <a href="<?php echo get_home_url(); ?>"><span class="arrow"></span><span
+                    id="colorlib_404_customizer_button_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text']; ?></span></a>
     </div>
 </div>
 <?php if ( is_customize_preview() ) {

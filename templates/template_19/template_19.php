@@ -1,4 +1,5 @@
 <?php do_action( 'cnfp_header', 'template_18' ); ?>
+<?php $cnfp_options = get_option( 'cnfp_settings' ); ?>
 
 </head>
 
@@ -9,14 +10,42 @@
         <div class="notfound-404">
             <h1>404</h1>
         </div>
-        <h2>Oops! Nothing was found</h2>
-        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable. <a
-                    href="#">Return to homepage</a></p>
+        <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading']; ?></h2>
+        <p id="colorlib_404_customizer_content"><?php echo $cnfp_options['colorlib_404_customizer_content'] ?><a
+                    href="<?php echo get_home_url(); ?>"
+                    id="colorlib_404_customizer_button_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text']; ?></a>
+        </p>
         <div class="notfound-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-pinterest"></i></a>
-            <a href="#"><i class="fa fa-google-plus"></i></a>
+			<?php
+			if ( $cnfp_options['colorlib_404_customizer_social_facebook'] ) {
+				?>
+                <a href="<?php echo $cnfp_options['colorlib_404_customizer_social_facebook']; ?>"
+                   id="colorlib_404_customizer_social_facebook"><i class="fa fa-facebook"></i></a>
+
+				<?php
+			}
+			if ( $cnfp_options['colorlib_404_customizer_social_twitter'] ) {
+				?>
+                <a href="<?php echo $cnfp_options['colorlib_404_customizer_social_twitter'] ?>"
+                   id="colorlib_404_customizer_social_twitter"><i
+                            class="fa fa-twitter"></i></a>
+				<?php
+			}
+			if ( $cnfp_options['colorlib_404_customizer_social_pinterest'] ) {
+				?>
+                <a href="<?php echo $cnfp_options['colorlib_404_customizer_social_pinterest'] ?>"
+                   id="colorlib_404_customizer_social_pinterest"><i
+                            class="fa fa-pinterest"></i></a>
+				<?php
+			}
+			if ( $cnfp_options['colorlib_404_customizer_social_google'] ) {
+				?>
+                <a href="<?php echo $cnfp_options['colorlib_404_customizer_social_google'] ?>"
+                   id="colorlib_404_customizer_social_google"><i
+                            class="fa fa-google-plus"></i></a>
+				<?php
+			}
+			?>
         </div>
     </div>
 </div>
