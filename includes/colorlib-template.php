@@ -30,7 +30,15 @@
 	if ( $cnfp_options['colorlib_404_customizer_select_template'] ) {
 		$template = $cnfp_options['colorlib_404_customizer_select_template'];
 	}
-	include( CNFP_PATH . 'templates/' . $template . '/' . $template . '.php' );
+	do_action( 'cnfp_header', $template );
 	?>
-    </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</head>
+<body>
+<?php
+include( CNFP_PATH . 'templates/' . $template . '/' . $template . '.php' );
+?>
+<?php if ( is_customize_preview() ) {
+	wp_footer();
+} ?>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
