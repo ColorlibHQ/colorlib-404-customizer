@@ -1,0 +1,236 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Colorlib 404 Customizer\n"
+"POT-Creation-Date: 2018-11-13 11:55+0200\n"
+"PO-Revision-Date: 2018-11-13 11:55+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: colorlib-404-customizer.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: colorlib-404-customizer.php:48 includes/class-cnfp-customizer.php:369
+msgid "Settings"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:19
+msgid "Colorlib 404 Customizer Settings"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:26
+msgid "Templates"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:35
+msgid "General"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:43
+msgid "Social Links"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:52
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:76
+msgid "Activate Colorlib 404 Customizer?"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:90
+msgid "Custom CSS on 404 page"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:109
+msgid "Select Template"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:113
+msgid "Template 1"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:114
+msgid "Template 2"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:115
+msgid "Template 3"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:116
+msgid "Template 4"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:117
+msgid "Template 5"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:118
+msgid "Template 6"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:119
+msgid "Template 7"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:120
+msgid "Template 8"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:121
+msgid "Template 9"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:122
+msgid "Template 10"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:123
+msgid "Template 11"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:124
+msgid "Template 12"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:125
+msgid "Template 13"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:126
+msgid "Template 14"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:127
+msgid "Template 15"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:128
+msgid "Template 16"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:129
+msgid "Template 17"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:130
+msgid "Template 18"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:131
+msgid "Template 19"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:132
+msgid "Template 20"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:145
+msgid "Logo Image"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:146
+msgid "Recommended size: 80px by 80px"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:160
+msgid "Background Image"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:176
+msgid "Background Color"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:192
+msgid "Text Color"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:207
+msgid "Heading"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:222
+msgid "Main Content"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:238
+msgid "Return to home text"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:253
+msgid "Facebook"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:269
+msgid "Twitter"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:284
+msgid "Email"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:299
+msgid "Youtube"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:314
+msgid "Pinterest"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:329
+msgid "Instagram"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:344
+msgid "Google plus"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: includes/class-cnfp-customizer.php:354
+msgid "Colorlib 404 Customizer"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:354
+msgid "404 Customizer"
+msgstr ""
+
+#: templates/template_02/template_02.php:14
+#: templates/template_05/template_05.php:15
+#: templates/template_07/template_07.php:15
+#: templates/template_11/template_11.php:15
+msgid "Search..."
+msgstr ""
+
+#: templates/template_05/template_05.php:16
+#: templates/template_07/template_07.php:16
+#: templates/template_11/template_11.php:16
+msgid "Search"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://colorlib.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that "
+"comes with well designed 404 pages and lots of useful features including "
+"customization via Live Customizer."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Colorlib"
+msgstr ""
