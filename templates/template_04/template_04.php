@@ -11,7 +11,8 @@
             <h1 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading']; ?></h1>
             <h2 id="colorlib_404_customizer_content"><?php echo $cnfp_options['colorlib_404_customizer_content'] ?></h2>
         </div>
-        <a href="<?php echo get-home_url(); ?>" id="colorlib_404_customizer_button_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text'] ?></a>
+        <a href="<?php echo get_home_url(); ?>"
+           id="colorlib_404_customizer_button_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text'] ?></a>
     </div>
 </div>
 <?php if ( is_customize_preview() ) {

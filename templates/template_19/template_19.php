@@ -1,4 +1,4 @@
-<?php do_action( 'cnfp_header', 'template_18' ); ?>
+<?php do_action( 'cnfp_header', 'template_19' ); ?>
 <?php $cnfp_options = get_option( 'cnfp_settings' ); ?>
 
 </head>
