@@ -1,10 +1,4 @@
-<?php do_action( 'cnfp_header', 'template_15' ); ?>
 <?php $cnfp_options = get_option( 'cnfp_settings' ); ?>
-
-</head>
-
-<body>
-
 <div id="notfound">
     <div class="notfound-bg">
         <div></div>
@@ -72,6 +66,3 @@
         </div>
     </div>
 </div>
-<?php if ( is_customize_preview() ) {
-	wp_footer();
-} ?>

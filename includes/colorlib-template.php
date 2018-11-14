@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 <head>
     <meta charset="utf-8">
     <title><?php bloginfo( 'name' );
@@ -7,9 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<?php
 	$cnfp_options = get_option( 'cnfp_settings' );
-
-	/*General style*/
 	?>
+    <!-- General Style -->
     <style>
         <?php if ( $cnfp_options['colorlib_404_customizer_text_color'] ) { ?>
 
@@ -19,13 +18,14 @@
 
         <?php } ?>
         body {
-        <?php echo ($cnfp_options['colorlib_404_customizer_background_image']) ?  'background-image:url("'. $cnfp_options['colorlib_404_customizer_background_image'].'");' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_color']) ?  'background-color:'. $cnfp_options['colorlib_404_customizer_background_color'] .';' : 'background-color:#fff;'; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_repeat']) ?  'background-repeat:'. $cnfp_options['colorlib_404_customizer_background_repeat'].';' : 'no-repeat;'; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_size']) ?  'background-size:'. $cnfp_options['colorlib_404_customizer_background_size'].';' : 'background-size:auto;'; ?>
+        <?php echo ($cnfp_options['colorlib_404_customizer_background_image']) ?  'background-image:url("'. $cnfp_options['colorlib_404_customizer_background_image'].'");' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_color']) ?  'background-color:'. $cnfp_options['colorlib_404_customizer_background_color'] .';' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_repeat']) ?  'background-repeat:'. $cnfp_options['colorlib_404_customizer_background_repeat'].';' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_size']) ?  'background-size:'. $cnfp_options['colorlib_404_customizer_background_size'].';' : ''; ?>
         }
 
         <?php
             echo $cnfp_options['colorlib_404_customizer_custom_css_control'];
         ?>
     </style>
+    <!-- End General Style -->
 	<?php
 	if ( $cnfp_options['colorlib_404_customizer_select_template'] ) {
 		$template = $cnfp_options['colorlib_404_customizer_select_template'];
@@ -35,9 +35,10 @@
 </head>
 <body>
 <?php
+//get selected template
 include( CNFP_PATH . 'templates/' . $template . '/' . $template . '.php' );
-?>
-<?php if ( is_customize_preview() ) {
+
+if ( is_customize_preview() ) {
 	wp_footer();
 } ?>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->

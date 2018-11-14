@@ -12,6 +12,7 @@ class CNFP_Customizer {
 		add_action( 'admin_init', array( $this, 'cnfp_redirect_customizer' ) );
 	}
 
+	//register panels and sections
 	public function cnfp_panels_initialize( $wp_customize ) {
 
 		$wp_customize->add_panel( 'colorlib_404_customizer_panel', array(
@@ -21,7 +22,7 @@ class CNFP_Customizer {
 		);
 
 
-		/* Section - 404 Page - Templates */
+		/* Section - 404 Page - Templates Section */
 		$wp_customize->add_section( 'colorlib_404_customizer_template_selection', array(
 				'title'    => esc_html__( 'Templates', 'colorlib-404-customizer' ),
 				'panel'    => 'colorlib_404_customizer_panel',
@@ -30,7 +31,7 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Section - 404 Page - General */
+		/* Section - 404 Page - General Section */
 		$wp_customize->add_section( 'colorlib_404_customizer_general', array(
 				'title'    => esc_html__( 'General', 'colorlib-404-customizer' ),
 				'panel'    => 'colorlib_404_customizer_panel',
@@ -38,7 +39,7 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Section - 404 Page - Social Links */
+		/* Section - 404 Page - Social Links Section*/
 		$wp_customize->add_section( 'colorlib_404_customizer_social_settings', array(
 				'title'    => esc_html__( 'Social Links', 'colorlib-404-customizer' ),
 				'panel'    => 'colorlib_404_customizer_panel',
@@ -47,7 +48,7 @@ class CNFP_Customizer {
 		);
 
 
-		/* Section - 404 Page - Custom CSS */
+		/* Section - 404 Page - Custom CSS Section */
 		$wp_customize->add_section( 'colorlib_404_customizer_custom_css', array(
 				'title'     => esc_html__( 'Custom CSS', 'colorlib-404-customizer' ),
 				'panel'     => 'colorlib_404_customizer_panel',
@@ -58,14 +59,14 @@ class CNFP_Customizer {
 
 	}
 
-
+	//register settings and controls
 	public function cnfp_customizer_controls( $wp_customize ) {
 
 		require_once( CNFP_PATH . 'includes/controls/class-cnfp-control-text-editor.php' );
 		require_once( CNFP_PATH . 'includes/controls/class-cnfp-control-toggle.php' );
 		require_once( CNFP_PATH . 'includes/controls/class-cnfp-template-selection.php' );
 
-		/* Setting - Coming Soon - Activation */
+		/* Setting - General - 404 Page - Activation */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_activation]', array(
 			'default'           => '1',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -73,14 +74,14 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( new CNFP_Control_Toggle ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_activation]', array(
-				'label'       => esc_html__( 'Activate Colorlib 404 Customizer?', 'colorlib-404-customizer' ),
+				'label'       => esc_html__( 'Activate Colorlib 404 Customizer ?', 'colorlib-404-customizer' ),
 				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 			) )
 		);
 
-		/* Setting - 404 Page - Custom CSS */
+		/* Setting - General -404 Page - Custom CSS */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_custom_css_control]', array(
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
@@ -97,8 +98,7 @@ class CNFP_Customizer {
 			) )
 		);
 
-
-		/* Setting - 404 Page - Templates Selection */
+		/* Setting - Template Selection - 404 Page - Templates Selection */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_select_template]', array(
 			'default'           => 'template_01',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -134,10 +134,9 @@ class CNFP_Customizer {
 			)
 		) );
 
-
-		/* Setting - General - Site Background Image */
+		/* Setting - General - 404 Page - Site Background Image */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_image]', array(
-			'default'           => CNFP_URL . 'assets/images/logo.jpg',
+			'default'           => '',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
 		) );
@@ -150,7 +149,7 @@ class CNFP_Customizer {
 			) )
 		);
 
-		/* Setting - General - Site Background Repeat */
+		/* Setting - General - 404 Page - Site Background Repeat */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_repeat]', array(
 			'default'           => 'no-repeat',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -174,7 +173,7 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Setting - General - Site Background Position */
+		/* Setting - General - 404 Page - Site Background Size */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_size]', array(
 			'default'           => 'auto',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -195,9 +194,9 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Setting - General - Site Background Color */
+		/* Setting - General - 404 Page - Site Background Color */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_background_color]', array(
-			'default'           => '#fff',
+			'default'           => '',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
 		) );
@@ -210,9 +209,9 @@ class CNFP_Customizer {
 			) )
 		);
 
-		/* Setting - General - Site Text Color */
+		/* Setting - General - 404 Page - Site Text Color */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_text_color]', array(
-			'default'           => '#000',
+			'default'           => '',
 			'sanitize_callback' => 'cnfp_sanitize_text',
 			'type'              => 'option'
 		) );
@@ -224,8 +223,7 @@ class CNFP_Customizer {
 			) )
 		);
 
-
-		/* Setting - Coming Soon - Page Heading */
+		/* Setting - General - 404 Page - Page Heading */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_page_heading]', array(
 			'default'           => 'Ooooops!',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -240,7 +238,7 @@ class CNFP_Customizer {
 		);
 
 
-		/* Setting - 404 Page - Page Content */
+		/* Setting  - General - 404 Page - Page Content */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_content]', array(
 			'default'           => 'Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -255,7 +253,7 @@ class CNFP_Customizer {
 		);
 
 
-		/* Setting - 404 Page - Button Text */
+		/* Setting - General - 404 Page - Button Text */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_button_text]', array(
 			'default'           => 'Back to home',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -269,7 +267,7 @@ class CNFP_Customizer {
 			) )
 		);
 
-		/* Setting - 404 Page - Social Links  Facebook*/
+		/* Setting - Social Links - 404 Page - Facebook*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_facebook]', array(
 			'default'           => 'https://www.facebook.com/',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -285,7 +283,7 @@ class CNFP_Customizer {
 		);
 
 
-		/* Setting - 404 Page - Social Links Twitter*/
+		/* Setting - Social Links  - 404 Page - Twitter*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_twitter]', array(
 			'default'           => 'https://www.twitter.com/',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -300,7 +298,7 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Setting - 404 Page - Social Links Email*/
+		/* Setting - Social Links  - 404 Page - Email*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_email]', array(
 			'default'           => 'you@domain.com',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -315,7 +313,7 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Setting - 404 Page - Social Links Youtube*/
+		/* Setting - Social Links  - 404 Page - Youtube*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_youtube]', array(
 			'default'           => 'https://youtube.com/',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -330,7 +328,7 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Setting - 404 Page - Social Links Pinteres*/
+		/* Setting - Social Links  - 404 Page - Pinterest*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_pinterest]', array(
 			'default'           => 'https://pinterest.com/',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -345,7 +343,7 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Setting - 404 Page - Social Links Instagram*/
+		/* Setting - Social Links  - 404 Page - Instagram*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_instagram]', array(
 			'default'           => 'https://instagram.com/',
 			'sanitize_callback' => 'cnfp_sanitize_text',
@@ -360,7 +358,7 @@ class CNFP_Customizer {
 			)
 		);
 
-		/* Setting - 404 Page - Social Links Instagram*/
+		/* Setting - Social Links  - 404 Page - Google Plus +*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_google]', array(
 			'default'           => 'https://plus.google.com/',
 			'sanitize_callback' => 'cnfp_sanitize_text',
