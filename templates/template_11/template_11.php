@@ -30,12 +30,6 @@
                    id="colorlib_404_customizer_social_pinterest"><i class="fa fa-pinterest"></i></a>
 				<?php
 			}
-			if ( $cnfp_options['colorlib_404_customizer_social_google'] ) {
-				?>
-                <a href="<?php echo $cnfp_options['colorlib_404_customizer_social_google']; ?>"
-                   id="colorlib_404_customizer_social_google"><i class="fa fa-google-plus"></i></a>
-				<?php
-			}
 			if ( $cnfp_options['colorlib_404_customizer_social_email'] ) {
 				?>
                 <a href="mailto:<?php echo $cnfp_options['colorlib_404_customizer_social_email'] ?>"
