@@ -12,7 +12,7 @@
     <style>
         <?php if ( $cnfp_options['colorlib_404_customizer_text_color'] ) { ?>
 
-        h1, h2, h3, h4, span, li, p {
+        h1, h2, h3, h4, span, li, p, div, a {
             color: <?php echo $cnfp_options['colorlib_404_customizer_text_color']; ?> !important;
         }
 
