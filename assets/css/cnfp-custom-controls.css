@@ -131,3 +131,16 @@ ul#sub-accordion-section-colorlib_coming_soon_section_general li {
 #sub-accordion-section-colorlib_404_customizer_template_selection {
     padding-top: 85px !important;
 }
+
+#sub-accordion-section-colorlib_404_customizer_custom_css {
+    padding: 0px !important;
+}
+
+#sub-accordion-section-colorlib_404_customizer_custom_css .customize-section-description-container,
+#sub-accordion-section-colorlib_404_customizer_custom_css label {
+    padding: 12px;
+}
+
+#sub-accordion-section-colorlib_404_customizer_custom_css .CodeMirror {
+    height: calc(100vh - 185px);
+}
