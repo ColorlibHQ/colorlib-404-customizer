@@ -17,9 +17,10 @@
         }
 
         <?php } ?>
-        body {
-        <?php echo ($cnfp_options['colorlib_404_customizer_background_image']) ?  'background-image:url("'. $cnfp_options['colorlib_404_customizer_background_image'].'");' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_color']) ?  'background-color:'. $cnfp_options['colorlib_404_customizer_background_color'] .';' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_repeat']) ?  'background-repeat:'. $cnfp_options['colorlib_404_customizer_background_repeat'].';' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_size']) ?  'background-size:'. $cnfp_options['colorlib_404_customizer_background_size'].';' : ''; ?>
+        #notfound, #notfound .notfound-bg {
+        <?php echo ($cnfp_options['colorlib_404_customizer_background_image']) ?  'background-image:url("'. $cnfp_options['colorlib_404_customizer_background_image'].'") !important;' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_color']) ?  'background-color:'. $cnfp_options['colorlib_404_customizer_background_color'] .';' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_repeat']) ?  'background-repeat:'. $cnfp_options['colorlib_404_customizer_background_repeat'].';' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_size']) ?  'background-size:'. $cnfp_options['colorlib_404_customizer_background_size'].';' : ''; ?>
         }
+
 
         <?php
             echo $cnfp_options['colorlib_404_customizer_custom_css_control'];
