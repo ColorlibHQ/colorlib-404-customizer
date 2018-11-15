@@ -1,9 +1,9 @@
 === Colorlib 404 Customizer===
   Plugin URI: https://colorlib.com/
-  Description: Colorlib 404 Customizer is a responsive coming soon WordPress plugin that comes with well designed coming soon page and lots of useful features including customization via Live Customizer, MailChimp integration, custom forms, and more.
+  Description: Colorlib 404 Customizer is a responsive 404 Page WordPress plugin that comes with well designed 404 Page and lots of useful features including customization via Live Customizer.
   Tags: coming soon, maintenance mode, under construction, landing page, launch, launch page, maintenance, notify, offline, offline mode, subscribe, under construction, ultimate coming soon, wordpress landing page, wordpress coming soon, best coming soon, mailchimp, getresponse, admin, wordpress under construction page, ultimate landing page, live customizer coming soon
   Requires at least: 4.0
-  Tested up to: 4.5
+  Tested up to: 4.9
   Contributors: Colorlib
   Stable tag: 1.3.0
   License: GPLv2 or later  
@@ -11,9 +11,8 @@
  
 == Description ==
 
-Colorlib Coming soon is a free WordPress plugin that allows you to create coming soon page qucikly via Live Customizer.
+Colorlib 404 Customizer is a free WordPress plugin that allows you to create 404 page qucikly via Live Customizer.
 
-Easily work on your site while the plugin takes care of collecting your vistiors' email. 
 
 <h4>Features</h4>
 
