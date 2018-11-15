@@ -7,7 +7,7 @@
         </div>
         <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading'] ?></h2>
         <form class="notfound-search">
-            <input type="text" placeholder="<?php echo esc_html__( 'Search...', 'colorlib-404-customizer' ); ?>">
+            <input type="text" placeholder="<?php echo esc_attr__( 'Search...', 'colorlib-404-customizer' ); ?>">
             <button type="button"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
         </form>
         <div class="notfound-social">
@@ -49,8 +49,6 @@
 				<?php
 			}
 			?>
-
-
         </div>
         <a href="<?php echo get_home_url(); ?>"
            id="colorlib_404_customizer_button_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text']; ?></a>

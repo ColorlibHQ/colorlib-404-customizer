@@ -8,7 +8,7 @@
         <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading']; ?></h2>
         <a href="<?php echo get_home_url(); ?>" class="home-btn"
            id="colorlib_404_customizer_buton_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text']; ?></a>
-        <!-- TODO what is up with this? -->
+        <!-- TODO what to do with this? -->
         <a href="#" class="contact-btn">Contact us</a>
         <div class="notfound-social">
 			<?php

@@ -237,6 +237,12 @@ class CNFP_Customizer {
 			) )
 		);
 
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_page_heading]',
+			array(
+				'selector' => '#colorlib_404_customizer_page_heading',
+			)
+		);
 
 		/* Setting  - General - 404 Page - Page Content */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_content]', array(
@@ -250,6 +256,13 @@ class CNFP_Customizer {
 				'section'  => 'colorlib_404_customizer_general',
 				'priority' => 30,
 			) )
+		);
+
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_content]',
+			array(
+				'selector' => '#colorlib_404_customizer_content',
+			)
 		);
 
 
@@ -267,6 +280,13 @@ class CNFP_Customizer {
 			) )
 		);
 
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_button_text]',
+			array(
+				'selector' => '#colorlib_404_customizer_button_text',
+			)
+		);
+
 		/* Setting - Social Links - 404 Page - Facebook*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_facebook]', array(
 			'default'           => 'https://www.facebook.com/',
@@ -282,6 +302,12 @@ class CNFP_Customizer {
 			)
 		);
 
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_social_facebook]',
+			array(
+				'selector' => '#colorlib_404_customizer_social_facebook',
+			)
+		);
 
 		/* Setting - Social Links  - 404 Page - Twitter*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_twitter]', array(
@@ -295,6 +321,13 @@ class CNFP_Customizer {
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 20,
+			)
+		);
+
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_social_twitter]',
+			array(
+				'selector' => '#colorlib_404_customizer_social_twitter',
 			)
 		);
 
@@ -313,6 +346,13 @@ class CNFP_Customizer {
 			)
 		);
 
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_social_email]',
+			array(
+				'selector' => '#colorlib_404_customizer_social_email',
+			)
+		);
+
 		/* Setting - Social Links  - 404 Page - Youtube*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_youtube]', array(
 			'default'           => 'https://youtube.com/',
@@ -325,6 +365,13 @@ class CNFP_Customizer {
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 40,
+			)
+		);
+
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_social_youtube]',
+			array(
+				'selector' => '#colorlib_404_customizer_social_youtube',
 			)
 		);
 
@@ -343,6 +390,14 @@ class CNFP_Customizer {
 			)
 		);
 
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_social_pinterest]',
+			array(
+				'selector' => '#colorlib_404_customizer_social_pinterest',
+			)
+		);
+
+
 		/* Setting - Social Links  - 404 Page - Instagram*/
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_social_instagram]', array(
 			'default'           => 'https://instagram.com/',
@@ -355,6 +410,13 @@ class CNFP_Customizer {
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 60,
+			)
+		);
+
+		$wp_customize->selective_refresh->add_partial(
+			'cnfp_settings[colorlib_404_customizer_social_instagram]',
+			array(
+				'selector' => '#colorlib_404_customizer_social_instagram',
 			)
 		);
 

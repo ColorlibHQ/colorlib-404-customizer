@@ -2,7 +2,7 @@
 <div id="notfound">
     <div class="notfound">
         <div class="notfound-404">
-            <h1>Oops!</h1>
+            <h1>404</h1>
         </div>
         <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading']; ?></h2>
         <p id="colorlib_404_customizer_content"><?php echo $cnfp_options['colorlib_404_customizer_content']; ?></p>

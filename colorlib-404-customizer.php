@@ -228,9 +228,165 @@ function cnfp_style_enqueue( $template_name ) {
 		),
 	);
 
+	$google_fonts_styles = array(
+		'template_01' => array(
+			array(
+				'name'     => 'Montserrat',
+				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:500'
+			),
+			array(
+				'name'     => 'Titillium',
+				'location' => 'https://fonts.googleapis.com/css?family=Titillium+Web:700,900'
+			),
+		),
+		'template_02' => array(
+			array(
+				'name'     => 'Roboto',
+				'location' => 'https://fonts.googleapis.com/css?family=Roboto:400,700',
+			),
+		),
+		'template_03' => array(
+			array(
+				'name'     => 'Cabin',
+				'location' => 'https://fonts.googleapis.com/css?family=Cabin:400,700',
+			),
+			array(
+				'name'     => 'Montserrat',
+				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:900',
+			),
+		),
+		'template_04' => array(
+			array(
+				'name'     => 'Montserrat',
+				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:200,400,700',
+			),
+		),
+		'template_05' => array(
+			array(
+				'name'     => 'Poppins',
+				'location' => 'https://fonts.googleapis.com/css?family=Poppins:400,700',
+			),
+		),
+		'template_06' => array(
+			array(
+				'name'     => 'Montserrat',
+				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:700,900',
+			),
+		),
+		'template_07' => array(
+			array(
+				'name'     => 'Fredoka One',
+				'location' => 'https://fonts.googleapis.com/css?family=Fredoka+One',
+			),
+			array(
+				'name'     => 'Raleway',
+				'location' => 'https://fonts.googleapis.com/css?family=Raleway:400,700',
+			),
+		),
+		'template_08' => array(
+			array(
+				'name'     => 'Josefin',
+				'location' => 'https://fonts.googleapis.com/css?family=Josefin+Sans:400,700',
+			),
+		),
+		'template_09' => array(
+			array(
+				'name'     => 'Cabin',
+				'location' => 'https://fonts.googleapis.com/css?family=Cabin:400,700',
+			),
+		),
+		'template_10' => array(
+			array(
+				'name'     => 'Montserrat',
+				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:400,700,900',
+			),
+		),
+		'template_11' => array(
+			array(
+				'name'     => 'Muli',
+				'location' => 'https://fonts.googleapis.com/css?family=Muli:400',
+			),
+			array(
+				'name'     => 'Passion One',
+				'location' => 'https://fonts.googleapis.com/css?family=Passion+One',
+			),
+		),
+		'template_12' => array(
+			array(
+				'name'     => 'Montserrat',
+				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:300,700',
+			),
+		),
+		'template_13' => array(
+			array(
+				'name'     => 'Montserrat',
+				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:400',
+			),
+			array(
+				'name'     => 'Chango',
+				'location' => 'https://fonts.googleapis.com/css?family=Chango',
+			),
+		),
+		'template_14' => array(
+			array(
+				'name'     => 'Quicksand',
+				'location' => 'https://fonts.googleapis.com/css?family=Quicksand:700',
+			),
+		),
+		'template_15' => array(
+			array(
+				'name'     => 'Oswald',
+				'location' => 'https://fonts.googleapis.com/css?family=Oswald:700',
+			),
+			array(
+				'name'     => 'Lato',
+				'location' => 'https://fonts.googleapis.com/css?family=Lato:400',
+			),
+		),
+		'template_16' => array(
+			array(
+				'name'     => 'Montserrat',
+				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:700,900',
+			),
+		),
+		'template_17' => array(
+			array(
+				'name'     => 'Raleway',
+				'location' => 'https://fonts.googleapis.com/css?family=Raleway:400,700',
+			),
+			array(
+				'name'     => 'Passion One',
+				'location' => 'https://fonts.googleapis.com/css?family=Passion+One:900',
+			),
+		),
+		'template_18' => array(
+			array(
+				'name'     => 'Nunito',
+				'location' => 'https://fonts.googleapis.com/css?family=Nunito:400,700',
+			),
+		),
+		'template_19' => array(
+			array(
+				'name'     => 'Kanit',
+				'location' => 'https://fonts.googleapis.com/css?family=Kanit:200',
+			),
+		),
+		'template_20' => array(
+			array(
+				'name'     => 'Maven',
+				'location' => 'https://fonts.googleapis.com/css?family=Maven+Pro:400,900',
+			),
+		),
+	);
+
 	//check if template and get the template arrays
 	if ( $template_name ) {
 		$encript_styles = $template_styles[ $template_name ];
+		//$encript_scripts = $template_scripts[ $template_name ];
+	}
+
+	if ( $template_name ) {
+		$google_fonts_style = $google_fonts_styles[ $template_name ];
 		//$encript_scripts = $template_scripts[ $template_name ];
 	}
 
@@ -245,6 +401,14 @@ function cnfp_style_enqueue( $template_name ) {
 
 		}
 	}
+
+	if ( $google_fonts_style != null && is_array( $google_fonts_style ) ) {
+		foreach ( $google_fonts_style as $google_font ) {
+			wp_register_style( $google_font['name'], $google_font['location'] );
+			wp_print_styles( $google_font['name'] );
+
+		}
+	}
 }
 
 
@@ -254,6 +418,7 @@ function cnfp_customizer_preview_scripts() {
 		'customize-preview'
 	), '', true );
 	wp_enqueue_script( 'colorlib-customizer-preview' );
+	wp_enqueue_script( 'customize-selective-refresh' );
 
 }
 
