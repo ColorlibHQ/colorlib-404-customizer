@@ -456,7 +456,12 @@ function cnfp_check_on_activation() {
 			'colorlib_404_customizer_social_youtube'   => 'https://youtube.com/',
 			'colorlib_404_customizer_social_email'     => 'your@domain.to',
 			'colorlib_404_customizer_social_instagram' => 'https://instagram.com/',
-			'colorlib_404_customizer_social_google'    => 'https://plus.google.com/'
+			'colorlib_404_customizer_custom_css_control' => '',
+			'colorlib_404_customizer_background_image' => '',
+			'colorlib_404_customizer_background_repeat' => 'no-repeat',
+			'colorlib_404_customizer_background_size' => 'auto',
+			'colorlib_404_customizer_background_color' => '',
+			'colorlib_404_customizer_text_color' => '',
 		);
 		update_option( 'cnfp_settings', $defaultSets );
 	}
