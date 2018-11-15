@@ -447,7 +447,7 @@ function cnfp_check_on_activation() {
 		$defaultSets = array(
 			'colorlib_404_customizer_activation'       => '1',
 			'colorlib_404_customizer_select_template'  => 'template_01',
-			'colorlib_404_customizer_page_heading'     => 'Ooops !',
+			'colorlib_404_customizer_page_heading'     => 'Oops !',
 			'colorlib_404_customizer_content'          => 'Page Not Found!',
 			'colorlib_404_customizer_button_text'      => 'Back to homepage',
 			'colorlib_404_customizer_social_facebook'  => 'https://facebook.com/',
