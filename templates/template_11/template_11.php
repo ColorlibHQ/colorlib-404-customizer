@@ -6,45 +6,47 @@
             <h1>404</h1>
         </div>
         <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading'] ?></h2>
-        <form class="notfound-search">
-            <input type="text" placeholder="<?php echo esc_attr__( 'Search...', 'colorlib-404-customizer' ); ?>">
-            <button type="button"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
+        <form class="notfound-search" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search"
+              method="get">
+            <input type="search" placeholder="<?php echo esc_attr__( 'Search...', 'colorlib-404-customizer' ); ?>"
+                   name="s">
+            <button type="submit"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
         </form>
         <div class="notfound-social">
 			<?php
 			if ( $cnfp_options['colorlib_404_customizer_social_facebook'] ) {
 				?>
-                <a href="<?php echo esc_url($cnfp_options['colorlib_404_customizer_social_facebook']); ?>"
+                <a href="<?php echo esc_url( $cnfp_options['colorlib_404_customizer_social_facebook'] ); ?>"
                    id="colorlib_404_customizer_social_facebook"><i class="fa fa-facebook"></i></a>
 				<?php
 			}
 			if ( $cnfp_options['colorlib_404_customizer_social_twitter'] ) {
 				?>
-                <a href="<?php echo esc_url($cnfp_options['colorlib_404_customizer_social_twitter']); ?>"
+                <a href="<?php echo esc_url( $cnfp_options['colorlib_404_customizer_social_twitter'] ); ?>"
                    id="colorlib_404_customizer_social_twitter"><i class="fa fa-twitter"></i></a>
 				<?php
 			}
 			if ( $cnfp_options['colorlib_404_customizer_social_pinterest'] ) {
 				?>
-                <a href="<?php echo esc_url($cnfp_options['colorlib_404_customizer_social_pinterest']); ?>"
+                <a href="<?php echo esc_url( $cnfp_options['colorlib_404_customizer_social_pinterest'] ); ?>"
                    id="colorlib_404_customizer_social_pinterest"><i class="fa fa-pinterest"></i></a>
 				<?php
 			}
 			if ( $cnfp_options['colorlib_404_customizer_social_email'] ) {
 				?>
-                <a href="mailto:<?php echo $cnfp_options['colorlib_404_customizer_social_email'] ?>"
+                <a href="mailto:<?php echo esc_html( antispambot( $cnfp_options['colorlib_404_customizer_social_email'] ) ); ?>"
                    id="colorlib_404_customizer_social_email"><i class="fa fa-envelope"></i></a>
 				<?php
 			}
 			if ( $cnfp_options['colorlib_404_customizer_social_youtube'] ) {
 				?>
-                <a href="<?php echo esc_url($cnfp_options['colorlib_404_customizer_social_youtube']); ?>"
+                <a href="<?php echo esc_url( $cnfp_options['colorlib_404_customizer_social_youtube'] ); ?>"
                    id="colorlib_404_customizer_social_youtube"><i class="fa fa-youtube"></i></a>
 				<?php
 			}
 			if ( $cnfp_options['colorlib_404_customizer_social_instagram'] ) {
 				?>
-                <a href="<?php echo esc_url($cnfp_options['colorlib_404_customizer_social_instagram']); ?>"
+                <a href="<?php echo esc_url( $cnfp_options['colorlib_404_customizer_social_instagram'] ); ?>"
                    id="colorlib_404_customizer_social_instagram"><i class="fa fa-instagram"></i></a>
 				<?php
 			}

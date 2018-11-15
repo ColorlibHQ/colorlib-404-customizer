@@ -448,7 +448,7 @@ function cnfp_check_on_activation() {
 			'colorlib_404_customizer_activation'       => '1',
 			'colorlib_404_customizer_select_template'  => 'template_01',
 			'colorlib_404_customizer_page_heading'     => 'Ooops !',
-			'colorlib_404_customizer_content'          => 'Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable',
+			'colorlib_404_customizer_content'          => 'Page Not Found!',
 			'colorlib_404_customizer_button_text'      => 'Back to homepage',
 			'colorlib_404_customizer_social_facebook'  => 'https://facebook.com/',
 			'colorlib_404_customizer_social_twitter'   => 'https://twitter.com/',

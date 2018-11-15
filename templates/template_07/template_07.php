@@ -5,9 +5,10 @@
             <h1>404</h1>
         </div>
         <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading']; ?></h2>
-        <form class="notfound-search">
-            <input type="text" placeholder="<?php echo esc_attr__( 'Search...', 'colorlib-404-customizer' ); ?>">
-            <button type="button"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
+        <form class="notfound-search" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search"
+              method="get">
+            <input type="search" placeholder="<?php echo esc_attr__( 'Search...', 'colorlib-404-customizer' ); ?>" name="s" >
+            <button type="submit"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
         </form>
         <a href="<?php echo get_home_url(); ?>"><span class="arrow"></span><span
                     id="colorlib_404_customizer_button_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text']; ?></span></a>

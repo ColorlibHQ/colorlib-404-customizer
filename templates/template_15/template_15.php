@@ -39,7 +39,7 @@
 			}
 			if ( $cnfp_options['colorlib_404_customizer_social_email'] ) {
 				?>
-                <a href="mailto:<?php echo $cnfp_options['colorlib_404_customizer_social_email'] ?>"
+                <a href="mailto:<?php echo esc_html(antispambot($cnfp_options['colorlib_404_customizer_social_email'])); ?>"
                    id="colorlib_404_customizer_social_email"><i class="fa fa-envelope"></i></a>
 				<?php
 			}
