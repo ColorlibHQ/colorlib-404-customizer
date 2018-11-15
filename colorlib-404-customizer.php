@@ -24,9 +24,9 @@ define( 'CNFP_FILE_', __FILE__ );
 add_action( 'init', 'cnfp_skip_redirect_on_login' );
 add_action( 'plugins_loaded', 'cnfp_load_plugin_textdomain' );
 add_filter( 'plugin_action_links', 'cnfp_add_settings_link', 10, 5 );
-add_action( 'customize_controls_enqueue_scripts', 'cnfp_customizer_scripts' );
-add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts' );
-add_action( 'cnfp_header', 'cnfp_style_enqueue' );
+add_action( 'customize_controls_enqueue_scripts', 'cnfp_customizer_scripts', 30 );
+add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts' , 30 );
+add_action( 'cnfp_header', 'cnfp_style_enqueue', 20 );
 add_action( 'cnfp_header', 'wp_print_scripts' );
 
 
