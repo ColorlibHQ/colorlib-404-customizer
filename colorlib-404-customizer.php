@@ -418,7 +418,7 @@ function cnfp_customizer_preview_scripts() {
 		'customize-preview'
 	), '', true );
 	wp_enqueue_script( 'colorlib-customizer-preview' );
-	//wp_enqueue_script( 'customize-selective-refresh' );
+	wp_enqueue_script( 'customize-selective-refresh' );
 
 }
 
@@ -552,6 +552,19 @@ function cnfp_template_has_back_button(){
 	}
 
 	return false;
+}
+
+function cnfp_template_has_background_color(){
+	$cnfp_options              = get_option( 'cnfp_settings' );
+	$template_has_background_color = array(
+		'template_16',
+	);
+
+	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_background_color ) ) {
+		return false;
+	}
+
+	return true;
 }
 
 //Loading Plugin Theme Customizer Options

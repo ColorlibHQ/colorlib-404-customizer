@@ -41,9 +41,9 @@ class CNFP_Customizer {
 
 		/* Section - 404 Page - Social Links Section*/
 		$wp_customize->add_section( 'colorlib_404_customizer_social_settings', array(
-				'title'    => esc_html__( 'Social Links', 'colorlib-404-customizer' ),
-				'panel'    => 'colorlib_404_customizer_panel',
-				'priority' => 35,
+				'title'           => esc_html__( 'Social Links', 'colorlib-404-customizer' ),
+				'panel'           => 'colorlib_404_customizer_panel',
+				'priority'        => 35,
 				'active_callback' => 'cnfp_template_has_social_links'
 			)
 		);
@@ -91,11 +91,11 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_contact_link]', array(
-				'label'       => esc_html__( 'Enter Contact Link', 'colorlib-404-customizer' ),
-				'description' => esc_html__( '', 'colorlib-404-customizer' ),
-				'section'     => 'colorlib_404_customizer_general',
-				'priority'    => 10,
-				'type'        => 'text',
+				'label'           => esc_html__( 'Enter Contact Link', 'colorlib-404-customizer' ),
+				'description'     => esc_html__( '', 'colorlib-404-customizer' ),
+				'section'         => 'colorlib_404_customizer_general',
+				'priority'        => 10,
+				'type'            => 'text',
 				'active_callback' => 'cnfp_template_has_contact_link'
 			)
 		);
@@ -225,6 +225,7 @@ class CNFP_Customizer {
 				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
+				'active_callback' => 'cnfp_template_has_background_color'
 			) )
 		);
 
@@ -246,7 +247,8 @@ class CNFP_Customizer {
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_page_heading]', array(
 			'default'           => 'Ooooops!',
 			'sanitize_callback' => 'cnfp_sanitize_text',
-			'type'              => 'option'
+			'type'              => 'option',
+			'transport'         => 'postMessage'
 		) );
 
 		$wp_customize->add_control( new CNFP_Control_Text_Editor( $wp_customize, 'cnfp_settings[colorlib_404_customizer_page_heading]', array(
@@ -267,13 +269,14 @@ class CNFP_Customizer {
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_content]', array(
 			'default'           => 'Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable',
 			'sanitize_callback' => 'cnfp_sanitize_text',
-			'type'              => 'option'
+			'type'              => 'option',
+			'transport'         => 'postMessage'
 		) );
 
 		$wp_customize->add_control( new CNFP_Control_Text_Editor( $wp_customize, 'cnfp_settings[colorlib_404_customizer_content]', array(
-				'label'    => esc_html__( 'Main Content', 'colorlib-404-customizer' ),
-				'section'  => 'colorlib_404_customizer_general',
-				'priority' => 30,
+				'label'           => esc_html__( 'Main Content', 'colorlib-404-customizer' ),
+				'section'         => 'colorlib_404_customizer_general',
+				'priority'        => 30,
 				'active_callback' => 'cnfp_template_has_content'
 			) )
 		);
@@ -290,13 +293,15 @@ class CNFP_Customizer {
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_button_text]', array(
 			'default'           => 'Back to home',
 			'sanitize_callback' => 'cnfp_sanitize_text',
-			'type'              => 'option'
+			'type'              => 'option',
+			'transport'         => 'postMessage'
+
 		) );
 
 		$wp_customize->add_control( new CNFP_Control_Text_Editor( $wp_customize, 'cnfp_settings[colorlib_404_customizer_button_text]', array(
-				'label'    => esc_html__( 'Return to home text', 'colorlib-404-customizer' ),
-				'section'  => 'colorlib_404_customizer_general',
-				'priority' => 40,
+				'label'           => esc_html__( 'Return to home text', 'colorlib-404-customizer' ),
+				'section'         => 'colorlib_404_customizer_general',
+				'priority'        => 40,
 				'active_callback' => 'cnfp_template_has_back_button'
 			) )
 		);
