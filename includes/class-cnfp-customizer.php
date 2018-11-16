@@ -44,6 +44,7 @@ class CNFP_Customizer {
 				'title'    => esc_html__( 'Social Links', 'colorlib-404-customizer' ),
 				'panel'    => 'colorlib_404_customizer_panel',
 				'priority' => 35,
+				'active_callback' => 'cnfp_template_has_social_links'
 			)
 		);
 
@@ -160,8 +161,8 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cnfp_settings[colorlib_404_customizer_background_image]', array(
-				'label'       => esc_html__( 'Background Image', 'colorlib-coming-soon' ),
-				'description' => esc_html__( '', 'colorlib-coming-soon' ),
+				'label'       => esc_html__( 'Background Image', 'colorlib-404-customizer' ),
+				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 			) )
@@ -175,8 +176,8 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_background_repeat]', array(
-				'label'       => esc_html__( 'Background Repeat', 'colorlib-coming-soon' ),
-				'description' => esc_html__( '', 'colorlib-coming-soon' ),
+				'label'       => esc_html__( 'Background Repeat', 'colorlib-404-customizer' ),
+				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 				'type'        => 'select',
@@ -199,8 +200,8 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_background_size]', array(
-				'label'       => esc_html__( 'Background Size', 'colorlib-coming-soon' ),
-				'description' => esc_html__( '', 'colorlib-coming-soon' ),
+				'label'       => esc_html__( 'Background Size', 'colorlib-404-customizer' ),
+				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 				'type'        => 'select',
@@ -220,8 +221,8 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'cnfp_settings[colorlib_404_customizer_background_color]', array(
-				'label'       => esc_html__( 'Background Color', 'colorlib-coming-soon' ),
-				'description' => esc_html__( '', 'colorlib-coming-soon' ),
+				'label'       => esc_html__( 'Background Color', 'colorlib-404-customizer' ),
+				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 			) )
@@ -249,7 +250,7 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( new CNFP_Control_Text_Editor( $wp_customize, 'cnfp_settings[colorlib_404_customizer_page_heading]', array(
-				'label'    => esc_html__( 'Heading', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Heading', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_general',
 				'priority' => 20,
 			) )
@@ -270,9 +271,10 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( new CNFP_Control_Text_Editor( $wp_customize, 'cnfp_settings[colorlib_404_customizer_content]', array(
-				'label'    => esc_html__( 'Main Content', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Main Content', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_general',
 				'priority' => 30,
+				'active_callback' => 'cnfp_template_has_content'
 			) )
 		);
 
@@ -292,9 +294,10 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( new CNFP_Control_Text_Editor( $wp_customize, 'cnfp_settings[colorlib_404_customizer_button_text]', array(
-				'label'    => esc_html__( 'Return to home text', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Return to home text', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_general',
 				'priority' => 40,
+				'active_callback' => 'cnfp_template_has_back_button'
 			) )
 		);
 
@@ -313,7 +316,7 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_social_facebook]', array(
-				'label'    => esc_html__( 'Facebook', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Facebook', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 10,
@@ -335,7 +338,7 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_social_twitter]', array(
-				'label'    => esc_html__( 'Twitter', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Twitter', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 20,
@@ -357,7 +360,7 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_social_email]', array(
-				'label'    => esc_html__( 'Email', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Email', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 30,
@@ -379,7 +382,7 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_social_youtube]', array(
-				'label'    => esc_html__( 'Youtube', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Youtube', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 40,
@@ -401,7 +404,7 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_social_pinterest]', array(
-				'label'    => esc_html__( 'Pinterest', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Pinterest', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 50,
@@ -424,7 +427,7 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_social_instagram]', array(
-				'label'    => esc_html__( 'Instagram', 'colorlib-coming-soon' ),
+				'label'    => esc_html__( 'Instagram', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_social_settings',
 				'type'     => 'text',
 				'priority' => 60,

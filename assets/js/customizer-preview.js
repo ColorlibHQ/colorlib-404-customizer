@@ -19,7 +19,7 @@
     //Page footer preview
     wp.customize('cnfp_settings[colorlib_404_customizer_button_text]', function (text) {
         text.bind(function (textValue) {
-            jQuery('#colorlib_coming_soon_page_footer').html(textValue);
+            jQuery('#colorlib_404_customizer_button_text').html(textValue);
         });
     });
 

@@ -45,7 +45,7 @@ function cnfp_add_settings_link( $actions, $plugin_file ) {
 	}
 	if ( $plugin == $plugin_file ) {
 
-		$settings  = array( 'settings' => '<a href="options-general.php?page=cnfp_settings">' . __( 'Settings', 'colorlib-coming-soon' ) . '</a>' );
+		$settings  = array( 'settings' => '<a href="options-general.php?page=cnfp_settings">' . __( 'Settings', 'colorlib-404-customizer' ) . '</a>' );
 		$site_link = array( 'support' => '<a href="http://colorlib.com" target="_blank">Support</a>' );
 
 		$actions = array_merge( $settings, $actions );
@@ -418,7 +418,7 @@ function cnfp_customizer_preview_scripts() {
 		'customize-preview'
 	), '', true );
 	wp_enqueue_script( 'colorlib-customizer-preview' );
-	wp_enqueue_script( 'customize-selective-refresh' );
+	//wp_enqueue_script( 'customize-selective-refresh' );
 
 }
 
@@ -462,7 +462,7 @@ function cnfp_check_on_activation() {
 			'colorlib_404_customizer_background_size'    => 'auto',
 			'colorlib_404_customizer_background_color'   => '',
 			'colorlib_404_customizer_text_color'         => '',
-			'colorlib_404_customizer_contact_link'       => ''
+			'colorlib_404_customizer_contact_link'       => '#'
 		);
 		update_option( 'cnfp_settings', $defaultSets );
 	}
@@ -476,6 +476,78 @@ function cnfp_template_has_contact_link() {
 	);
 
 	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_contact_link ) ) {
+		return true;
+	}
+
+	return false;
+}
+
+function cnfp_template_has_social_links(){
+	$cnfp_options              = get_option( 'cnfp_settings' );
+	$template_has_social_links = array(
+		'template_11',
+		'template_14',
+		'template_15',
+		'template_16',
+		'template_19'
+	);
+
+	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_social_links ) ) {
+		return true;
+	}
+
+	return false;
+}
+
+function cnfp_template_has_content(){
+	$cnfp_options              = get_option( 'cnfp_settings' );
+	$template_has_content = array(
+		'template_01',
+		'template_03',
+		'template_04',
+		'template_09',
+		'template_10',
+		'template_12',
+		'template_13',
+		'template_14',
+		'template_15',
+		'template_17',
+		'template_18',
+		'template_19',
+		'template_20'
+	);
+
+	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_content ) ) {
+		return true;
+	}
+
+	return false;
+}
+
+function cnfp_template_has_back_button(){
+	$cnfp_options              = get_option( 'cnfp_settings' );
+	$template_has_back_button = array(
+		'template_01',
+		'template_04',
+		'template_05',
+		'template_06',
+		'template_07',
+		'template_08',
+		'template_09',
+		'template_10',
+		'template_11',
+		'template_12',
+		'template_13',
+		'template_14',
+		'template_15',
+		'template_16',
+		'template_17',
+		'template_18',
+		'template_19',
+		'template_20'
+	);
+
+	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_back_button ) ) {
 		return true;
 	}
 

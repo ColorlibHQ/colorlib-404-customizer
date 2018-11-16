@@ -29,9 +29,9 @@
     box-shadow: 0 0 0 1px #5b9dd9, 0 0 3px rgba(0, 115, 170, 0.8);
 }
 
-#accordion-section-colorlib_coming_soon_section_templates {
+/*#accordion-section-colorlib_coming_soon_section_templates {
     display: block !important;
-}
+}*/
 
 .colorlib_cnfp .onoffswitch-checkbox {
     display: none
@@ -118,9 +118,9 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
     float: right;
 }
 
-ul#sub-accordion-section-colorlib_coming_soon_section_general li {
+/*ul#sub-accordion-section-colorlib_coming_soon_section_general li {
     margin-top: 25px;
-}
+}*/
 
 #sub-accordion-section-colorlib_404_customizer_template_selection > .customize-section-description-container {
     position: fixed;
