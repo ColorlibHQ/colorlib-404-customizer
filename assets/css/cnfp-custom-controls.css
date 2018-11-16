@@ -33,6 +33,10 @@
     display: block !important;
 }*/
 
+#sub-accordion-section-colorlib_404_customizer_general .customize-control-cnfp-editor iframe {
+    min-height: 120px;
+}
+
 .colorlib_cnfp .onoffswitch-checkbox {
     display: none
 }
