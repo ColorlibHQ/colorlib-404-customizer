@@ -34,6 +34,26 @@ jQuery(window).load(function () {
             }
         });
     });
+
+    jQuery('.colorlib-single-template-wrapper img').click(function () {
+
+        //declare arrays
+        var contactLinkArray = ['template_16'];
+
+        //get control value
+        var controlValue = wp.customize.control('cnfp_settings[colorlib_404_customizer_select_template]').setting._value;
+
+        //get controls
+        var contactLink = wp.customize.control('cnfp_settings[colorlib_404_customizer_contact_link]');
+
+
+        //do action
+        if (jQuery.inArray(controlValue, contactLinkArray)) {
+            contactLink.activate();
+        } else {
+            contactLink.deactivate();
+        }
+    });
 });
 
 

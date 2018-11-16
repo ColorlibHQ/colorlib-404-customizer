@@ -25,7 +25,7 @@ add_action( 'init', 'cnfp_skip_redirect_on_login' );
 add_action( 'plugins_loaded', 'cnfp_load_plugin_textdomain' );
 add_filter( 'plugin_action_links', 'cnfp_add_settings_link', 10, 5 );
 add_action( 'customize_controls_enqueue_scripts', 'cnfp_customizer_scripts', 30 );
-add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts' , 30 );
+add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts', 30 );
 add_action( 'cnfp_header', 'cnfp_style_enqueue', 20 );
 add_action( 'cnfp_header', 'wp_print_scripts' );
 
@@ -445,26 +445,41 @@ register_activation_hook( __FILE__, 'cnfp_check_on_activation' );
 function cnfp_check_on_activation() {
 	if ( get_option( 'cnfp_settings' ) == null ) {
 		$defaultSets = array(
-			'colorlib_404_customizer_activation'       => '1',
-			'colorlib_404_customizer_select_template'  => 'template_01',
-			'colorlib_404_customizer_page_heading'     => 'Oops !',
-			'colorlib_404_customizer_content'          => 'Page Not Found!',
-			'colorlib_404_customizer_button_text'      => 'Back to homepage',
-			'colorlib_404_customizer_social_facebook'  => 'https://facebook.com/',
-			'colorlib_404_customizer_social_twitter'   => 'https://twitter.com/',
-			'colorlib_404_customizer_social_pinterest' => 'https://pinterest.com/',
-			'colorlib_404_customizer_social_youtube'   => 'https://youtube.com/',
-			'colorlib_404_customizer_social_email'     => 'your@domain.to',
-			'colorlib_404_customizer_social_instagram' => 'https://instagram.com/',
+			'colorlib_404_customizer_activation'         => '1',
+			'colorlib_404_customizer_select_template'    => 'template_01',
+			'colorlib_404_customizer_page_heading'       => 'Oops !',
+			'colorlib_404_customizer_content'            => 'Page Not Found!',
+			'colorlib_404_customizer_button_text'        => 'Back to homepage',
+			'colorlib_404_customizer_social_facebook'    => 'https://facebook.com/',
+			'colorlib_404_customizer_social_twitter'     => 'https://twitter.com/',
+			'colorlib_404_customizer_social_pinterest'   => 'https://pinterest.com/',
+			'colorlib_404_customizer_social_youtube'     => 'https://youtube.com/',
+			'colorlib_404_customizer_social_email'       => 'your@domain.to',
+			'colorlib_404_customizer_social_instagram'   => 'https://instagram.com/',
 			'colorlib_404_customizer_custom_css_control' => '',
-			'colorlib_404_customizer_background_image' => '',
-			'colorlib_404_customizer_background_repeat' => 'no-repeat',
-			'colorlib_404_customizer_background_size' => 'auto',
-			'colorlib_404_customizer_background_color' => '',
-			'colorlib_404_customizer_text_color' => '',
+			'colorlib_404_customizer_background_image'   => '',
+			'colorlib_404_customizer_background_repeat'  => 'no-repeat',
+			'colorlib_404_customizer_background_size'    => 'auto',
+			'colorlib_404_customizer_background_color'   => '',
+			'colorlib_404_customizer_text_color'         => '',
+			'colorlib_404_customizer_contact_link'       => ''
 		);
 		update_option( 'cnfp_settings', $defaultSets );
 	}
+}
+
+
+function cnfp_template_has_contact_link() {
+	$cnfp_options              = get_option( 'cnfp_settings' );
+	$template_has_contact_link = array(
+		'template_16'
+	);
+
+	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_contact_link ) ) {
+		return true;
+	}
+
+	return false;
 }
 
 //Loading Plugin Theme Customizer Options

@@ -4,7 +4,7 @@
         <div class="notfound-404">
             <h1>4<span>0</span>4</h1>
         </div>
-        <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading'] ?></h2>
+        <h2 id="colorlib_404_customizer_page_heading"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_page_heading'] ); ?></h2>
         <form class="notfound-search" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search"
               method="get">
             <input type="search" name="s" placeholder="<?php esc_attr__( 'Search...', 'colorlib-404-customizer' ); ?>">

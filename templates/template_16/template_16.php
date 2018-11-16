@@ -5,11 +5,12 @@
         <div class="notfound-404">
             <h1>404</h1>
         </div>
-        <h2 id="colorlib_404_customizer_page_heading"><?php echo $cnfp_options['colorlib_404_customizer_page_heading']; ?></h2>
+        <h2 id="colorlib_404_customizer_page_heading"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_page_heading'] ); ?></h2>
         <a href="<?php echo get_home_url(); ?>" class="home-btn"
-           id="colorlib_404_customizer_buton_text"><?php echo $cnfp_options['colorlib_404_customizer_button_text']; ?></a>
-        <!-- TODO what to do with this? -->
-        <!--<a href="#" class="contact-btn"><?php /*echo esc_html__( 'Contact us', 'colorlib-404-customizer' ); */?></a>-->
+           id="colorlib_404_customizer_buton_text"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_button_text'] ); ?></a>
+
+        <a href="<?php echo esc_url( $cnfp_options['colorlib_404_customizer_contact_link'] ); ?>"
+           class="contact-btn"><?php echo esc_html__( 'Contact us', 'colorlib-404-customizer' ); ?></a>
         <div class="notfound-social">
 			<?php
 			if ( $cnfp_options['colorlib_404_customizer_social_facebook'] ) {
@@ -35,7 +36,7 @@
 			}
 			if ( $cnfp_options['colorlib_404_customizer_social_email'] ) {
 				?>
-                <a href="mailto:<?php echo esc_html(antispambot($cnfp_options['colorlib_404_customizer_social_email'])); ?>"
+                <a href="mailto:<?php echo esc_html( antispambot( $cnfp_options['colorlib_404_customizer_social_email'] ) ); ?>"
                    id="colorlib_404_customizer_social_email"><i class="fa fa-envelope"></i></a>
 				<?php
 			}

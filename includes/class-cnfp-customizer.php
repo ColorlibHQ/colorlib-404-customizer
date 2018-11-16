@@ -81,6 +81,24 @@ class CNFP_Customizer {
 			) )
 		);
 
+
+		/* Setting - General - 404 Page - Contact Link */
+		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_contact_link]', array(
+			'default'           => '',
+			'sanitize_callback' => 'cnfp_sanitize_text',
+			'type'              => 'option',
+		) );
+
+		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_contact_link]', array(
+				'label'       => esc_html__( 'Enter Contact Link', 'colorlib-404-customizer' ),
+				'description' => esc_html__( '', 'colorlib-404-customizer' ),
+				'section'     => 'colorlib_404_customizer_general',
+				'priority'    => 10,
+				'type'        => 'text',
+				'active_callback' => 'cnfp_template_has_contact_link'
+			)
+		);
+
 		/* Setting - General -404 Page - Custom CSS */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_custom_css_control]', array(
 			'sanitize_callback' => 'cnfp_sanitize_text',
