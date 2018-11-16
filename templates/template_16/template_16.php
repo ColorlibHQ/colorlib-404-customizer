@@ -6,7 +6,7 @@
             <h1>404</h1>
         </div>
         <h2 id="colorlib_404_customizer_page_heading"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_page_heading'] ); ?></h2>
-        <a href="<?php echo get_home_url(); ?>" class="home-btn"
+        <a href="<?php echo esc_url(get_home_url()); ?>" class="home-btn"
            id="colorlib_404_customizer_buton_text"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_button_text'] ); ?></a>
 
         <a href="<?php echo esc_url( $cnfp_options['colorlib_404_customizer_contact_link'] ); ?>"

@@ -8,7 +8,7 @@
         </div>
         <h1 id="colorlib_404_customizer_page_heading"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_page_heading'] ); ?></h1>
         <h2 id="colorlib_404_customizer_content"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_content'] ); ?></h2>
-        <a href="<?php echo get_home_url(); ?>"
+        <a href="<?php echo esc_url(get_home_url()); ?>"
            id="colorlib_404_customizer_button_text"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_button_text'] ); ?></a>
         <div class="notfound-social">
 			<?php

@@ -11,7 +11,7 @@
                    value="<?php echo get_search_query(); ?>" name="s">
             <button type="submit"><?php echo esc_html__( 'Search', 'colorlib-404-customizer' ); ?></button>
         </form>
-        <a href="<?php echo get_home_url(); ?>"><span class="arrow"></span><span
+        <a href="<?php echo esc_url(get_home_url()); ?>"><span class="arrow"></span><span
                     id="colorlib_404_customizer_button_text"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_button_text'] ); ?></span></a>
     </div>
 </div>
