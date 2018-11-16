@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Colorlib 404 Customizer\n"
-"POT-Creation-Date: 2018-11-13 11:55+0200\n"
-"PO-Revision-Date: 2018-11-13 11:55+0200\n"
+"POT-Creation-Date: 2018-11-16 14:05+0200\n"
+"PO-Revision-Date: 2018-11-16 14:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,202 +21,242 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: colorlib-404-customizer.php:48 includes/class-cnfp-customizer.php:369
+#: colorlib-404-customizer.php:48 includes/class-cnfp-customizer.php:463
 msgid "Settings"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:19
+#: includes/class-cnfp-customizer.php:20
 msgid "Colorlib 404 Customizer Settings"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:26
+#: includes/class-cnfp-customizer.php:27
 msgid "Templates"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:35
+#: includes/class-cnfp-customizer.php:36
 msgid "General"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:43
+#: includes/class-cnfp-customizer.php:44
 msgid "Social Links"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:52
+#: includes/class-cnfp-customizer.php:54
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:76
-msgid "Activate Colorlib 404 Customizer?"
+#: includes/class-cnfp-customizer.php:78
+msgid "Activate Colorlib 404 Customizer ?"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:90
+#: includes/class-cnfp-customizer.php:93
+msgid "Enter Contact Link"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:108
 msgid "Custom CSS on 404 page"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:109
+#: includes/class-cnfp-customizer.php:126
 msgid "Select Template"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:113
+#: includes/class-cnfp-customizer.php:130
 msgid "Template 1"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:114
+#: includes/class-cnfp-customizer.php:131
 msgid "Template 2"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:115
+#: includes/class-cnfp-customizer.php:132
 msgid "Template 3"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:116
+#: includes/class-cnfp-customizer.php:133
 msgid "Template 4"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:117
+#: includes/class-cnfp-customizer.php:134
 msgid "Template 5"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:118
+#: includes/class-cnfp-customizer.php:135
 msgid "Template 6"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:119
+#: includes/class-cnfp-customizer.php:136
 msgid "Template 7"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:120
+#: includes/class-cnfp-customizer.php:137
 msgid "Template 8"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:121
+#: includes/class-cnfp-customizer.php:138
 msgid "Template 9"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:122
+#: includes/class-cnfp-customizer.php:139
 msgid "Template 10"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:123
+#: includes/class-cnfp-customizer.php:140
 msgid "Template 11"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:124
+#: includes/class-cnfp-customizer.php:141
 msgid "Template 12"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:125
+#: includes/class-cnfp-customizer.php:142
 msgid "Template 13"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:126
+#: includes/class-cnfp-customizer.php:143
 msgid "Template 14"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:127
+#: includes/class-cnfp-customizer.php:144
 msgid "Template 15"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:128
+#: includes/class-cnfp-customizer.php:145
 msgid "Template 16"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:129
+#: includes/class-cnfp-customizer.php:146
 msgid "Template 17"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:130
+#: includes/class-cnfp-customizer.php:147
 msgid "Template 18"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:131
+#: includes/class-cnfp-customizer.php:148
 msgid "Template 19"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:132
+#: includes/class-cnfp-customizer.php:149
 msgid "Template 20"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:145
-msgid "Logo Image"
-msgstr ""
-
-#: includes/class-cnfp-customizer.php:146
-msgid "Recommended size: 80px by 80px"
-msgstr ""
-
-#: includes/class-cnfp-customizer.php:160
+#: includes/class-cnfp-customizer.php:162
 msgid "Background Image"
 msgstr ""
 
 #: includes/class-cnfp-customizer.php:176
+msgid "Background Repeat"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:181
+msgid "Repeat"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:182
+msgid "No Repeat"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:183
+msgid "Repeat X"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:184
+msgid "Repeat-Y"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:185
+msgid "Round"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:186
+msgid "Space"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:199
+msgid "Background Size"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:204
+msgid "Cover"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:205
+msgid "Contain"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:206
+msgid "Auto"
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:219
 msgid "Background Color"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:192
+#: includes/class-cnfp-customizer.php:234
 msgid "Text Color"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:207
+#: includes/class-cnfp-customizer.php:249
 msgid "Heading"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:222
+#: includes/class-cnfp-customizer.php:271
 msgid "Main Content"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:238
+#: includes/class-cnfp-customizer.php:296
 msgid "Return to home text"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:253
+#: includes/class-cnfp-customizer.php:318
 msgid "Facebook"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:269
+#: includes/class-cnfp-customizer.php:340
 msgid "Twitter"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:284
+#: includes/class-cnfp-customizer.php:362
 msgid "Email"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:299
+#: includes/class-cnfp-customizer.php:384
 msgid "Youtube"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:314
+#: includes/class-cnfp-customizer.php:406
 msgid "Pinterest"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:329
+#: includes/class-cnfp-customizer.php:429
 msgid "Instagram"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:344
-msgid "Google plus"
-msgstr ""
-
 #. Plugin Name of the plugin/theme
-#: includes/class-cnfp-customizer.php:354
+#: includes/class-cnfp-customizer.php:448
 msgid "Colorlib 404 Customizer"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:354
+#: includes/class-cnfp-customizer.php:448
 msgid "404 Customizer"
 msgstr ""
 
-#: templates/template_02/template_02.php:14
-#: templates/template_05/template_05.php:15
-#: templates/template_07/template_07.php:15
-#: templates/template_11/template_11.php:15
+#: templates/template_02/template_02.php:10
+#: templates/template_05/template_05.php:10
+#: templates/template_07/template_07.php:10
+#: templates/template_11/template_11.php:11
 msgid "Search..."
 msgstr ""
 
-#: templates/template_05/template_05.php:16
-#: templates/template_07/template_07.php:16
-#: templates/template_11/template_11.php:16
+#: templates/template_05/template_05.php:12
+#: templates/template_07/template_07.php:11
+#: templates/template_11/template_11.php:13
 msgid "Search"
+msgstr ""
+
+#: templates/template_16/template_16.php:13
+msgid "Contact us"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
