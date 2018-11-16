@@ -18,7 +18,6 @@ Colorlib 404 Customizer is a free WordPress plugin that allows you to create 404
 
 <ul><li>Beautiful Design</li>
 <li>Works with all WordPress themes</li>
-<li>MailChimp Integration </li>
 <li>Quick and super easy to setup</li>
 <li>Social media buttons (Facebook, Twitter, and email)</li>
 <li>and more</li>
@@ -26,23 +25,25 @@ Colorlib 404 Customizer is a free WordPress plugin that allows you to create 404
 
 Docs: https://colorlib.com/
 
-This plugin is currenlty maintained and supported by Colorlib and works with all the popular <a href="http://www.designbombs.com/best-free-wordpress-themes/" rel="friend">free themes</a>. If you are looking to switch your current hosting provider, here's a quick guide on <a href="http://www.designbombs.com/best-wordpress-hosting/" rel="friend">Best WordPress Hosting</a> (based on real research).
+This plugin is developed and maintained by Colorlib. Which is well know for their free WordPress themes. However, now they are looking to extend their presence in plugin development and believe that Colorlib 404 Customizer is a great way to start.
 
-<h4>Credits</h4>
+If you are new to WordPress and want to learn more we have got you covered. Colorlib will teach you how to <a href="https://colorlib.com/" rel="friend">start a blog</a> or <a href="https://colorlib.com/wp/how-to-make-a-website/" rel="friend">create a website</a> and much more. If you are already familiar with WordPress you likely want to learn how to make it faster and more reliable. That’s when you want to look into hosting and more specifically <a href="http://colorlib.com/wp/wordpress-hosting">WordPress hosting</a>.
 
-Design by <a href="https://jason.sc/">Jason Schuller</a> and Code by <a href="http://www.wpkube.com" rel="friend">WPKube</a>.
+If you enjoy using Colorlib 404 Customizer for WordPress please leave a positive feedback. We are committed to make it the best 404 Customizer plugin for WordPress.
+
+
+
 
 == Installation ==
 
-1. The plugin will automatically display the coming soon banner
-2. All of the options for the plugin are located under Apperance > Customize > Colorlib Coming Soon Settings
-3. Your mailchimp Signup URL can be found by following these directions: http://kb.mailchimp.com/lists/signup-forms/share-your-signup-form
+1. The plugin will automatically display the 404 error page
+2. All of the options for the plugin are located under Apperance > Customize > Colorlib 404 Customizer Settings
 
 
 == Frequently Asked Questions ==
 
-1. To disable your coming soon banner, navigation to Plugins and de-activate your Colorlib Coming Soon Plugin for WordPress.  This will disable the banner.
-2. You can disable the theme options previewer under Apperance > Customize > Colorlib Coming Soon Settings > General > Preview Coming Soon Page?
+1. To disable your 404 custom error page, navigation to Plugins and de-activate your Colorlib 404 Customizer.  This will disable the custom 404 error page.
+2. You can disable the theme options previewer under Apperance > Customize > Colorlib 404 Customizer Settings > General > Activate Colorlib 404 Customizer ?
 
 == Screenshots ==
 
