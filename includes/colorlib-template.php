@@ -24,6 +24,22 @@
         <?php
             echo $cnfp_options['colorlib_404_customizer_custom_css_control'];
         ?>
+        .colorlib-copyright {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .colorlib-copyright span {
+            opacity: 0.8;
+        }
+
+        .colorlib-copyright a {
+            opacity: 1;
+        }
     </style>
     <!-- End General Style -->
 	<?php

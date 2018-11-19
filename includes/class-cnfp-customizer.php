@@ -76,7 +76,6 @@ class CNFP_Customizer {
 
 		$wp_customize->add_control( new CNFP_Control_Toggle ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_activation]', array(
 				'label'       => esc_html__( 'Activate Colorlib 404 Customizer ?', 'colorlib-404-customizer' ),
-				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 			) )
@@ -92,7 +91,6 @@ class CNFP_Customizer {
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_contact_link]', array(
 				'label'           => esc_html__( 'Enter Contact Link', 'colorlib-404-customizer' ),
-				'description'     => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'         => 'colorlib_404_customizer_general',
 				'priority'        => 10,
 				'type'            => 'text',
@@ -162,7 +160,6 @@ class CNFP_Customizer {
 
 		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'cnfp_settings[colorlib_404_customizer_background_image]', array(
 				'label'       => esc_html__( 'Background Image', 'colorlib-404-customizer' ),
-				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 			) )
@@ -177,7 +174,6 @@ class CNFP_Customizer {
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_background_repeat]', array(
 				'label'       => esc_html__( 'Background Repeat', 'colorlib-404-customizer' ),
-				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 				'type'        => 'select',
@@ -201,7 +197,6 @@ class CNFP_Customizer {
 
 		$wp_customize->add_control( 'cnfp_settings[colorlib_404_customizer_background_size]', array(
 				'label'       => esc_html__( 'Background Size', 'colorlib-404-customizer' ),
-				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 				'type'        => 'select',
@@ -222,7 +217,6 @@ class CNFP_Customizer {
 
 		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'cnfp_settings[colorlib_404_customizer_background_color]', array(
 				'label'       => esc_html__( 'Background Color', 'colorlib-404-customizer' ),
-				'description' => esc_html__( '', 'colorlib-404-customizer' ),
 				'section'     => 'colorlib_404_customizer_general',
 				'priority'    => 10,
 				'active_callback' => 'cnfp_template_has_background_color'

@@ -14,7 +14,7 @@
         <a href="<?php echo esc_url(get_home_url()); ?>"><span class="arrow"></span><span
                     id="colorlib_404_customizer_button_text"><?php echo wp_kses_post( $cnfp_options['colorlib_404_customizer_button_text'] ); ?></span></a>
     </div>
-    <p style="position:absolute;bottom:0;">404 Page Template designed by <a href="https://colorlib.com/">Colorlib.</p>
+    <p class="colorlib-copyright""><span>404 Page Template designed by</span> <a href="https://colorlib.com/" target="_blank">Colorlib.</a></p>
 </div>
 
 

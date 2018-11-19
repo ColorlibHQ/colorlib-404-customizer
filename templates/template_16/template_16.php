@@ -55,5 +55,5 @@
 			?>
         </div>
     </div>
-    <p style="position:absolute;bottom:0;color:#fff;">404 Page Template designed by <a href="https://colorlib.com/" style="color:#fff;">Colorlib.</p>
+    <p style="color:#fff;" class="colorlib-copyright"><span>404 Page Template designed by</span> <a href="https://colorlib.com/" style="color:#fff;" target="_blank">Colorlib.</p>
 </div>
