@@ -482,7 +482,7 @@ function cnfp_template_has_contact_link() {
 	return false;
 }
 
-function cnfp_template_has_social_links(){
+function cnfp_template_has_social_links() {
 	$cnfp_options              = get_option( 'cnfp_settings' );
 	$template_has_social_links = array(
 		'template_11',
@@ -499,8 +499,8 @@ function cnfp_template_has_social_links(){
 	return false;
 }
 
-function cnfp_template_has_content(){
-	$cnfp_options              = get_option( 'cnfp_settings' );
+function cnfp_template_has_content() {
+	$cnfp_options         = get_option( 'cnfp_settings' );
 	$template_has_content = array(
 		'template_01',
 		'template_03',
@@ -524,8 +524,8 @@ function cnfp_template_has_content(){
 	return false;
 }
 
-function cnfp_template_has_back_button(){
-	$cnfp_options              = get_option( 'cnfp_settings' );
+function cnfp_template_has_back_button() {
+	$cnfp_options             = get_option( 'cnfp_settings' );
 	$template_has_back_button = array(
 		'template_01',
 		'template_04',
@@ -554,8 +554,8 @@ function cnfp_template_has_back_button(){
 	return false;
 }
 
-function cnfp_template_has_background_color(){
-	$cnfp_options              = get_option( 'cnfp_settings' );
+function cnfp_template_has_background_color() {
+	$cnfp_options                  = get_option( 'cnfp_settings' );
 	$template_has_background_color = array(
 		'template_16',
 	);
@@ -567,5 +567,20 @@ function cnfp_template_has_background_color(){
 	return true;
 }
 
+function cnfp_check_for_review() {
+	if ( ! is_admin() ) {
+		return;
+	}
+	require_once CNFP_PATH . 'includes/class-cnfp-review.php';
+
+	CNFP_Review::get_instance( array(
+		'slug' => 'colorlib-coming-soon',
+	) );
+}
+
+cnfp_check_for_review();
+
 //Loading Plugin Theme Customizer Options
 require_once( 'includes/class-cnfp-customizer.php' );
+require_once( 'includes/class-cnfp-feedback.php' );
+new CNFP_Feedback( __FILE__ );
