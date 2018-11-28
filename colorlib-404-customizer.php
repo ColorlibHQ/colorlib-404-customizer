@@ -72,7 +72,7 @@ function cnfp_template_redirect() {
 	$cnfp_options = get_option( 'cnfp_settings' );
 	//Checks for if user is logged in and CNFP is activated  OR if customizer is open on CNFP customization panel
 
-	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) ) ) {
+	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) ) {
 
 		$file = plugin_dir_path( __FILE__ ) . 'includes/colorlib-template.php'; //get path of our 404 display page and redirecting
 		include( $file );
