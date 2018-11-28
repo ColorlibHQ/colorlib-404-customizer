@@ -127,13 +127,9 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
 }*/
 
 #sub-accordion-section-colorlib_404_customizer_template_selection > .customize-section-description-container {
-    position: fixed;
-    top: 12px;
+    position: absolute;
+    top: 0;
     width: 100%;
-}
-
-#sub-accordion-section-colorlib_404_customizer_template_selection {
-    padding-top: 85px !important;
 }
 
 #sub-accordion-section-colorlib_404_customizer_custom_css {
@@ -147,4 +143,15 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
 
 #sub-accordion-section-colorlib_404_customizer_custom_css .CodeMirror {
     height: calc(100vh - 185px);
+}
+
+#sub-accordion-section-colorlib_404_customizer_template_selection > .customize-section-description-container .customize-section-title {
+    margin: 0;
+}
+#customize-outer-theme-controls #sub-accordion-section-colorlib_404_customizer_template_selection #customize-control-cnfp_settings-colorlib_404_customizer_select_template {
+    height: calc( 100vh - 74px );
+    overflow: scroll;
+    padding: 10px 12px 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
 }
