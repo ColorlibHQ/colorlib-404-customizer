@@ -46,7 +46,7 @@ function cnfp_add_settings_link( $actions, $plugin_file ) {
 	if ( $plugin == $plugin_file ) {
 
 		$settings  = array( 'settings' => '<a href="options-general.php?page=cnfp_settings">' . __( 'Settings', 'colorlib-404-customizer' ) . '</a>' );
-		$site_link = array( 'support' => '<a href="http://colorlib.com" target="_blank">Support</a>' );
+		$site_link = array( 'support' => '<a href="https://colorlib.com/wp/forums/" target="_blank">Support</a>' );
 
 		$actions = array_merge( $settings, $actions );
 		$actions = array_merge( $site_link, $actions );
@@ -462,7 +462,7 @@ function cnfp_check_on_activation() {
 			'colorlib_404_customizer_background_size'    => 'auto',
 			'colorlib_404_customizer_background_color'   => '',
 			'colorlib_404_customizer_text_color'         => '',
-			'colorlib_404_customizer_contact_link'       => '#'
+			'colorlib_404_customizer_contact_link'       => '#',
 		);
 		update_option( 'cnfp_settings', $defaultSets );
 	}
