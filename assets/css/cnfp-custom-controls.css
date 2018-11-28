@@ -155,3 +155,6 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
     margin-bottom: 0;
     box-sizing: border-box;
 }
+#customize-outer-theme-controls #sub-accordion-section-colorlib_404_customizer_template_selection {
+    padding: 74px 0 0;
+}
