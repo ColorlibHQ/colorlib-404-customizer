@@ -1,5 +1,5 @@
 === Colorlib 404 Customizer===
-Contributors: colorlibplugins, silkalns
+Contributors: colorlibplugins, silkalns, machothemes
 Tags: customize 404 page, 404 page, 404 page customizer, 404
 Requires at least: 4.7
 Tested up to: 4.9
