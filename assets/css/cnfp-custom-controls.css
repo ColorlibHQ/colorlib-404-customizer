@@ -116,6 +116,7 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
 
 .colorlib_cnfp .left-toggle {
     float: left;
+    width:70%;
 }
 
 .colorlib_cnfp .right-toggle {
