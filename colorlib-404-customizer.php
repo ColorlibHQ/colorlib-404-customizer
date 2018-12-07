@@ -574,7 +574,7 @@ function cnfp_check_for_review() {
 	require_once CNFP_PATH . 'includes/class-cnfp-review.php';
 
 	CNFP_Review::get_instance( array(
-		'slug' => 'colorlib-coming-soon',
+		'slug' => 'colorlib-404-customizer',
 	) );
 }
 
