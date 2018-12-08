@@ -3,7 +3,7 @@ Contributors: silkalns, machothemes
 Tags: customize 404 page, 404 page, 404 page customizer, 404
 Requires at least: 4.7
 Tested up to: 5.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -40,5 +40,8 @@ If you enjoy using Colorlib 404 Customizer for WordPress please leave a positive
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.1 =
+* Remove uninstall feedback
+
+= 1.0.o =
 * Initial release
