@@ -19,7 +19,7 @@ class CNFP_Review {
 		$this->value = $this->value();
 
 		$this->messages = array(
-			'notice'  => __( "Hey, I noticed you have installed our plugin for %s day - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'colorlib-404-customizer' ),
+			'notice'  => __( "Hey, I noticed you have installed our plugin for %s day(s) - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'colorlib-404-customizer' ),
 			'rate'    => __( 'Ok, you deserve it', 'colorlib-404-customizer' ),
 			'rated'   => __( 'I already did', 'colorlib-404-customizer' ),
 			'no_rate' => __( 'No, not good enough', 'colorlib-404-customizer' ),
@@ -85,7 +85,12 @@ class CNFP_Review {
 		$value = get_transient( 'cnfp_review' );
 
 		if ( $value ) {
-			return $value;
+
+            $current_time = time(); // or your date as well
+            $trans_date = strtotime($value);
+            $date_diff = $current_time - $trans_date;
+
+            return round($date_diff / (60 * 60 * 24));
 		}
 
 		$date = date( 'Y-m-d' );
