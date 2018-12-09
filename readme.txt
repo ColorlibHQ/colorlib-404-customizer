@@ -1,5 +1,5 @@
 === Colorlib 404 Customizer===
-Contributors: silkalns, machothemes
+Contributors: silkalns
 Tags: customize 404 page, 404 page, 404 page customizer, 404
 Requires at least: 4.7
 Tested up to: 5.0
@@ -9,15 +9,31 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 == Description ==
 
-Colorlib 404 Customizer is a free WordPress plugin that allows you to create 404 page qucikly via Live Customizer.
+**Colorlib 404 Customizer** is a free WordPress plugin that allows you to create a custom and stylish 404 page quickly via the Live Customizer. This amazing plugin offers you the possibility to edit and customize the 404 page so you can match it to your website’s design. Colorlib 404 Customizer is exceptionally easy to use and it **does not** require custom coding or technical skills. All the customizations for the 404 page are done strictly through the Live Customizer.
 
-== Features ==
+All websites usually come with a default 404 page already included, but it looks a bit more professional if you customize your own. Not all visitors know what the 404 error message stands for so you could even replace it with a friendlier and more proficient one.  Even if it would be ideal not to have errors on your website, you cannot escape 404 errors which make 404 pages important.
 
-- Beautiful Design
+Most themes do not have specific customizing options for the 404 page and if you want to change it you have to edit that page’s template and the styling files. This is where Colorlib 404 Customizer comes in! Using Colorlib 404 Customizer you no longer have to code – just install and activate the plugin then go to **Appearance > Customize > Colorlib 404 Customizer Settings** and start creating your own custom 404 page.  
+
+**Colorlib 404 Customizer Settings comes with pre-built 404 page templates** that you can choose from if you don’t feel like creating your own. You get 20 beautifully designed and custom 404 page templates, and of course each one can be easily customized.
+
+In Colorlib 404 Customizer’s settings you will also find a **Custom CSS** area for those who would like to add their own custom styling and improve the 404 page further. With Colorlib 404 Customizer creating a professional and competent 404 page is easier than ever.
+
+=== Features === 
+
+- Beautiful 404 page design
 - Works with all WordPress themes
-- Quick and super easy to setup
+- Quick and super easy to set up
 - Social media buttons (Facebook, Twitter, and email)
-- and more
+- 20 custom 404 page templates
+- Option to activate/deactivate Colorlib 404 Customizer
+- Background image for the 404 page
+- Options to repeat the background image or change its size
+- Select 404 page background color
+- Select 404 page text color
+- Change the 404 page heading
+- Option to add Custom CSS for the 404 page
+
 
 This plugin is developed and maintained by Colorlib. Which is well know for their free WordPress themes. However, now they are looking to extend their presence in plugin development and believe that Colorlib 404 Customizer is a great way to start.
 
