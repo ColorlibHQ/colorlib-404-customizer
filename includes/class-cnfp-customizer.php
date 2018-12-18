@@ -23,12 +23,11 @@ class CNFP_Customizer {
 
 
 		/* Section - 404 Page - Templates Section */
-		$wp_customize->add_section( 'colorlib_404_customizer_template_selection', array(
+		$wp_customize->add_section( new CNFP_Templates_Section ($wp_customize,'colorlib_404_customizer_template_selection', array(
 				'title'    => esc_html__( 'Templates', 'colorlib-404-customizer' ),
 				'panel'    => 'colorlib_404_customizer_panel',
 				'priority' => 5,
-				'type'     => 'outer'
-			)
+			))
 		);
 
 		/* Section - 404 Page - General Section */
@@ -66,6 +65,7 @@ class CNFP_Customizer {
 		require_once( CNFP_PATH . 'includes/controls/class-cnfp-control-text-editor.php' );
 		require_once( CNFP_PATH . 'includes/controls/class-cnfp-control-toggle.php' );
 		require_once( CNFP_PATH . 'includes/controls/class-cnfp-template-selection.php' );
+        require_once( CNFP_PATH . 'includes/controls/class-cnfp-template-section.php' );
 
 		/* Setting - General - 404 Page - Activation */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_activation]', array(

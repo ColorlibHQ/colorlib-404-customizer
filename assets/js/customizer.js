@@ -34,6 +34,11 @@ jQuery(window).load(function () {
             }
         });
     });
+
+    jQuery('#accordion-section-colorlib_404_customizer_template_selection button.change-theme').bind('click',function(){
+        jQuery('#sub-accordion-section-colorlib_404_customizer_template_selection').toggleClass('cnfp_section_show');
+    });
+
 });
 
 

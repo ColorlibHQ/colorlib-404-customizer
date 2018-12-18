@@ -159,3 +159,7 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
 #customize-outer-theme-controls #sub-accordion-section-colorlib_404_customizer_template_selection {
     padding: 74px 0 0;
 }
+
+.cnfp_section_show {
+    display: block !important;
+}
