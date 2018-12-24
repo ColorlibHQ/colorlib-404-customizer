@@ -3,7 +3,7 @@
   Plugin Name: Colorlib 404 Customizer
   Plugin URI: https://colorlib.com/
   Description: Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that comes with well designed 404 pages and lots of useful features including customization via Live Customizer.
-  Version: 1.0.1
+  Version: 1.0.2
   Author: Colorlib
   Author URI: https://colorlib.com/
   License: GPL V3
@@ -32,7 +32,7 @@ add_action( 'cnfp_header', 'wp_print_scripts' );
 
 //loads the text domain for translation
 function cnfp_load_plugin_textdomain() {
-	load_plugin_textdomain( 'colorlib-404-customizer', false, basename( dirname( __FILE__ ) ) . '/lang/' );
+	load_plugin_textdomain( 'colorlib-404-customizer', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 
 //add settings and support links on wordpress plugin page
@@ -425,10 +425,8 @@ function cnfp_customizer_preview_scripts() {
 
 function cnfp_customizer_scripts() {
 	wp_enqueue_editor();
-	wp_register_script( 'colorlib-customizer-js', CNFP_URL . 'assets/js/customizer.js' );
+	wp_register_script( 'colorlib-customizer-js', CNFP_URL . 'assets/js/customizer.js', array( 'customize-controls' ) );
 	wp_enqueue_script( 'colorlib-customizer-js' );
-	wp_register_script( 'colorlib-cnfp-main-js', CNFP_URL . 'assets/js/main.js' );
-	wp_enqueue_script( 'colorlib-cnfp-main-js' );
 	wp_register_style( 'colorlib-custom-controls-css', CNFP_URL . 'assets/css/cnfp-custom-controls.css', array(), '1.0', 'all' );
 	wp_enqueue_style( 'colorlib-custom-controls-css' );
 	wp_localize_script(
