@@ -35,11 +35,84 @@ jQuery(window).load(function () {
         });
     });
 
-    jQuery('#accordion-section-colorlib_404_customizer_template_selection button.change-theme').bind('click',function(){
-        jQuery('#sub-accordion-section-colorlib_404_customizer_template_selection').toggleClass('cnfp_section_show');
-    });
-
 });
 
 
 
+( function( $, api ) {
+
+    // Extends our custom "allegiant-pro-section" section.
+    api.sectionConstructor['cnfp-templates-section'] = api.OuterSection.extend( {
+
+        // No events for this type of section.
+        attachEvents: function () {
+            var section = this;
+
+            section.container.find( 'button.change-theme' ).on( 'click', function( event ) {
+
+                if ( ! section.expanded() ) {
+                    section.expand();
+                }else{
+                    section.collapse();
+                }
+                
+            });
+
+            // Expand/Collapse accordion sections on click.
+            section.container.find( '.customize-section-back' ).on( 'click keydown', function( event ) {
+                if ( api.utils.isKeydownButNotEnterEvent( event ) ) {
+                    return;
+                }
+                event.preventDefault(); // Keep this AFTER the key filter above
+
+                if ( section.expanded() ) {
+                    section.collapse();
+                } else {
+                    section.expand();
+                }
+            });
+
+        },
+
+        // Always make the section active.
+        isContextuallyActive: function () {
+            return true;
+        },
+
+        changeLabel: function( template ){
+            var section = this,
+                activeTemplateContiner = section.headContainer.find( '.cnfp-active_template' ),
+                templateName;
+
+            templateName = template.replace( '_', ' ' );
+            activeTemplateContiner.text( templateName );
+        }
+        
+    } );
+
+    api.controlConstructor['cnfp-templates'] = api.Control.extend({
+        ready: function() {
+            var control = this;
+
+            this.container.on( 'change', 'input:radio', function() {
+                var template = $( this ).val();
+                control.setting( template );
+            });
+        }
+    });
+
+    api.bind( 'ready', function() {
+
+        api( 'cnfp_settings[colorlib_404_customizer_select_template]', function( value ) {
+                value.bind( function( to ) {
+
+                    // Change template label
+                    var section = api.control( 'cnfp_settings[colorlib_404_customizer_select_template]' ).section();
+                    api.section( section ).changeLabel( to );
+
+                });
+            });
+
+    });
+
+} )( jQuery, wp.customize );

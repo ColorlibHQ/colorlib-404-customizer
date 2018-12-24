@@ -123,7 +123,7 @@ class CNFP_Customizer {
 		) );
 
 		$wp_customize->add_control( new CNFP_Template_Selection( $wp_customize, 'cnfp_settings[colorlib_404_customizer_select_template]', array(
-				'label'    => esc_html__( 'Select Template', 'colorlib-404-customizers' ),
+				'label'    => esc_html__( 'Select Template', 'colorlib-404-customizer' ),
 				'section'  => 'colorlib_404_customizer_template_selection',
 				'priority' => 30,
 				'choices'  => array(
