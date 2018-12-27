@@ -58,6 +58,7 @@ function cnfp_add_settings_link( $actions, $plugin_file ) {
 /* Redirect code that checks if on WP login page */
 function cnfp_skip_redirect_on_login() {
 	global $pagenow;
+
 	if ( 'wp-login.php' == $pagenow ) {
 		return;
 	} else {
