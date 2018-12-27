@@ -24,14 +24,10 @@
     border: 1px solid transparent;
 }
 
-.colorlib-single-template-wrapper.active img,
+.colorlib-single-template-wrapper input[type="radio"]:checked + img,
 .colorlib-single-template-wrapper:hover img {
     box-shadow: 0 0 0 1px #5b9dd9, 0 0 3px rgba(0, 115, 170, 0.8);
 }
-
-/*#accordion-section-colorlib_coming_soon_section_templates {
-    display: block !important;
-}*/
 
 #sub-accordion-section-colorlib_404_customizer_general .customize-control-cnfp-editor iframe {
     min-height: 120px;
@@ -116,6 +112,7 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
 
 .colorlib_cnfp .left-toggle {
     float: left;
+    width:70%;
 }
 
 .colorlib_cnfp .right-toggle {
@@ -127,13 +124,9 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
 }*/
 
 #sub-accordion-section-colorlib_404_customizer_template_selection > .customize-section-description-container {
-    position: fixed;
-    top: 12px;
+    position: absolute;
+    top: 0;
     width: 100%;
-}
-
-#sub-accordion-section-colorlib_404_customizer_template_selection {
-    padding-top: 85px !important;
 }
 
 #sub-accordion-section-colorlib_404_customizer_custom_css {
@@ -147,4 +140,32 @@ input[type=checkbox]:checked + .onoffswitch-label:before {
 
 #sub-accordion-section-colorlib_404_customizer_custom_css .CodeMirror {
     height: calc(100vh - 185px);
+}
+
+#sub-accordion-section-colorlib_404_customizer_template_selection > .customize-section-description-container .customize-section-title {
+    margin: 0;
+}
+#customize-outer-theme-controls #sub-accordion-section-colorlib_404_customizer_template_selection #customize-control-cnfp_settings-colorlib_404_customizer_select_template {
+    height: calc( 100vh - 74px );
+    overflow: scroll;
+    padding: 10px 12px 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+}
+#customize-outer-theme-controls #sub-accordion-section-colorlib_404_customizer_template_selection {
+    padding: 74px 0 0;
+}
+#accordion-section-colorlib_404_customizer_template_selection .change-theme.changing{
+    background: #eee;
+    border-color: #929793;
+    color: #32373c;
+    box-shadow: inset 0 2px 5px -3px rgba(0,0,0,.5);
+}
+
+#accordion-section-colorlib_404_customizer_template_selection .cnfp-active_template {
+    text-transform: capitalize;
+}
+
+.cnfp_section_show {
+    display: block !important;
 }

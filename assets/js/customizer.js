@@ -35,58 +35,84 @@ jQuery(window).load(function () {
         });
     });
 
-    jQuery('.colorlib-single-template-wrapper img').click(function () {
-
-        //declare arrays
-        var contactLinkArray = ['template_16'];
-        var socialLinksArray = ['template_11', 'template_14', 'template_15', 'template_16', 'template_19'];
-        var contentArray = ['template_1', 'template_03', 'template_04', 'template_09', 'template_10', 'template_12', 'template_13', 'template_14', 'template_15', 'template_17', 'template_18', 'template_19', 'template_20'];
-        var backBtnArray = ['template_01', 'template_04', 'template_05', 'template_06', 'template_07', 'template_08', 'template_09', 'template_10', 'template_11', 'template_12', 'template_13', 'template_14', 'template_15', 'template_16', 'template_17', 'template_18', 'template_19', 'template_20'];
-        var negativeBackgroundColorArray = ['template_016'];
-
-        //get control value
-        var controlValue = jQuery(this).next('input').val();
-
-        //get controls
-        var contactLink = wp.customize.control('cnfp_settings[colorlib_404_customizer_contact_link]');
-        var socialLinks = wp.customize.section('colorlib_404_customizer_social_settings');
-        var contentControl = wp.customize.control('cnfp_settings[colorlib_404_customizer_content]');
-        var backBtnControl = wp.customize.control('cnfp_settings[colorlib_404_customizer_button_text]');
-        var backgroundColor = wp.customize.control('cnfp_settings[colorlib_404_customizer_background_color]');
-
-
-        //do action
-        if (jQuery.inArray(controlValue, contactLinkArray)) {
-            contactLink.activate();
-        } else {
-            contactLink.deactivate();
-        }
-
-        if (jQuery.inArray(controlValue, socialLinksArray)) {
-            socialLinks.activate();
-        } else {
-            socialLinks.deactivate();
-        }
-
-        if (jQuery.inArray(controlValue, contentArray)) {
-            contentControl.activate();
-        } else {
-            contentControl.deactivate();
-        }
-
-        if (jQuery.inArray(controlValue, backBtnArray)) {
-            backBtnControl.activate();
-        } else {
-            backBtnControl.deactivate();
-        }
-
-        if (jQuery.inArray(controlValue, negativeBackgroundColorArray)) {
-            backgroundColor.deactivate();
-        } else {
-            backgroundColor.activate();
-        }
-    });
 });
 
 
 
+( function( $, api ) {
+
+    // Extends our custom "allegiant-pro-section" section.
+    api.sectionConstructor['cnfp-templates-section'] = api.OuterSection.extend( {
+
+        // No events for this type of section.
+        attachEvents: function () {
+            var section = this;
+
+            section.container.find( 'button.change-theme' ).on( 'click', function( event ) {
+
+                if ( ! section.expanded() ) {
+                    section.expand();
+                }else{
+                    section.collapse();
+                }
+                
+            });
+
+            // Expand/Collapse accordion sections on click.
+            section.container.find( '.customize-section-back' ).on( 'click keydown', function( event ) {
+                if ( api.utils.isKeydownButNotEnterEvent( event ) ) {
+                    return;
+                }
+                event.preventDefault(); // Keep this AFTER the key filter above
+
+                if ( section.expanded() ) {
+                    section.collapse();
+                } else {
+                    section.expand();
+                }
+            });
+
+        },
+
+        // Always make the section active.
+        isContextuallyActive: function () {
+            return true;
+        },
+
+        changeLabel: function( template ){
+            var section = this,
+                activeTemplateContiner = section.headContainer.find( '.cnfp-active_template' ),
+                templateName;
+
+            templateName = template.replace( '_', ' ' );
+            activeTemplateContiner.text( templateName );
+        }
+        
+    } );
+
+    api.controlConstructor['cnfp-templates'] = api.Control.extend({
+        ready: function() {
+            var control = this;
+
+            this.container.on( 'change', 'input:radio', function() {
+                var template = $( this ).val();
+                control.setting( template );
+            });
+        }
+    });
+
+    api.bind( 'ready', function() {
+
+        api( 'cnfp_settings[colorlib_404_customizer_select_template]', function( value ) {
+                value.bind( function( to ) {
+
+                    // Change template label
+                    var section = api.control( 'cnfp_settings[colorlib_404_customizer_select_template]' ).section();
+                    api.section( section ).changeLabel( to );
+
+                });
+            });
+
+    });
+
+} )( jQuery, wp.customize );

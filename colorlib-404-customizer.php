@@ -3,7 +3,7 @@
   Plugin Name: Colorlib 404 Customizer
   Plugin URI: https://colorlib.com/
   Description: Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that comes with well designed 404 pages and lots of useful features including customization via Live Customizer.
-  Version: 1.0.0
+  Version: 1.0.2
   Author: Colorlib
   Author URI: https://colorlib.com/
   License: GPL V3
@@ -32,7 +32,7 @@ add_action( 'cnfp_header', 'wp_print_scripts' );
 
 //loads the text domain for translation
 function cnfp_load_plugin_textdomain() {
-	load_plugin_textdomain( 'colorlib-404-customizer', false, basename( dirname( __FILE__ ) ) . '/lang/' );
+	load_plugin_textdomain( 'colorlib-404-customizer', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 
 //add settings and support links on wordpress plugin page
@@ -46,7 +46,7 @@ function cnfp_add_settings_link( $actions, $plugin_file ) {
 	if ( $plugin == $plugin_file ) {
 
 		$settings  = array( 'settings' => '<a href="options-general.php?page=cnfp_settings">' . __( 'Settings', 'colorlib-404-customizer' ) . '</a>' );
-		$site_link = array( 'support' => '<a href="http://colorlib.com" target="_blank">Support</a>' );
+		$site_link = array( 'support' => '<a href="https://colorlib.com/wp/forums/" target="_blank">Support</a>' );
 
 		$actions = array_merge( $settings, $actions );
 		$actions = array_merge( $site_link, $actions );
@@ -58,6 +58,7 @@ function cnfp_add_settings_link( $actions, $plugin_file ) {
 /* Redirect code that checks if on WP login page */
 function cnfp_skip_redirect_on_login() {
 	global $pagenow;
+
 	if ( 'wp-login.php' == $pagenow ) {
 		return;
 	} else {
@@ -72,7 +73,7 @@ function cnfp_template_redirect() {
 	$cnfp_options = get_option( 'cnfp_settings' );
 	//Checks for if user is logged in and CNFP is activated  OR if customizer is open on CNFP customization panel
 
-	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) ) ) {
+	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) ) {
 
 		$file = plugin_dir_path( __FILE__ ) . 'includes/colorlib-template.php'; //get path of our 404 display page and redirecting
 		include( $file );
@@ -425,10 +426,8 @@ function cnfp_customizer_preview_scripts() {
 
 function cnfp_customizer_scripts() {
 	wp_enqueue_editor();
-	wp_register_script( 'colorlib-customizer-js', CNFP_URL . 'assets/js/customizer.js' );
+	wp_register_script( 'colorlib-customizer-js', CNFP_URL . 'assets/js/customizer.js', array( 'customize-controls' ) );
 	wp_enqueue_script( 'colorlib-customizer-js' );
-	wp_register_script( 'colorlib-cnfp-main-js', CNFP_URL . 'assets/js/main.js' );
-	wp_enqueue_script( 'colorlib-cnfp-main-js' );
 	wp_register_style( 'colorlib-custom-controls-css', CNFP_URL . 'assets/css/cnfp-custom-controls.css', array(), '1.0', 'all' );
 	wp_enqueue_style( 'colorlib-custom-controls-css' );
 	wp_localize_script(
@@ -462,7 +461,7 @@ function cnfp_check_on_activation() {
 			'colorlib_404_customizer_background_size'    => 'auto',
 			'colorlib_404_customizer_background_color'   => '',
 			'colorlib_404_customizer_text_color'         => '',
-			'colorlib_404_customizer_contact_link'       => '#'
+			'colorlib_404_customizer_contact_link'       => '#',
 		);
 		update_option( 'cnfp_settings', $defaultSets );
 	}
@@ -482,7 +481,7 @@ function cnfp_template_has_contact_link() {
 	return false;
 }
 
-function cnfp_template_has_social_links(){
+function cnfp_template_has_social_links() {
 	$cnfp_options              = get_option( 'cnfp_settings' );
 	$template_has_social_links = array(
 		'template_11',
@@ -499,8 +498,8 @@ function cnfp_template_has_social_links(){
 	return false;
 }
 
-function cnfp_template_has_content(){
-	$cnfp_options              = get_option( 'cnfp_settings' );
+function cnfp_template_has_content() {
+	$cnfp_options         = get_option( 'cnfp_settings' );
 	$template_has_content = array(
 		'template_01',
 		'template_03',
@@ -524,8 +523,8 @@ function cnfp_template_has_content(){
 	return false;
 }
 
-function cnfp_template_has_back_button(){
-	$cnfp_options              = get_option( 'cnfp_settings' );
+function cnfp_template_has_back_button() {
+	$cnfp_options             = get_option( 'cnfp_settings' );
 	$template_has_back_button = array(
 		'template_01',
 		'template_04',
@@ -554,8 +553,8 @@ function cnfp_template_has_back_button(){
 	return false;
 }
 
-function cnfp_template_has_background_color(){
-	$cnfp_options              = get_option( 'cnfp_settings' );
+function cnfp_template_has_background_color() {
+	$cnfp_options                  = get_option( 'cnfp_settings' );
 	$template_has_background_color = array(
 		'template_16',
 	);
@@ -566,6 +565,19 @@ function cnfp_template_has_background_color(){
 
 	return true;
 }
+
+function cnfp_check_for_review() {
+	if ( ! is_admin() ) {
+		return;
+	}
+	require_once CNFP_PATH . 'includes/class-cnfp-review.php';
+
+	CNFP_Review::get_instance( array(
+		'slug' => 'colorlib-404-customizer',
+	) );
+}
+
+cnfp_check_for_review();
 
 //Loading Plugin Theme Customizer Options
 require_once( 'includes/class-cnfp-customizer.php' );
