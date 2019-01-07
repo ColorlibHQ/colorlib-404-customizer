@@ -56,7 +56,7 @@ If you enjoy using Colorlib 404 Customizer for WordPress please leave a positive
 
 == Changelog ==
 
-= 1.0.2 =
+= 1.0.3 =
 * Added missing translation strings
 
 = 1.0.2 =
