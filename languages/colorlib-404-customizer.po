@@ -1,15 +1,15 @@
-# Copyright (C) 2018 Colorlib
+# Copyright (C) 2019 Colorlib
 # This file is distributed under the GPL V3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Colorlib 404 Customizer 1.0.2\n"
+"Project-Id-Version: Colorlib 404 Customizer 1.0.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/colorlib-404-customizer\n"
-"POT-Creation-Date: 2018-12-27 14:58:11+00:00\n"
+"POT-Creation-Date: 2019-01-15 14:39:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -27,6 +27,10 @@ msgstr ""
 
 #: colorlib-404-customizer.php:48 includes/class-cnfp-customizer.php:463
 msgid "Settings"
+msgstr ""
+
+#: colorlib-404-customizer.php:49
+msgid "Support"
 msgstr ""
 
 #: includes/class-cnfp-customizer.php:20
@@ -283,6 +287,29 @@ msgstr ""
 
 #: includes/controls/class-cnfp-template-section.php:43
 msgid "Help"
+msgstr ""
+
+#: templates/template_01/template_01.php:12
+#: templates/template_02/template_02.php:14
+#: templates/template_03/template_03.php:10
+#: templates/template_04/template_04.php:11
+#: templates/template_05/template_05.php:17
+#: templates/template_06/template_06.php:11
+#: templates/template_07/template_07.php:16
+#: templates/template_08/template_08.php:11
+#: templates/template_09/template_09.php:13
+#: templates/template_10/template_10.php:12
+#: templates/template_11/template_11.php:58
+#: templates/template_12/template_12.php:12
+#: templates/template_13/template_13.php:15
+#: templates/template_14/template_14.php:57
+#: templates/template_15/template_15.php:61
+#: templates/template_16/template_16.php:58
+#: templates/template_17/template_17.php:12
+#: templates/template_18/template_18.php:11
+#: templates/template_19/template_19.php:56
+#: templates/template_20/template_20.php:12
+msgid "404 Page Template designed by"
 msgstr ""
 
 #: templates/template_02/template_02.php:10
