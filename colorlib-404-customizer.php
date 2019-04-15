@@ -599,3 +599,4 @@ cnfp_check_for_review();
 
 //Loading Plugin Theme Customizer Options
 require_once( 'includes/class-cnfp-customizer.php' );
+require_once( 'includes/class-colorlib-dashboard-widget-extend-feed.php' );
