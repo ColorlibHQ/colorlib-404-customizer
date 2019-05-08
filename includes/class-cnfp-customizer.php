@@ -10,6 +10,8 @@ class CNFP_Customizer {
 		add_action( 'customize_register', array( $this, 'cnfp_panels_initialize' ) );
 		add_action( 'admin_menu', array( $this, 'cnfp_add_menu_item' ) );
 		add_action( 'admin_init', array( $this, 'cnfp_redirect_customizer' ) );
+		// remove all styles from the head if is preview
+		add_action( 'wp_print_styles', array( $this, 'cnfp_remove_all_styles_preview' ), 100 );
 	}
 
 	//register panels and sections
@@ -486,6 +488,16 @@ class CNFP_Customizer {
 
 				wp_safe_redirect( $url );
 			}
+		}
+	}
+
+	// remove styles in preview that are not used by the 404 page
+	public function cnfp_remove_all_styles_preview() {
+		if ( isset( $_REQUEST['colorlib-404-customization'] ) && is_customize_preview() ) {
+			global $wp_styles;
+			$wp_styles->queue = array();
+			wp_enqueue_style( 'customize-preview' );
+			wp_enqueue_style( 'colorlib-custom-controls-css' );
 		}
 	}
 
