@@ -2,7 +2,7 @@
 # This file is distributed under the GPL V3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Colorlib 404 Customizer 1.0.3\n"
+"Project-Id-Version: Colorlib 404 Customizer 1.065\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/colorlib-404-customizer\n"
 "POT-Creation-Date: 2019-01-15 14:47:41+00:00\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"X-Generator: grunt-wp-i18n 1.0.6\n"
 
 #: colorlib-404-customizer.php:48 includes/class-cnfp-customizer.php:463
 msgid "Settings"
