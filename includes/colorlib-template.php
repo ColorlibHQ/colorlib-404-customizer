@@ -2,12 +2,12 @@
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="utf-8">
-    <title><?php bloginfo( 'name' );
-		$site_description = get_bloginfo( 'description' ); ?></title>
+    <title><?php bloginfo('name');
+        $site_description = get_bloginfo('description'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<?php
-	$cnfp_options = get_option( 'cnfp_settings' );
-	?>
+    <?php
+    $cnfp_options = get_option('cnfp_settings');
+    ?>
     <!-- General Style -->
     <style>
         <?php if ( $cnfp_options['colorlib_404_customizer_text_color'] ) { ?>
@@ -18,7 +18,15 @@
 
         <?php } ?>
         #notfound, #notfound .notfound-bg {
-        <?php echo ($cnfp_options['colorlib_404_customizer_background_image']) ?  'background-image:url("'. $cnfp_options['colorlib_404_customizer_background_image'].'") !important;' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_color']) ?  'background-color:'. $cnfp_options['colorlib_404_customizer_background_color'] .' !important;' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_repeat']) ?  'background-repeat:'. $cnfp_options['colorlib_404_customizer_background_repeat'].';' : ''; ?><?php echo ($cnfp_options['colorlib_404_customizer_background_size']) ?  'background-size:'. $cnfp_options['colorlib_404_customizer_background_size'].';' : ''; ?>
+        <?php
+        echo ($cnfp_options['colorlib_404_customizer_background_image']) ?  'background-image:url("'. $cnfp_options['colorlib_404_customizer_background_image'].'") !important;' : '';
+
+         echo ($cnfp_options['colorlib_404_customizer_background_color']) ?  'background-color:'. $cnfp_options['colorlib_404_customizer_background_color'] .' !important;' : '';
+
+         echo ($cnfp_options['colorlib_404_customizer_background_repeat']) ?  'background-repeat:'. $cnfp_options['colorlib_404_customizer_background_repeat'].';' : '';
+
+         echo ($cnfp_options['colorlib_404_customizer_background_size']) ?  'background-size:'. $cnfp_options['colorlib_404_customizer_background_size'].';' : '';
+         ?>
         }
 
         <?php
@@ -42,23 +50,27 @@
         }
     </style>
     <!-- End General Style -->
-	<?php
-	if ( $cnfp_options['colorlib_404_customizer_select_template'] ) {
-		$template = $cnfp_options['colorlib_404_customizer_select_template'];
-	}
-	do_action( 'cnfp_header', $template );
-	if ( is_customize_preview() ) {
-		wp_head();
-	}
-	?>
+    <?php
+    if ($cnfp_options['colorlib_404_customizer_select_template']) {
+        $template = $cnfp_options['colorlib_404_customizer_select_template'];
+    }
+
+    do_action('cnfp_header', $template);
+
+    if (is_customize_preview() || (isset($cnfp_options['colorlib_404_customizer_enable_header']) && '1' == $cnfp_options['colorlib_404_customizer_enable_header'])) {
+        wp_head();
+    }
+    ?>
 </head>
 <body>
 <?php
 //get selected template
-include( CNFP_PATH . 'templates/' . $template . '/' . $template . '.php' );
+include(CNFP_PATH . 'templates/' . $template . '/' . $template . '.php');
 
-if ( is_customize_preview() ) {
-	wp_footer();
-} ?>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+if (is_customize_preview() || (isset($cnfp_options['colorlib_404_customizer_enable_footer']) && '1' == $cnfp_options['colorlib_404_customizer_enable_footer'])) {
+    wp_footer();
+}
+
+?>
+</body><!-- This template was made by Colorlib (https://colorlib.com) -->
 </html>

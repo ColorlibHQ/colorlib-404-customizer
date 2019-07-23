@@ -461,26 +461,28 @@ register_activation_hook( __FILE__, 'cnfp_check_on_activation' );
 
 function cnfp_check_on_activation() {
 	if ( get_option( 'cnfp_settings' ) == null ) {
-		$defaultSets = array(
-			'colorlib_404_customizer_activation'         => '1',
-			'colorlib_404_customizer_select_template'    => 'template_01',
-			'colorlib_404_customizer_page_heading'       => 'Oops !',
-			'colorlib_404_customizer_content'            => 'Page Not Found!',
-			'colorlib_404_customizer_button_text'        => 'Back to homepage',
-			'colorlib_404_customizer_social_facebook'    => 'https://facebook.com/',
-			'colorlib_404_customizer_social_twitter'     => 'https://twitter.com/',
-			'colorlib_404_customizer_social_pinterest'   => 'https://pinterest.com/',
-			'colorlib_404_customizer_social_youtube'     => 'https://youtube.com/',
-			'colorlib_404_customizer_social_email'       => 'your@domain.to',
-			'colorlib_404_customizer_social_instagram'   => 'https://instagram.com/',
-			'colorlib_404_customizer_custom_css_control' => '',
-			'colorlib_404_customizer_background_image'   => '',
-			'colorlib_404_customizer_background_repeat'  => 'no-repeat',
-			'colorlib_404_customizer_background_size'    => 'auto',
-			'colorlib_404_customizer_background_color'   => '',
-			'colorlib_404_customizer_text_color'         => '',
-			'colorlib_404_customizer_contact_link'       => '#',
-		);
+        $defaultSets = array(
+            'colorlib_404_customizer_activation'         => '1',
+            'colorlib_404_customizer_select_template'    => 'template_01',
+            'colorlib_404_customizer_page_heading'       => 'Oops !',
+            'colorlib_404_customizer_content'            => 'Page Not Found!',
+            'colorlib_404_customizer_button_text'        => 'Back to homepage',
+            'colorlib_404_customizer_social_facebook'    => 'https://facebook.com/',
+            'colorlib_404_customizer_social_twitter'     => 'https://twitter.com/',
+            'colorlib_404_customizer_social_pinterest'   => 'https://pinterest.com/',
+            'colorlib_404_customizer_social_youtube'     => 'https://youtube.com/',
+            'colorlib_404_customizer_social_email'       => 'your@domain.to',
+            'colorlib_404_customizer_social_instagram'   => 'https://instagram.com/',
+            'colorlib_404_customizer_custom_css_control' => '',
+            'colorlib_404_customizer_background_image'   => '',
+            'colorlib_404_customizer_background_repeat'  => 'no-repeat',
+            'colorlib_404_customizer_background_size'    => 'auto',
+            'colorlib_404_customizer_background_color'   => '',
+            'colorlib_404_customizer_text_color'         => '',
+            'colorlib_404_customizer_contact_link'       => '#',
+            'colorlib_404_customizer_enable_header'      => '',
+            'colorlib_404_customizer_enable_footer'      => '',
+        );
 		update_option( 'cnfp_settings', $defaultSets );
 	}
 }
