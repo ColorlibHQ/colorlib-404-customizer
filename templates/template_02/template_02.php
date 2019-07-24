@@ -11,5 +11,5 @@
             <button type="submit"><span></span></button>
         </form>
     </div>
-    <p class="colorlib-copyright"><span><?php _e('404 Page Template designed by','colorlib-404-customizer'); ?></span> <a href="https://colorlib.com/" target="_blank">Colorlib.</p>
+    <p class="colorlib-copyright"><span><?php _e('404 Page Template designed by','colorlib-404-customizer'); ?></span> <a href="https://colorlib.com/" target="_blank">Colorlib.</a></p>
 </div>

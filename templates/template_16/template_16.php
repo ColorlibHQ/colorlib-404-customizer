@@ -55,5 +55,5 @@
 			?>
         </div>
     </div>
-    <p style="color:#fff;" class="colorlib-copyright"><span><?php _e('404 Page Template designed by','colorlib-404-customizer'); ?></span> <a href="https://colorlib.com/" style="color:#fff;" target="_blank">Colorlib.</p>
+    <p style="color:#fff;" class="colorlib-copyright"><span><?php _e('404 Page Template designed by','colorlib-404-customizer'); ?></span> <a href="https://colorlib.com/" style="color:#fff;" target="_blank">Colorlib.</a></p>
 </div>
