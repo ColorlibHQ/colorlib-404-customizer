@@ -1,7 +1,7 @@
 <?php $cnfp_options = get_option( 'cnfp_settings' ); ?>
-<div id="notfound">
-    <div class="notfound">
-        <div class="notfound-404">
+<div id="colorlib-notfound">
+    <div class="colorlib-notfound">
+        <div class="colorlib-notfound-404">
             <div></div>
             <h1>404</h1>
         </div>

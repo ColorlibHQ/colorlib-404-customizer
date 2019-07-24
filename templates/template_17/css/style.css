@@ -8,12 +8,12 @@ body {
   margin: 0;
 }
 
-#notfound {
+#colorlib-notfound {
   position: relative;
   height: 100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,14 +22,14 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 710px;
   width: 100%;
   padding-left: 190px;
   line-height: 1.4;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   position: absolute;
   left: 0;
   top: 0;
@@ -37,7 +37,7 @@ body {
   height: 150px;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
   font-family: 'Passion One', cursive;
   color: #00b5c3;
   font-size: 60px;
@@ -52,7 +52,7 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound h2 {
+.colorlib-notfound h2.colorlib-heading {
   font-family: 'Raleway', sans-serif;
   color: #292929;
   font-size: 28px;
@@ -62,7 +62,14 @@ body {
   margin-top: 0;
 }
 
-.notfound p {
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:before,
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:after,
+.colorlib-notfound h2.colorlib-heading:before,
+.colorlib-notfound h2.colorlib-heading:after {
+  display: none;
+}
+
+.colorlib-notfound p {
   font-family: 'Raleway', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -71,7 +78,7 @@ body {
   color: #333;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Raleway', sans-serif;
   font-size: 14px;
   text-decoration: none;
@@ -88,21 +95,21 @@ body {
   transition: 0.2s all;
 }
 
-.notfound a:hover {
+.colorlib-notfound a:hover {
   color: #fff;
   background-color: #00b5c3;
 }
 
 @media only screen and (max-width: 480px) {
-  .notfound {
+  .colorlib-notfound {
     text-align: center;
   }
-  .notfound .notfound-404 {
+  .colorlib-notfound .colorlib-notfound-404 {
     position: relative;
     width: 100%;
     margin-bottom: 15px;
   }
-  .notfound {
+  .colorlib-notfound {
     padding-left: 15px;
     padding-right: 15px;
   }

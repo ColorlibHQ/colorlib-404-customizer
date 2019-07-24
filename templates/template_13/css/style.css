@@ -8,12 +8,12 @@ body {
   margin: 0;
 }
 
-#notfound {
+#colorlib-notfound {
   position: relative;
   height: 100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,20 +22,20 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 520px;
   width: 100%;
   line-height: 1.4;
 }
 
-.notfound>div:first-child {
+.colorlib-notfound>div:first-child {
   padding-left: 200px;
   padding-top: 12px;
   height: 170px;
   margin-bottom: 20px;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   position: absolute;
   left: 0;
   top: 0;
@@ -47,7 +47,7 @@ body {
           box-shadow: 0px 0px 0px 10px #e01818 inset, 0px 0px 0px 20px #fff inset;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1 {
   font-family: 'Chango', cursive;
   color: #fff;
   font-size: 118px;
@@ -63,7 +63,7 @@ body {
   line-height: 60px;
 }
 
-.notfound h2 {
+.colorlib-notfound h2 {
   font-family: 'Chango', cursive;
   font-size: 68px;
   color: #222;
@@ -73,7 +73,14 @@ body {
   line-height: 1.1;
 }
 
-.notfound p {
+.colorlib-notfound .colorlib-notfound-404 h1:after,
+.colorlib-notfound .colorlib-notfound-404 h1:before,
+.colorlib-notfound h2:after,
+.colorlib-notfound h2:before {
+  display: none;
+}
+
+.colorlib-notfound p {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -81,7 +88,7 @@ body {
   margin-top: 5px;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Montserrat', sans-serif;
   color: #e01818;
   font-weight: 400;
@@ -89,19 +96,19 @@ body {
 }
 
 @media only screen and (max-width: 480px) {
-  .notfound {
+  .colorlib-notfound {
     padding-left: 15px;
     padding-right: 15px;
   }
-  .notfound>div:first-child {
+  .colorlib-notfound>div:first-child {
     padding: 0px;
     height: auto;
   }
-  .notfound .notfound-404 {
+  .colorlib-notfound .colorlib-notfound-404 {
     position: relative;
     margin-bottom: 15px;
   }
-  .notfound h2 {
+  .colorlib-notfound h2 {
     font-size: 42px;
   }
 }

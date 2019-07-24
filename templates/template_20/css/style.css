@@ -8,12 +8,12 @@ body {
   margin: 0;
 }
 
-#notfound {
+#colorlib-notfound {
   position: relative;
   height: 100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,7 +22,7 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 920px;
   width: 100%;
   line-height: 1.4;
@@ -31,7 +31,7 @@ body {
   padding-right: 15px;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   position: absolute;
   height: 100px;
   top: 0;
@@ -42,7 +42,7 @@ body {
   z-index: -1;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
   font-family: 'Maven Pro', sans-serif;
   color: #ececec;
   font-weight: 900;
@@ -56,7 +56,7 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound h2 {
+.colorlib-notfound h2.colorlib-heading {
   font-family: 'Maven Pro', sans-serif;
   font-size: 46px;
   color: #000;
@@ -65,7 +65,7 @@ body {
   margin: 0px;
 }
 
-.notfound p {
+.colorlib-notfound p {
   font-family: 'Maven Pro', sans-serif;
   font-size: 16px;
   color: #000;
@@ -74,7 +74,7 @@ body {
   margin-top: 15px;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Maven Pro', sans-serif;
   font-size: 14px;
   text-decoration: none;
@@ -90,17 +90,24 @@ body {
   transition: 0.2s all;
 }
 
-.notfound a:hover {
+.colorlib-notfound a:hover {
   background-color: #fff;
   border-color: #189cf0;
   color: #189cf0;
 }
 
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:after,
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:before,
+.colorlib-notfound h2.colorlib-heading:after,
+.colorlib-notfound h2.colorlib-heading:before {
+  display: none;
+}
+
 @media only screen and (max-width: 480px) {
-  .notfound .notfound-404 h1 {
+  .colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
     font-size: 162px;
   }
-  .notfound h2 {
+  .colorlib-notfound h2.colorlib-heading {
     font-size: 26px;
   }
 }

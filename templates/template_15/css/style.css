@@ -8,12 +8,12 @@ body {
   margin: 0;
 }
 
-#notfound {
+#colorlib-notfound {
   position: relative;
   height: 100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,7 +22,7 @@ body {
           transform: translate(-50%, -50%);
 }
 
-#notfound .notfound-bg {
+#colorlib-notfound .colorlib-notfound-bg {
   position: absolute;
   left: 0;
   right: 0;
@@ -31,7 +31,7 @@ body {
   overflow: hidden;
 }
 
-#notfound .notfound-bg>div {
+#colorlib-notfound .colorlib-notfound-bg>div {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -39,23 +39,23 @@ body {
   background-color: #eee;
 }
 
-#notfound .notfound-bg>div:nth-child(1) {
+#colorlib-notfound .colorlib-notfound-bg>div:nth-child(1) {
   left: 20%;
 }
 
-#notfound .notfound-bg>div:nth-child(2) {
+#colorlib-notfound .colorlib-notfound-bg>div:nth-child(2) {
   left: 40%
 }
 
-#notfound .notfound-bg>div:nth-child(3) {
+#colorlib-notfound .colorlib-notfound-bg>div:nth-child(3) {
   left: 60%
 }
 
-#notfound .notfound-bg>div:nth-child(4) {
+#colorlib-notfound .colorlib-notfound-bg>div:nth-child(4) {
   left: 80%
 }
 
-#notfound .notfound-bg>div:after {
+#colorlib-notfound .colorlib-notfound-bg>div:after {
   content: '';
   position: absolute;
   top: 0px;
@@ -90,46 +90,46 @@ body {
   }
 }
 
-#notfound .notfound-bg>div:nth-child(1):after {
+#colorlib-notfound .colorlib-notfound-bg>div:nth-child(1):after {
   -webkit-animation: drop 3s infinite linear;
           animation: drop 3s infinite linear;
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s;
 }
 
-#notfound .notfound-bg>div:nth-child(2):after {
+#colorlib-notfound .colorlib-notfound-bg>div:nth-child(2):after {
   -webkit-animation: drop 2s infinite linear;
           animation: drop 2s infinite linear;
   -webkit-animation-delay: 0.7s;
           animation-delay: 0.7s;
 }
 
-#notfound .notfound-bg>div:nth-child(3):after {
+#colorlib-notfound .colorlib-notfound-bg>div:nth-child(3):after {
   -webkit-animation: drop 3s infinite linear;
           animation: drop 3s infinite linear;
   -webkit-animation-delay: 0.9s;
           animation-delay: 0.9s;
 }
 
-#notfound .notfound-bg>div:nth-child(4):after {
+#colorlib-notfound .colorlib-notfound-bg>div:nth-child(4):after {
   -webkit-animation: drop 2s infinite linear;
           animation: drop 2s infinite linear;
   -webkit-animation-delay: 1.2s;
           animation-delay: 1.2s;
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 520px;
   width: 100%;
   text-align: center;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   height: 210px;
   line-height: 210px;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
   font-family: 'Oswald', sans-serif;
   font-size: 188px;
   font-weight: 700;
@@ -137,7 +137,7 @@ body {
   text-shadow: 4px 4px 0px #00ffc0;
 }
 
-.notfound h2 {
+.colorlib-notfound .colorlib-heading {
   font-family: 'Oswald', sans-serif;
   font-size: 42px;
   font-weight: 700;
@@ -146,7 +146,7 @@ body {
   letter-spacing: 1.6px;
 }
 
-.notfound p {
+.colorlib-notfound p {
   font-family: 'Lato', sans-serif;
   color: #000;
   font-weight: 400;
@@ -154,7 +154,7 @@ body {
   margin-bottom: 25px;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Lato', sans-serif;
   padding: 10px 30px;
   display: inline-block;
@@ -168,17 +168,17 @@ body {
   transition: 0.2s all;
 }
 
-.notfound a:hover {
+.colorlib-notfound a:hover {
   background-color: #00ffc0;
   -webkit-box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;
           box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;
 }
 
-.notfound-social {
+.colorlib-notfound-social {
   margin-top: 35px;
 }
 
-.notfound-social>a {
+.colorlib-notfound-social>a {
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -186,21 +186,28 @@ body {
   margin: 0px 5px;
 }
 
-.notfound-social>a:hover {
+.colorlib-notfound-social>a:hover {
   background-color: #00ffc0;
   -webkit-box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;
           box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;
 }
 
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:after,
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:before,
+.colorlib-notfound h2.colorlib-heading:before,
+.colorlib-notfound h2.colorlib-heading:after{
+  display: none;
+}
+
 @media only screen and (max-width: 480px) {
-  .notfound .notfound-404 {
+  .colorlib-notfound .colorlib-notfound-404 {
     height: 122px;
     line-height: 122px;
   }
-  .notfound .notfound-404 h1 {
+  .colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
     font-size: 122px;
   }
-  .notfound h2 {
+  .colorlib-notfound h2.colorlib-heading {
     font-size: 26px;
   }
 }

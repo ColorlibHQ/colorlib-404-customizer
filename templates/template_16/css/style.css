@@ -8,19 +8,19 @@ body {
   margin: 0;
 }
 
-#notfound {
+#colorlib-notfound {
   position: relative;
   height: 100vh;
 }
 
-#notfound .notfound-bg {
+#colorlib-notfound .colorlib-notfound-bg {
   position: absolute;
   width: 100%;
   height: 100%;
   background-size: cover;
 }
 
-#notfound .notfound-bg:after {
+#colorlib-notfound .colorlib-notfound-bg:after {
   content: '';
   position: absolute;
   width: 100%;
@@ -28,7 +28,7 @@ body {
   background-color: rgba(255, 0, 36, 0.7);
 }
 
-#notfound .notfound {
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -37,19 +37,19 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 910px;
   width: 100%;
   line-height: 1.4;
   text-align: center;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   position: relative;
   height: 200px;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
   font-family: 'Montserrat', sans-serif;
   position: absolute;
   left: 50%;
@@ -65,7 +65,7 @@ body {
   letter-spacing: 10px;
 }
 
-.notfound h2 {
+.colorlib-notfound h2.colorlib-heading {
   font-family: 'Montserrat', sans-serif;
   font-size: 22px;
   font-weight: 700;
@@ -75,7 +75,7 @@ body {
   margin-bottom: 15px;
 }
 
-.notfound .home-btn, .notfound .contact-btn {
+.colorlib-notfound .colorlib-home-btn, .colorlib-notfound .colorlib-contact-btn {
   font-family: 'Montserrat', sans-serif;
   display: inline-block;
   font-weight: 700;
@@ -91,25 +91,25 @@ body {
   transition: 0.2s all;
 }
 
-.notfound .home-btn:hover, .notfound .contact-btn:hover {
+.colorlib-notfound .colorlib-home-btn:hover, .colorlib-notfound .colorlib-contact-btn:hover {
   opacity: 0.9;
 }
 
-.notfound .home-btn {
+.colorlib-notfound .colorlib-home-btn {
   color: rgba(255, 0, 36, 0.7);
   background: #fff;
 }
 
-.notfound .contact-btn {
+.colorlib-notfound .colorlib-contact-btn {
   border: 2px solid rgba(255, 255, 255, 0.9);
   color: rgba(255, 255, 255, 0.9);
 }
 
-.notfound-social {
+.colorlib-notfound-social {
   margin-top: 25px;
 }
 
-.notfound-social>a {
+.colorlib-notfound-social>a {
   display: inline-block;
   height: 40px;
   line-height: 40px;
@@ -120,29 +120,36 @@ body {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
-.notfound-social>a:hover {
+.colorlib-notfound-social>a:hover {
   color: rgba(255, 0, 36, 0.7);
   background-color: #fff;
   border-radius: 50%;
 }
 
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:after,
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:before,
+.colorlib-notfound h2.colorlib-heading:after,
+.colorlib-notfound h2.colorlib-heading:before{
+  display: none;
+}
+
 @media only screen and (max-width: 767px) {
-  .notfound .notfound-404 h1 {
+  .colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
     font-size: 182px;
   }
 }
 
 @media only screen and (max-width: 480px) {
-  .notfound .notfound-404 {
+  .colorlib-notfound .colorlib-notfound-404 {
     height: 146px;
   }
-  .notfound .notfound-404 h1 {
+  .colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
     font-size: 146px;
   }
-  .notfound h2 {
+  .colorlib-notfound h2.colorlib-heading {
     font-size: 16px;
   }
-  .notfound .home-btn, .notfound .contact-btn {
+  .colorlib-colorlib-notfound .colorlib-home-btn, .colorlib-notfound .colorlib-contact-btn {
     font-size: 14px;
   }
 }

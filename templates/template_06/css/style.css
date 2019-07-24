@@ -8,13 +8,13 @@ body {
   margin: 0;
 }
 
-#notfound {
+#colorlib-notfound {
   position: relative;
   height: 100vh;
   background: #030005;
 }
 
-#notfound .notfound {
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -23,21 +23,21 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 767px;
   width: 100%;
   line-height: 1.4;
   text-align: center;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   position: relative;
   height: 180px;
   margin-bottom: 20px;
   z-index: -1;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1 {
   font-family: 'Montserrat', sans-serif;
   position: absolute;
   left: 50%;
@@ -57,7 +57,7 @@ body {
 }
 
 
-.notfound .notfound-404 h2 {
+.colorlib-notfound .colorlib-notfound-404 h2 {
   font-family: 'Montserrat', sans-serif;
   position: absolute;
   left: 0;
@@ -72,7 +72,7 @@ body {
   margin: 0;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Montserrat', sans-serif;
   display: inline-block;
   text-transform: uppercase;
@@ -87,18 +87,25 @@ body {
   transition: 0.2s all;
 }
 
-.notfound a:hover {
+.colorlib-notfound a:hover {
   color: #8400ff;
 }
 
+.colorlib-notfound .colorlib-notfound-404 h1:after,
+.colorlib-notfound .colorlib-notfound-404 h1:before,
+.colorlib-notfound .colorlib-notfound-404 h2:after,
+.colorlib-notfound .colorlib-notfound-404 h2:before {
+  display:none;
+}
+
 @media only screen and (max-width: 767px) {
-    .notfound .notfound-404 h2 {
+    .colorlib-notfound .colorlib-notfound-404 h2 {
         font-size: 24px;
     }
 }
 
 @media only screen and (max-width: 480px) {
-  .notfound .notfound-404 h1 {
+  .colorlib-notfound .colorlib-notfound-404 h1 {
       font-size: 182px;
   }
 }

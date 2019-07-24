@@ -8,12 +8,12 @@ body {
   margin: 0;
 }
 
-#notfound {
+#colorlib-notfound {
   position: relative;
   height: 100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,7 +22,7 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 767px;
   width: 100%;
   line-height: 1.4;
@@ -30,12 +30,12 @@ body {
   padding: 15px;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   position: relative;
   height: 220px;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
   font-family: 'Kanit', sans-serif;
   position: absolute;
   left: 50%;
@@ -53,7 +53,7 @@ body {
   text-transform: uppercase;
 }
 
-.notfound h2 {
+.colorlib-notfound h2.colorlib-heading {
   font-family: 'Kanit', sans-serif;
   font-size: 33px;
   font-weight: 200;
@@ -64,7 +64,7 @@ body {
 }
 
 
-.notfound p {
+.colorlib-notfound p {
   font-family: 'Kanit', sans-serif;
   font-size: 16px;
   font-weight: 200;
@@ -73,7 +73,7 @@ body {
 }
 
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Kanit', sans-serif;
   color: #ff6f68;
   font-weight: 200;
@@ -82,7 +82,7 @@ body {
   border-radius: 2px;
 }
 
-.notfound-social>a {
+.colorlib-notfound-social>a {
   display: inline-block;
   height: 40px;
   line-height: 40px;
@@ -95,23 +95,30 @@ body {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
-.notfound-social>a:hover {
+.colorlib-notfound-social>a:hover {
   color: #fff;
   background-color: #ff6f68;
   border-color: #ff6f68;
 }
 
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:after,
+.colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading:before,
+.colorlib-notfound h2.colorlib-heading:after,
+.colorlib-notfound h2.colorlib-heading:before {
+  display: none;
+}
+
 @media only screen and (max-width: 480px) {
-  .notfound .notfound-404 {
+  .colorlib-notfound .colorlib-notfound-404 {
     position: relative;
     height: 168px;
   }
 
-  .notfound .notfound-404 h1 {
+  .colorlib-notfound .colorlib-notfound-404 h1.colorlib-heading {
     font-size: 142px;
   }
 
-  .notfound h2 {
+  .colorlib-notfound h2.colorlib-heading {
     font-size: 22px;
   }
 }
