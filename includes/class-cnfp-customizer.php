@@ -83,34 +83,19 @@ class CNFP_Customizer {
 			) )
 		);
 
-        /* Setting - General - 404 Page - Enable Header */
-        $wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_enable_header]', array(
-            'default'           => '1',
+        /* Setting - General - 404 Page - Enable Header and Footer */
+        $wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_enable_header_footer]', array(
+            'default'           => '',
             'sanitize_callback' => 'cnfp_sanitize_text',
             'type'              => 'option',
         ) );
 
-        $wp_customize->add_control( new CNFP_Control_Toggle ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_enable_header]', array(
-                'label'       => esc_html__( 'Enable header on 404 pages', 'colorlib-404-customizer' ),
+        $wp_customize->add_control( new CNFP_Control_Toggle ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_enable_header_footer]', array(
+                'label'       => esc_html__( 'Enable header and footer on 404 pages', 'colorlib-404-customizer' ),
                 'section'     => 'colorlib_404_customizer_general',
                 'priority'    => 10,
             ) )
         );
-
-        /* Setting - General - 404 Page - Enable Footer */
-        $wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_enable_footer]', array(
-            'default'           => '1',
-            'sanitize_callback' => 'cnfp_sanitize_text',
-            'type'              => 'option',
-        ) );
-
-        $wp_customize->add_control( new CNFP_Control_Toggle ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_enable_footer]', array(
-                'label'       => esc_html__( 'Enable footer on 404 pages', 'colorlib-404-customizer' ),
-                'section'     => 'colorlib_404_customizer_general',
-                'priority'    => 10,
-            ) )
-        );
-
 
 		/* Setting - General - 404 Page - Contact Link */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_contact_link]', array(

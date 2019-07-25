@@ -3,14 +3,18 @@
           box-sizing: border-box;
 }
 
-body {
+body.colorlib-body {
   padding: 0;
   margin: 0;
 }
 
+.colorlib-body #colorlib-notfound {
+  height:100vh;
+}
+
 #colorlib-notfound {
   position: relative;
-  height: 100vh;
+  height: 60vh;
 }
 
 #colorlib-notfound .colorlib-notfound-bg {
@@ -178,5 +182,11 @@ body {
 
   .colorlib-notfound h2 {
     font-size: 22px;
+  }
+}
+
+@media only screen and (max-height:600px){
+  #colorlib-notfound {
+    height:100vh;
   }
 }
