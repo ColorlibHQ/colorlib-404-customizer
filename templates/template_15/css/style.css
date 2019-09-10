@@ -190,6 +190,10 @@ body.colorlib-body {
   margin: 0px 5px;
 }
 
+.colorlib-notfound-social>a>i {
+  line-height: 40px;
+}
+
 .colorlib-notfound-social>a:hover {
   background-color: #00ffc0;
   -webkit-box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;

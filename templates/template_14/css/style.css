@@ -129,6 +129,9 @@ body.colorlib-body {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
+.colorlib-notfound-social>a>i {
+  line-height: 40px;
+}
 .colorlib-notfound-social>a:hover {
   background-color: #18e06f;
 }
