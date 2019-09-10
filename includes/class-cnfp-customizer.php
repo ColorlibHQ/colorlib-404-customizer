@@ -83,6 +83,20 @@ class CNFP_Customizer {
 			) )
 		);
 
+        /* Setting - General - 404 Page - Enable Header and Footer */
+        $wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_enable_header_footer]', array(
+            'default'           => '',
+            'sanitize_callback' => 'cnfp_sanitize_text',
+            'type'              => 'option',
+            'transport'         => 'refresh'
+        ) );
+
+        $wp_customize->add_control( new CNFP_Control_Toggle ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_enable_header_footer]', array(
+                'label'       => esc_html__( 'Enable header and footer on 404 pages', 'colorlib-404-customizer' ),
+                'section'     => 'colorlib_404_customizer_general',
+                'priority'    => 10,
+            ) )
+        );
 
 		/* Setting - General - 404 Page - Contact Link */
 		$wp_customize->add_setting( 'cnfp_settings[colorlib_404_customizer_contact_link]', array(
@@ -493,6 +507,12 @@ class CNFP_Customizer {
 
 	// remove styles in preview that are not used by the 404 page
 	public function cnfp_remove_all_styles_preview() {
+		$cnfp_options = get_option('cnfp_settings');
+
+		if ( isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
+			return;
+		}
+
 		if ( isset( $_REQUEST['colorlib-404-customization'] ) && is_customize_preview() ) {
 			global $wp_styles;
 			$wp_styles->queue = array();
