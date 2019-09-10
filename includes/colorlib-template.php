@@ -6,7 +6,7 @@ if ($cnfp_options['colorlib_404_customizer_select_template']) {
 }
 
 // Check if header is requested by user, else include our own header
-if (!is_customize_preview() && isset($cnfp_options['colorlib_404_customizer_enable_header_footer']) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer']) {
+if ( isset($cnfp_options['colorlib_404_customizer_enable_header_footer']) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer']) {
     get_header();
 } else {
     ?>
@@ -35,14 +35,15 @@ if (!is_customize_preview() && isset($cnfp_options['colorlib_404_customizer_enab
 //get selected template
 include(CNFP_PATH . 'templates/' . $template . '/' . $template . '.php');
 
-if (is_customize_preview()) {
-    wp_footer();
-}
 
-if (!is_customize_preview() && isset($cnfp_options['colorlib_404_customizer_enable_header_footer']) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer']) {
+
+if ( isset($cnfp_options['colorlib_404_customizer_enable_header_footer']) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
     // Check if user requested footer, else include our own footer
     get_footer();
 } else {
+    if (is_customize_preview()) {
+        wp_footer();
+    }
     ?>
     </body><!-- This template was made by Colorlib (https://colorlib.com) -->
     </html>

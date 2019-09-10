@@ -88,6 +88,7 @@ class CNFP_Customizer {
             'default'           => '',
             'sanitize_callback' => 'cnfp_sanitize_text',
             'type'              => 'option',
+            'transport'         => 'refresh'
         ) );
 
         $wp_customize->add_control( new CNFP_Control_Toggle ( $wp_customize, 'cnfp_settings[colorlib_404_customizer_enable_header_footer]', array(
@@ -506,6 +507,12 @@ class CNFP_Customizer {
 
 	// remove styles in preview that are not used by the 404 page
 	public function cnfp_remove_all_styles_preview() {
+		$cnfp_options = get_option('cnfp_settings');
+
+		if ( isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
+			return;
+		}
+
 		if ( isset( $_REQUEST['colorlib-404-customization'] ) && is_customize_preview() ) {
 			global $wp_styles;
 			$wp_styles->queue = array();
