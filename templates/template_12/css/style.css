@@ -3,17 +3,21 @@
           box-sizing: border-box;
 }
 
-body {
+body.colorlib-body {
   padding: 0;
   margin: 0;
 }
 
-#notfound {
-  position: relative;
-  height: 100vh;
+.colorlib-body #colorlib-notfound {
+  height:100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound {
+  position: relative;
+  height: 60vh;
+}
+
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,18 +26,18 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 520px;
   width: 100%;
   text-align: center;
   line-height: 1.4;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   height: 190px;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 146px;
   font-weight: 700;
@@ -41,7 +45,7 @@ body {
   color: #232323;
 }
 
-.notfound .notfound-404 h1>span {
+.colorlib-notfound .colorlib-notfound-404 h1>span {
   display: inline-block;
   width: 120px;
   height: 120px;
@@ -53,7 +57,7 @@ body {
   z-index: -1;
 }
 
-.notfound h2 {
+.colorlib-notfound h2 {
   font-family: 'Montserrat', sans-serif;
   font-size: 22px;
   font-weight: 700;
@@ -62,13 +66,20 @@ body {
   color: #232323;
 }
 
-.notfound p {
+.colorlib-notfound h2:after,
+.colorlib-notfound h2:before,
+.colorlib-notfound .colorlib-notfound-404 h1:after,
+.colorlib-notfound .colorlib-notfound-404 h1:before {
+  display: none;
+}
+
+.colorlib-notfound p {
   font-family: 'Montserrat', sans-serif;
   color: #787878;
   font-weight: 300;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Montserrat', sans-serif;
   display: inline-block;
   padding: 12px 30px;
@@ -81,19 +92,25 @@ body {
   transition: 0.2s all;
 }
 
-.notfound a:hover {
+.colorlib-notfound a:hover {
   opacity: 0.8;
 }
 
 @media only screen and (max-width: 767px) {
-  .notfound .notfound-404 {
+  .colorlib-notfound .colorlib-notfound-404 {
     height: 115px;
   }
-  .notfound .notfound-404 h1 {
+  .colorlib-notfound .colorlib-notfound-404 h1 {
     font-size: 86px;
   }
-  .notfound .notfound-404 h1>span {
+  .colorlib-notfound .colorlib-notfound-404 h1>span {
     width: 86px;
     height: 86px;
+  }
+}
+
+@media only screen and (max-height:600px){
+  #colorlib-notfound {
+    height:100vh;
   }
 }

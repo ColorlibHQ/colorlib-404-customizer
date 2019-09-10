@@ -3,17 +3,21 @@
           box-sizing: border-box;
 }
 
-body {
+body.colorlib-body {
   padding: 0;
   margin: 0;
 }
 
-#notfound {
-  position: relative;
-  height: 100vh;
+.colorlib-body #colorlib-notfound {
+  height:100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound {
+  position: relative;
+  height: 60vh;
+}
+
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,14 +26,14 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 560px;
   width: 100%;
   padding-left: 160px;
   line-height: 1.1;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   position: absolute;
   left: 0;
   top: 0;
@@ -40,7 +44,7 @@ body {
   background-size: cover;
 }
 
-.notfound .notfound-404:before {
+.colorlib-notfound .colorlib-notfound-404:before {
   content: '';
   position: absolute;
   width: 100%;
@@ -53,7 +57,7 @@ body {
   z-index: -1;
 }
 
-.notfound h1 {
+.colorlib-notfound h1.colorlib-heading {
   font-family: 'Nunito', sans-serif;
   font-size: 65px;
   font-weight: 700;
@@ -63,7 +67,7 @@ body {
   text-transform: uppercase;
 }
 
-.notfound h2 {
+.colorlib-notfound h2.colorlib-heading {
   font-family: 'Nunito', sans-serif;
   font-size: 21px;
   font-weight: 400;
@@ -72,13 +76,20 @@ body {
   color: #151723;
 }
 
-.notfound p {
+.colorlib-notfound h1.colorlib-heading:after,
+.colorlib-notfound h1.colorlib-heading:before,
+.colorlib-notfound h2.colorlib-heading:after,
+.colorlib-notfound h2.colorlib-heading:before {
+  display: none;
+}
+
+.colorlib-notfound p {
   font-family: 'Nunito', sans-serif;
   color: #999fa5;
   font-weight: 400;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Nunito', sans-serif;
   display: inline-block;
   font-weight: 700;
@@ -88,13 +99,19 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
-  .notfound .notfound-404 {
+  .colorlib-notfound .colorlib-notfound-404 {
     width: 110px;
     height: 110px;
   }
-  .notfound {
+  .colorlib-notfound {
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 110px;
+  }
+}
+
+@media only screen and (max-height:600px){
+  #colorlib-notfound {
+    height:100vh;
   }
 }

@@ -3,17 +3,21 @@
           box-sizing: border-box;
 }
 
-body {
+body.colorlib-body {
   padding: 0;
   margin: 0;
 }
 
-#notfound {
-  position: relative;
-  height: 100vh;
+.colorlib-body #colorlib-notfound {
+  height:100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound {
+  position: relative;
+  height: 60vh;
+}
+
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,7 +26,7 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 710px;
   width: 100%;
   text-align: center;
@@ -30,12 +34,12 @@ body {
   line-height: 1.4;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   height: 200px;
   line-height: 200px;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1 {
   font-family: 'Fredoka One', cursive;
   font-size: 168px;
   margin: 0px;
@@ -43,7 +47,7 @@ body {
   text-transform: uppercase;
 }
 
-.notfound h2 {
+.colorlib-notfound h2 {
   font-family: 'Raleway', sans-serif;
   font-size: 22px;
   font-weight: 400;
@@ -52,7 +56,14 @@ body {
   margin: 0;
 }
 
-.notfound-search {
+.colorlib-notfound .colorlib-notfound-404 h1:after,
+.colorlib-notfound .colorlib-notfound-404 h1:before,
+.colorlib-notfound h2:after,
+.colorlib-notfound h2:before {
+  display:none;
+}
+
+.colorlib-notfound-search {
   position: relative;
   padding-right: 123px;
   max-width: 420px;
@@ -60,7 +71,7 @@ body {
   margin: 30px auto 22px;
 }
 
-.notfound-search input {
+.colorlib-notfound-search input {
   font-family: 'Raleway', sans-serif;
   width: 100%;
   height: 40px;
@@ -72,7 +83,7 @@ body {
   border-radius: 3px;
 }
 
-.notfound-search button {
+.colorlib-notfound-search button {
   font-family: 'Raleway', sans-serif;
   position: absolute;
   right: 0px;
@@ -90,7 +101,7 @@ body {
   border-radius: 3px;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Raleway', sans-serif;
   display: inline-block;
   font-weight: 700;
@@ -99,7 +110,7 @@ body {
   color: #39b1cb;
 }
 
-.notfound a>.arrow {
+.colorlib-notfound a>.arrow {
   position: relative;
   top: -2px;
   border: solid #39b1cb;
@@ -112,11 +123,17 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
-  .notfound .notfound-404 {
+  .colorlib-notfound .notfound-404 {
     height: 122px;
     line-height: 122px;
   }
-  .notfound .notfound-404 h1 {
+  .colorlib-notfound .notfound-404 h1 {
     font-size: 122px;
+  }
+}
+
+@media only screen and (max-height:600px){
+  #colorlib-notfound {
+    height:100vh;
   }
 }

@@ -3,17 +3,21 @@
           box-sizing: border-box;
 }
 
-body {
+body.colorlib-body {
   padding: 0;
   margin: 0;
 }
 
-#notfound {
-  position: relative;
-  height: 100vh;
+.colorlib-body #colorlib-notfound {
+  height:100vh;
 }
 
-#notfound .notfound {
+#colorlib-notfound {
+  position: relative;
+  height: 60vh;
+}
+
+#colorlib-notfound .colorlib-notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,19 +26,19 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+.colorlib-notfound {
   max-width: 410px;
   width: 100%;
   text-align: center;
 }
 
-.notfound .notfound-404 {
+.colorlib-notfound .colorlib-notfound-404 {
   height: 280px;
   position: relative;
   z-index: -1;
 }
 
-.notfound .notfound-404 h1 {
+.colorlib-notfound .colorlib-notfound-404 h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 230px;
   margin: 0px;
@@ -52,7 +56,7 @@ body {
 }
 
 
-.notfound h2 {
+.colorlib-notfound h2 {
   font-family: 'Montserrat', sans-serif;
   color: #000;
   font-size: 24px;
@@ -61,7 +65,14 @@ body {
   margin-top: 0;
 }
 
-.notfound p {
+.colorlib-notfound .colorlib-notfound-404 h1:after,
+.colorlib-notfound .colorlib-notfound-404 h1:before,
+.colorlib-notfound h2:after,
+.colorlib-notfound h2:before {
+  display:none;
+}
+
+.colorlib-notfound p {
   font-family: 'Montserrat', sans-serif;
   color: #000;
   font-size: 14px;
@@ -70,7 +81,7 @@ body {
   margin-top: 0px;
 }
 
-.notfound a {
+.colorlib-notfound a {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   text-decoration: none;
@@ -87,10 +98,16 @@ body {
 
 
 @media only screen and (max-width: 767px) {
-    .notfound .notfound-404 {
+    .colorlib-notfound .colorlib-notfound-404 {
       height: 142px;
     }
-    .notfound .notfound-404 h1 {
+    .colorlib-notfound .colorlib-notfound-404 h1 {
       font-size: 112px;
     }
+}
+
+@media only screen and (max-height:600px){
+  #colorlib-notfound {
+    height:100vh;
+  }
 }
