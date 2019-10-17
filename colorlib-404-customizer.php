@@ -3,7 +3,7 @@
  * Plugin Name: Colorlib 404 Customizer
  * Plugin URI: https://colorlib.com/
  * Description: Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that comes with well designed 404 pages and lots of useful features including customization via Live Customizer.
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: Colorlib
  * Author URI: https://colorlib.com/
  * Tested up to: 5.2
@@ -176,7 +176,8 @@ function cnfp_style_enqueue($template_name) {
             ),
             array(
                 'name'     => 'font-awesome',
-                'location' => 'css/font-awesome.min.css',
+                'location' => 'assets/css/font-awesome.min.css',
+                'global'  => true
             ),
         ),
         'template_12' => array(
@@ -198,7 +199,8 @@ function cnfp_style_enqueue($template_name) {
             ),
             array(
                 'name'     => 'font-awesome',
-                'location' => 'css/font-awesome.min.css',
+                'location' => 'assets/css/font-awesome.min.css',
+                'global'  => true
             ),
         ),
         'template_15' => array(
@@ -208,7 +210,8 @@ function cnfp_style_enqueue($template_name) {
             ),
             array(
                 'name'     => 'font-awesome',
-                'location' => 'css/font-awesome.min.css',
+                'location' => 'assets/css/font-awesome.min.css',
+                'global'  => true
             ),
         ),
         'template_16' => array(
@@ -218,7 +221,8 @@ function cnfp_style_enqueue($template_name) {
             ),
             array(
                 'name'     => 'font-awesome',
-                'location' => 'css/font-awesome.min.css',
+                'location' => 'assets/css/font-awesome.min.css',
+                'global'  => true
             ),
         ),
         'template_17' => array(
@@ -240,7 +244,8 @@ function cnfp_style_enqueue($template_name) {
             ),
             array(
                 'name'     => 'font-awesome',
-                'location' => 'css/font-awesome.min.css',
+                'location' => 'assets/css/font-awesome.min.css',
+                'global'  => true
             ),
         ),
         'template_20' => array(
@@ -411,7 +416,7 @@ function cnfp_style_enqueue($template_name) {
 
     //check if template and get the template arrays
     if ($template_name) {
-        $encript_styles = $template_styles[$template_name];
+        $encript_styles     = $template_styles[$template_name];
         $google_fonts_style = $google_fonts_styles[$template_name];
     }
 
@@ -424,11 +429,25 @@ function cnfp_style_enqueue($template_name) {
     //print styles depending on template
     if ($encript_styles != null && is_array($encript_styles)) {
         foreach ($encript_styles as $encript_style) {
-            wp_register_style($template_name . '-' . $encript_style['name'], CNFP_URL . 'templates/' . $template_name . '/' . $encript_style['location']);
-            if (isset($cnfp_options['colorlib_404_customizer_enable_header_footer']) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer']) {
-                wp_enqueue_style($template_name . '-' . $encript_style['name']);
+            if (!isset($encript_style['global']) || true != $encript_style['global']) {
+
+                wp_register_style($template_name . '-' . $encript_style['name'], CNFP_URL . 'templates/' . $template_name . '/' . $encript_style['location']);
+                if (isset($cnfp_options['colorlib_404_customizer_enable_header_footer']) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer']) {
+                    wp_enqueue_style($template_name . '-' . $encript_style['name']);
+                } else {
+                    wp_print_styles($template_name . '-' . $encript_style['name']);
+                }
+
             } else {
-                wp_print_styles($template_name . '-' . $encript_style['name']);
+
+                wp_register_style($encript_style['name'], CNFP_URL . $encript_style['location']);
+
+                if (isset($cnfp_options['colorlib_404_customizer_enable_header_footer']) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer']) {
+
+                    wp_enqueue_style($encript_style['name']);
+                } else {
+                    wp_print_styles($encript_style['name']);
+                }
             }
 
         }
