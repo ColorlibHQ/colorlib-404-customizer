@@ -516,8 +516,8 @@ class CNFP_Customizer {
 		if ( isset( $_REQUEST['colorlib-404-customization'] ) && is_customize_preview() ) {
 			global $wp_styles;
 			$wp_styles->queue = array();
-			wp_enqueue_style( 'customize-preview' );
-			wp_enqueue_style( 'colorlib-custom-controls-css' );
+			wp_enqueue_style( 'customize-cnfp-preview' );
+			wp_enqueue_style( 'colorlib-cnfp-custom-controls-css' );
 		}
 	}
 
