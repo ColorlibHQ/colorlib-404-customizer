@@ -3,10 +3,10 @@
  * Plugin Name: Colorlib 404 Customizer
  * Plugin URI: https://colorlib.com/
  * Description: Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that comes with well designed 404 pages and lots of useful features including customization via Live Customizer.
- * Version: 1.0.9
+ * Version: 1.1.0
  * Author: Colorlib
  * Author URI: https://colorlib.com/
- * Tested up to: 5.2
+ * Tested up to: 5.3
  * Requires: 4.6 or higher
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -469,11 +469,11 @@ function cnfp_style_enqueue($template_name) {
 
 
 function cnfp_customizer_preview_scripts() {
-    wp_register_script('colorlib-customizer-preview', CNFP_URL . 'assets/js/customizer-preview.js', array(
+    wp_register_script('colorlib-cnfp-customizer-preview', CNFP_URL . 'assets/js/customizer-preview.js', array(
         'jquery',
         'customize-preview'
     ), '', true);
-    wp_enqueue_script('colorlib-customizer-preview');
+    wp_enqueue_script('colorlib-cnfp-customizer-preview');
     wp_enqueue_script('customize-selective-refresh');
 
 }
@@ -481,12 +481,12 @@ function cnfp_customizer_preview_scripts() {
 
 function cnfp_customizer_scripts() {
     wp_enqueue_editor();
-    wp_register_script('colorlib-customizer-js', CNFP_URL . 'assets/js/customizer.js', array('customize-controls'));
-    wp_enqueue_script('colorlib-customizer-js');
-    wp_register_style('colorlib-custom-controls-css', CNFP_URL . 'assets/css/cnfp-custom-controls.css', array(), '1.0', 'all');
-    wp_enqueue_style('colorlib-custom-controls-css');
+    wp_register_script('colorlib-cnfp-customizer-js', CNFP_URL . 'assets/js/customizer.js', array('customize-controls'));
+    wp_enqueue_script('colorlib-cnfp-customizer-js');
+    wp_register_style('colorlib-cnfp-custom-controls-css', CNFP_URL . 'assets/css/cnfp-custom-controls.css', array(), '1.0', 'all');
+    wp_enqueue_style('colorlib-cnfp-custom-controls-css');
     wp_localize_script(
-        'colorlib-customizer-js', 'CNFPurls', array(
+        'colorlib-cnfp-customizer-js', 'CNFPurls', array(
             'siteurl' => get_option('siteurl'),
         )
     );
