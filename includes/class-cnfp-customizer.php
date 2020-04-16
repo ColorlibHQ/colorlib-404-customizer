@@ -518,6 +518,7 @@ class CNFP_Customizer {
 			$wp_styles->queue = array();
 			wp_enqueue_style( 'customize-cnfp-preview' );
 			wp_enqueue_style( 'colorlib-cnfp-custom-controls-css' );
+			wp_enqueue_style( 'customize-preview', ABSPATH . '/wp-includes/css/customize-preview.min.css' );
 		}
 	}
 
