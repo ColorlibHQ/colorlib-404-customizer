@@ -60,6 +60,7 @@ If you enjoy using Colorlib 404 Customizer for WordPress please leave a positive
 = 1.0.92 =
 * Fix edit button when header and footer not included
 * Fix toggle button when using themes that modify the layout of controls
+* Review dismiss fix
 
 = 1.0.91 =
 * Review request fix
