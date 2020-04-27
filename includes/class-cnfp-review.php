@@ -163,7 +163,7 @@ class CNFP_Review {
                         security: '<?php echo $ajax_nonce; ?>',
                     };
 
-                    if ('epsilon-rated' === id) {
+                    if ('epsilon-rated' === id || 'epsilon-rate' === id) {
                         data['epsilon-review'] = 1;
                     }
 
