@@ -69,6 +69,9 @@ class CNFP_Review {
 			return false;
 		}
 
+
+
+
 		if ( is_array( $this->when ) ) {
 			foreach ( $this->when as $et ) {
 				if ( $et == $this->value ) {
@@ -175,6 +178,21 @@ class CNFP_Review {
 
                     });
 
+                });
+
+                $('#colorlib-404-customizer-epsilon-review-notice').click(function(){
+
+	                var data = {
+		                action: 'epsilon_review',
+		                security: '<?php echo $ajax_nonce; ?>',
+	                };
+
+	                $.post('<?php echo admin_url( 'admin-ajax.php' ) ?>', data, function (response) {
+		                $('#<?php echo $this->slug ?>-epsilon-review-notice').slideUp('fast', function () {
+			                $(this).remove();
+		                });
+
+	                });
                 });
 
             });
