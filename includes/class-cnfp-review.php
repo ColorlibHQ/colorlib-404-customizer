@@ -180,7 +180,7 @@ class CNFP_Review {
 
                 });
 
-                $('#colorlib-404-customizer-epsilon-review-notice').click(function(){
+                $('#colorlib-404-customizer-epsilon-review-notice .notice-dismiss').click(function(){
 
 	                var data = {
 		                action: 'epsilon_review',
