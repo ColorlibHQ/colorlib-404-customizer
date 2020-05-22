@@ -3,7 +3,7 @@
  * Plugin Name: Colorlib 404 Customizer
  * Plugin URI: https://colorlib.com/
  * Description: Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that comes with well designed 404 pages and lots of useful features including customization via Live Customizer.
- * Version: 1.0.92
+ * Version: 1.0.93
  * Author: Colorlib
  * Author URI: https://colorlib.com/
  * Tested up to: 5.4
@@ -67,7 +67,7 @@ function cnfp_add_settings_link($actions, $plugin_file) {
     }
     if ($plugin == $plugin_file) {
 
-        $settings  = array('settings' => '<a href="options-general.php?page=cnfp_settings">' . __('Settings', 'colorlib-404-customizer') . '</a>');
+        $settings  = array('settings' => '<a href="'.admin_url("options-general.php?page=cnfp_settings").'">' . __('Settings', 'colorlib-404-customizer') . '</a>');
         $site_link = array('support' => '<a href="https://colorlib.com/wp/forums/" target="_blank">' . __('Support', 'colorlib-404-customizer') . '</a>');
 
         $actions = array_merge($settings, $actions);
@@ -645,18 +645,18 @@ function cnfp_inline_style() {
 
     $inline_css = '<style type="text/css">';
     if ($cnfp_options['colorlib_404_customizer_text_color']) {
-        $inline_css .= 'h1, h2, h3, h4, span, li, p, div, a { color: ' . $cnfp_options['colorlib_404_customizer_text_color'] . ' !important; }';
+        $inline_css .= 'h1, h2, h3, h4, span, li, p, div, a { color: ' . esc_attr($cnfp_options['colorlib_404_customizer_text_color']) . ' !important; }';
     }
 
     $inline_css .= '#colorlib-notfound, #colorlib-notfound .colorlib-notfound-bg {';
 
-    $inline_css .= ($cnfp_options['colorlib_404_customizer_background_image']) ? 'background-image:url("' . $cnfp_options['colorlib_404_customizer_background_image'] . '") !important;' : '';
+    $inline_css .= ($cnfp_options['colorlib_404_customizer_background_image']) ? 'background-image:url("' . esc_url($cnfp_options['colorlib_404_customizer_background_image']) . '") !important;' : '';
 
-    $inline_css .= ($cnfp_options['colorlib_404_customizer_background_color']) ? 'background-color:' . $cnfp_options['colorlib_404_customizer_background_color'] . ' !important;' : '';
+    $inline_css .= ($cnfp_options['colorlib_404_customizer_background_color']) ? 'background-color:' . esc_attr($cnfp_options['colorlib_404_customizer_background_color']) . ' !important;' : '';
 
-    $inline_css .= ($cnfp_options['colorlib_404_customizer_background_repeat']) ? 'background-repeat:' . $cnfp_options['colorlib_404_customizer_background_repeat'] . ';' : '';
+    $inline_css .= ($cnfp_options['colorlib_404_customizer_background_repeat']) ? 'background-repeat:' . esc_attr($cnfp_options['colorlib_404_customizer_background_repeat']) . ';' : '';
 
-    $inline_css .= ($cnfp_options['colorlib_404_customizer_background_size']) ? 'background-size:' . $cnfp_options['colorlib_404_customizer_background_size'] . ';' : '';
+    $inline_css .= ($cnfp_options['colorlib_404_customizer_background_size']) ? 'background-size:' . esc_attr($cnfp_options['colorlib_404_customizer_background_size']) . ';' : '';
 
     $inline_css .= '}';
 
