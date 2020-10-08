@@ -57,6 +57,9 @@ If you enjoy using Colorlib 404 Customizer for WordPress please leave a positive
 
 == Changelog ==
 
+= 1.0.94 = 
+* Improved code
+
 = 1.0.93 =
 * Improved escaping
 

@@ -13,11 +13,11 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 				$id = str_replace( '[', '', $this->id );
 				$id = str_replace( ']', '', $id );
 				?>
-                <label><?php echo esc_html($this->label); ?></label>
+                <label><?php echo esc_html( $this->label ); ?></label>
                 <span class="description customize-control-description"><?php echo esc_html($this->description); ?></span>
                 </span>
-                <textarea id="<?php echo esc_attr($id); ?>"
-                          class="widefat text wp-editor-area js-cnfp-editor" <?php echo $this->link(); ?><?php echo esc_textarea($this->value()); ?></textarea>
+                <textarea id="<?php echo esc_attr( $id ); ?>"
+                          class="widefat text wp-editor-area js-cnfp-editor" <?php echo $this->link(); ?><?php echo esc_textarea( $this->value() ); ?></textarea>
 				<?php
 			}
 		}
