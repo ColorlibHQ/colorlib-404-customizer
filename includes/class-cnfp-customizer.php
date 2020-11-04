@@ -469,20 +469,6 @@ class CNFP_Customizer {
 	}
 
 	/**
-	 * Add settings link to plugin list table
-	 *
-	 * @param  array $links Existing links
-	 *
-	 * @return array        Modified links
-	 */
-	public function cnfp_add_settings_link( $links ) {
-		$settings_link = '<a href="options-general.php?page=cnfp_settings">' . __( 'Settings', 'colorlib-404-customizer' ) . '</a>';
-		array_push( $links, $settings_link );
-
-		return $links;
-	}
-
-	/**
 	 * Hook to redirect the page for the Customizer.
 	 *
 	 * @access public

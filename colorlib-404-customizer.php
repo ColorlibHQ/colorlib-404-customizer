@@ -60,12 +60,8 @@ function cnfp_load_plugin_textdomain() {
 //add settings and support links on wordpress plugin page
 function cnfp_add_settings_link( $actions, $plugin_file ) {
 
-    static $plugin;
 
-    if ( !isset( $plugin ) ) {
-        $plugin = plugin_basename(__FILE__);
-    }
-    if ( $plugin == $plugin_file ) {
+    if ( CNFP_PLUGIN_BASE == $plugin_file ) {
 
         $settings  = array( 'settings' => '<a href="'.admin_url("options-general.php?page=cnfp_settings").'">' . __( 'Settings', 'colorlib-404-customizer' ) . '</a>' );
         $site_link = array( 'support' => '<a href="https://colorlib.com/wp/forums/" target="_blank">' . __( 'Support', 'colorlib-404-customizer' ) . '</a>' );
@@ -97,8 +93,8 @@ function cnfp_template_redirect() {
 
     if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) ) {
 
-        $file = plugin_dir_path(__FILE__) . 'includes/colorlib-template.php'; //get path of our 404 display page and redirecting
-        include( $file );
+	    //get path of our 404 display page and redirecting
+	    include(CNFP_PATH . 'includes/colorlib-template.php');
 
         exit();
     }
