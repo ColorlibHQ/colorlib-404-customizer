@@ -150,7 +150,7 @@ class CNFP_Review {
 		?>
 
 		<script type="text/javascript">
-            jQuery(document).on('ready', function ($) {
+            jQuery(function ($) {
 
                 $('.epsilon-review-button').click(function (evt) {
                     var href = $(this).attr('href'),
