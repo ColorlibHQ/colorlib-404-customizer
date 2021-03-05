@@ -28,7 +28,7 @@ body.colorlib-body {
 
 .colorlib-notfound {
     max-width: 767px;
-    width: 100%;
+    width: fit-content;
     line-height: 1.4;
     padding: 0px 15px;
 }

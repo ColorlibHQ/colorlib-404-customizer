@@ -4,7 +4,7 @@ Tags: customize 404 page, 404 page, 404 page customizer, 404
 Requires at least: 4.7
 Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 1.0.95
+Stable tag: 1.0.96
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -56,6 +56,10 @@ If you enjoy using Colorlib 404 Customizer for WordPress please leave a positive
 2. You can disable the theme options previewer under Apperance > Customize > Colorlib 404 Customizer Settings > General > Activate Colorlib 404 Customizer
 
 == Changelog ==
+
+= 1.0.96 = 
+* Fixed: Alignment problem on template 1 ( https://github.com/ColorlibHQ/colorlib-404-customizer/issues/27 )
+
 = 1.0.95 =
 * Modified deprecated jQuery functions.
 
