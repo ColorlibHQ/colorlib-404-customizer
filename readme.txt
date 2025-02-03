@@ -2,9 +2,9 @@
 Contributors: silkalns
 Tags: customize 404 page, 404 page, 404 page customizer, 404
 Requires at least: 4.7
-Tested up to: 6.0
+Tested up to: 6.7
 Requires PHP: 5.6
-Stable tag: 1.0.95
+Stable tag: 1.0.97
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
