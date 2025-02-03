@@ -1,4 +1,4 @@
-jQuery(window).load(function () {
+jQuery(window).on('load', function () {
 
     jQuery('textarea.js-cnfp-editor').each(function () {
         var textareaId = jQuery(this).attr('id');

@@ -28,9 +28,10 @@ body.colorlib-body {
 
 .colorlib-notfound {
     max-width: 767px;
-    width: 100%;
+    width:-moz-fit-content;
+    width: fit-content;
     line-height: 1.4;
-    padding: 0px 15px;
+    padding: 0 15px;
 }
 
 .colorlib-notfound .colorlib-notfound-404 {

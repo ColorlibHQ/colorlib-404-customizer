@@ -13,7 +13,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			 */
 			public function render_content() {
 				$cnfp_options = get_option( 'cnfp_settings' );
-				$template     = $cnfp_options['colorlib_404_customizer_select_template'];
 				?>
                 <div class="colorlib_template_selection_radio">
                     <div class="colorlib-templates-wrapper">
