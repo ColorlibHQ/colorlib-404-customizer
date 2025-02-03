@@ -57,7 +57,10 @@ If you enjoy using Colorlib 404 Customizer for WordPress please leave a positive
 
 == Changelog ==
 
-= 1.0.95 =
+= 1.0.97 =
+Fixed: Missing callback method PHP error. ( https://github.com/ColorlibHQ/colorlib-404-customizer/issues/28 )
+
+= 1.0.96 =
 Changed: Code Indenting
 
 = 1.0.95 =

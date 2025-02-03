@@ -469,6 +469,23 @@ class CNFP_Customizer {
 	}
 
 	/**
+	 * Load settings page content
+	 *
+	 * @return void
+	 */
+	public function settings_page() {
+
+		// Build page HTML
+		$html  = '<div class="wrap" id="colorlib-404-customizer-settings">' . "\n";
+		$html .= '<h2>' . esc_html__( 'Colorlib 404 Customizer', 'colorlib-404-customizer' ) . '</h2>' . "\n";
+		$html .= '<p>' . esc_html__( 'The 404 Customizer is a free WordPress plugin that allows you to create a custom and stylish 404 page quickly via the Live Customizer. You can preview your changes before you save them! Awesome, right?', 'colorlib-404-customizer' ) . '</p>';
+		$html .= '<a href="' . get_admin_url() . 'customize.php?url=' . wp_login_url() . '" id="submit" class="button button-primary">' . __( 'Start Customizing!', 'colorlib-404-customizer' ) . '</a>';
+		$html .= '</div>' . "\n";
+
+		echo $html;
+	}
+
+	/**
 	 * Hook to redirect the page for the Customizer.
 	 *
 	 * @access public
