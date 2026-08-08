@@ -1,5 +1,4 @@
 * {
-  -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
@@ -21,8 +20,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -49,8 +46,6 @@ body.colorlib-body {
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-transform: scale(2.4);
-      -ms-transform: scale(2.4);
           transform: scale(2.4);
   border-radius: 50%;
   background-color: #f2f5f8;

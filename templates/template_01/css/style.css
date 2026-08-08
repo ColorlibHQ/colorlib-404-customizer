@@ -1,5 +1,4 @@
 * {
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -21,8 +20,6 @@ body.colorlib-body {
     position: absolute;
     left: 50%;
     top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
 
@@ -92,7 +89,6 @@ body.colorlib-body {
     font-weight: 700;
     border-radius: 1px;
     margin-top: 15px;
-    -webkit-transition: 0.2s all;
     transition: 0.2s all;
 }
 

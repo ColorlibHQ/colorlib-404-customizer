@@ -1,50 +1,61 @@
 <?php
-$cnfp_options = get_option( 'cnfp_settings' );
+/**
+ * The 404 document shell.
+ *
+ * Included from `cnfp_template_redirect()` in place of the theme's own 404
+ * handling. Either wraps the selected design in the theme's header and footer, or
+ * emits a minimal standalone document of its own.
+ *
+ * @package Colorlib_404_Customizer
+ */
 
-if ( $cnfp_options['colorlib_404_customizer_select_template'] ) {
-    $template = $cnfp_options['colorlib_404_customizer_select_template'];
+defined( 'ABSPATH' ) || exit;
+
+$cnfp_template = cnfp_get_template();
+
+if ( cnfp_use_theme_header_footer() ) {
+	get_header();
+} else {
+	?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><?php echo esc_html( wp_get_document_title() ); ?></title>
+	<?php
+	/*
+	 * A 404 is not something search engines should keep. WordPress already sends
+	 * the 404 status header; this makes the intent explicit for the crawlers that
+	 * read the tag instead.
+	 */
+	?>
+	<meta name="robots" content="noindex, follow">
+	<?php
+	do_action( 'cnfp_header', $cnfp_template );
+
+	cnfp_inline_style();
+
+	if ( is_customize_preview() ) {
+		wp_head();
+	}
+	?>
+</head>
+<body class="colorlib-body">
+	<?php
 }
 
-// Check if header is requested by user, else include our own header
-if ( isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer']) {
-    get_header();
+include CNFP_PATH . 'templates/' . $cnfp_template . '/' . $cnfp_template . '.php';
+
+if ( cnfp_use_theme_header_footer() ) {
+	get_footer();
 } else {
-    ?>
-    <!DOCTYPE html>
-    <html <?php language_attributes(); ?>>
-    <head>
-        <meta charset="utf-8">
-        <title><?php bloginfo( 'name' );
-            $site_description = get_bloginfo( 'description' ); ?></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <!-- General Style -->
-        <?php cnfp_inline_style(); ?>
-        <!-- End General Style -->
-        <?php
-
-        do_action( 'cnfp_header', $template );
-
-        if ( is_customize_preview() ) {
-            wp_head();
-        }
-        ?>
-    </head>
-    <body class="colorlib-body">
-<?php } // End our header
-
-//get selected template
-include(CNFP_PATH . 'templates/' . $template . '/' . $template . '.php');
-
-
-
-if ( isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
-    // Check if user requested footer, else include our own footer
-    get_footer();
-} else {
-    if (is_customize_preview()) {
-        wp_footer();
-    }
-    ?>
-    </body><!-- This template was made by Colorlib (https://colorlib.com) -->
-    </html>
-<?php } ?>
+	if ( is_customize_preview() ) {
+		wp_footer();
+	}
+	?>
+	<!-- This template was made by Colorlib (https://colorlib.com) -->
+</body>
+</html>
+	<?php
+}

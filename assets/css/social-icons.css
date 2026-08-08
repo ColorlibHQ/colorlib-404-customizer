@@ -1,0 +1,41 @@
+/*
+ * Shared styling for the inline SVG social icons.
+ *
+ * Loaded only by the templates that show social links, in place of the Font
+ * Awesome webfont the plugin used to ship for the sake of six glyphs.
+ *
+ * Each template already sizes `.colorlib-notfound-social > a` (40x40, font-size
+ * 14px) and centred the glyph with line-height. Flex centring replaces that so
+ * an SVG lands in the middle of the box just as reliably as a text glyph did.
+ */
+
+.colorlib-notfound-social > a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+}
+
+.cnfp-icon {
+	width: 1em;
+	height: 1em;
+	flex: none;
+	fill: currentColor;
+}
+
+/*
+ * The standalone 404 document does not load the theme, so it cannot rely on the
+ * theme providing this class for the icon-only links' accessible names.
+ */
+.colorlib-notfound-social .screen-reader-text {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}

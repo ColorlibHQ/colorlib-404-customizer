@@ -1,5 +1,4 @@
 * {
-  -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
@@ -22,8 +21,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -46,8 +43,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50% , -50%);
-      -ms-transform: translate(-50% , -50%);
           transform: translate(-50% , -50%);
   font-size: 224px;
   font-weight: 900;
@@ -59,7 +54,6 @@ body.colorlib-body {
   text-shadow: -1px -1px 0px #8400ff, 1px 1px 0px #ff005a;
   letter-spacing: -20px;
 }
-
 
 .colorlib-notfound .colorlib-notfound-404 h2 {
   font-family: 'Montserrat', sans-serif;
@@ -87,7 +81,6 @@ body.colorlib-body {
   padding: 10px 40px;
   font-size: 14px;
   font-weight: 700;
-  -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
 

@@ -3,18 +3,18 @@
  * Plugin Name: Colorlib 404 Customizer
  * Plugin URI: https://colorlib.com/
  * Description: Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that comes with well designed 404 pages and lots of useful features including customization via Live Customizer.
- * Version: 1.0.98
+ * Version: 1.1.0
  * Author: Colorlib
  * Author URI: https://colorlib.com/
- * Tested up to: 6.8
- * Requires: 4.6 or higher
+ * Requires at least: 6.0
+ * Tested up to: 7.0
+ * Requires PHP: 7.4
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- * Requires PHP: 5.6
  * Text Domain: colorlib-404-customizer
  * Domain Path: /languages
  *
- * Copyright 2018-2019 Colorlib support@colorlib.com
+ * Copyright 2018-2026 Colorlib support@colorlib.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 3, as
@@ -28,653 +28,661 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @package Colorlib_404_Customizer
  */
 
+defined( 'ABSPATH' ) || exit;
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
+define( 'CNFP_VERSION', '1.1.0' );
 define( 'CNFP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CNFP_URL', plugin_dir_url( __FILE__ ) );
 define( 'CNFP_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 define( 'CNFP_FILE_', __FILE__ );
 
 add_action( 'init', 'cnfp_skip_redirect_on_login' );
-add_action( 'init', 'cnfp_check_footer_header' );
-add_action( 'plugins_loaded', 'cnfp_load_plugin_textdomain' );
-add_filter( 'plugin_action_links', 'cnfp_add_settings_link', 10, 5 );
+add_action( 'wp_enqueue_scripts', 'cnfp_style_enqueue' );
+add_action( 'cnfp_header', 'cnfp_style_enqueue', 20 );
+add_action( 'wp_head', 'cnfp_inline_style', 10 );
+add_filter( 'wp_resource_hints', 'cnfp_resource_hints', 10, 2 );
+add_filter( 'plugin_action_links_' . CNFP_PLUGIN_BASE, 'cnfp_add_settings_link' );
 add_action( 'customize_controls_enqueue_scripts', 'cnfp_customizer_scripts', 30 );
 add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts', 30 );
-add_action( 'cnfp_header', 'cnfp_style_enqueue', 20 );
-add_action( 'wp_head', 'cnfp_style_enqueue' );
-add_action( 'cnfp_header', 'wp_print_scripts' );
+add_action( 'admin_init', 'cnfp_check_for_review' );
+register_activation_hook( __FILE__, 'cnfp_check_on_activation' );
 
+/*
+ * No `load_plugin_textdomain()` call by design.
+ *
+ * Since WordPress 4.6 translations are resolved just in time from the `Domain
+ * Path` header above, so loading them by hand is redundant — and doing it at the
+ * wrong moment is exactly what produced the `_load_textdomain_just_in_time`
+ * notice reported in issue #30. Nothing here may call a translation function
+ * before `init`.
+ */
 
-// loads the text domain for translation
-function cnfp_load_plugin_textdomain() {
-	load_plugin_textdomain( 'colorlib-404-customizer', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+/**
+ * Default value for every setting the plugin owns.
+ *
+ * Also used to backfill options at read time, so a partially written option row
+ * can never produce undefined-key warnings in the templates.
+ *
+ * @return array<string, string>
+ */
+function cnfp_default_options() {
+	return array(
+		'colorlib_404_customizer_activation'           => '1',
+		'colorlib_404_customizer_select_template'      => 'template_01',
+		'colorlib_404_customizer_page_heading'         => 'Oops !',
+		'colorlib_404_customizer_content'              => 'Page Not Found!',
+		'colorlib_404_customizer_button_text'          => 'Back to homepage',
+		'colorlib_404_customizer_social_facebook'      => 'https://facebook.com/',
+		'colorlib_404_customizer_social_twitter'       => 'https://x.com/',
+		'colorlib_404_customizer_social_pinterest'     => 'https://pinterest.com/',
+		'colorlib_404_customizer_social_youtube'       => 'https://youtube.com/',
+		'colorlib_404_customizer_social_email'         => 'your@domain.to',
+		'colorlib_404_customizer_social_instagram'     => 'https://instagram.com/',
+		'colorlib_404_customizer_custom_css_control'   => '',
+		'colorlib_404_customizer_background_image'     => '',
+		'colorlib_404_customizer_background_repeat'    => 'no-repeat',
+		'colorlib_404_customizer_background_size'      => 'auto',
+		'colorlib_404_customizer_background_color'     => '',
+		'colorlib_404_customizer_text_color'           => '',
+		'colorlib_404_customizer_contact_link'         => '#',
+		'colorlib_404_customizer_enable_header_footer' => '',
+	);
 }
 
-// add settings and support links on WordPress plugin page
-function cnfp_add_settings_link( $actions, $plugin_file ) {
+/**
+ * Allowed values for the two background dropdowns.
+ *
+ * Shared by the customizer (to build the controls and validate input) and by the
+ * CSS writer (to validate again before the value reaches a stylesheet).
+ *
+ * @return array<string, string[]>
+ */
+function cnfp_background_choices() {
+	return array(
+		'repeat' => array( 'repeat', 'no-repeat', 'repeat-X', 'repeat-Y', 'round', 'space' ),
+		'size'   => array( 'cover', 'contain', 'auto' ),
+	);
+}
 
-	if ( CNFP_PLUGIN_BASE == $plugin_file ) {
+/**
+ * Read the plugin settings, backfilled with defaults.
+ *
+ * @return array<string, string>
+ */
+function cnfp_get_options() {
+	// Deliberately not memoised: the customizer previews changes by filtering
+	// `option_cnfp_settings`, and a request-lifetime cache would serve stale
+	// values into the preview. `get_option()` is served from the options cache.
+	$stored = get_option( 'cnfp_settings' );
 
-		$settings  = array( 'settings' => '<a href="' . admin_url( 'options-general.php?page=cnfp_settings' ) . '">' . __( 'Settings', 'colorlib-404-customizer' ) . '</a>' );
-		$site_link = array( 'support' => '<a href="https://colorlib.com/wp/forums/" target="_blank">' . __( 'Support', 'colorlib-404-customizer' ) . '</a>' );
+	return wp_parse_args( is_array( $stored ) ? $stored : array(), cnfp_default_options() );
+}
 
-		$actions = array_merge( $settings, $actions );
-		$actions = array_merge( $site_link, $actions );
+/**
+ * Read a single setting.
+ *
+ * @param string $key           Setting key, without the `cnfp_settings[...]` wrapper.
+ * @param string $default_value Returned when the key is unknown.
+ * @return string
+ */
+function cnfp_get_option( $key, $default_value = '' ) {
+	$options = cnfp_get_options();
+
+	return isset( $options[ $key ] ) ? (string) $options[ $key ] : $default_value;
+}
+
+/**
+ * The template registry.
+ *
+ * @return array<string, array{fonts: string[], supports: string[]}>
+ */
+function cnfp_get_templates() {
+	static $templates = null;
+
+	if ( null === $templates ) {
+		$templates = require CNFP_PATH . 'includes/cnfp-templates.php';
 	}
 
-	return $actions;
+	return $templates;
 }
 
-/* Redirect code that checks if on WP login page */
+/**
+ * The currently selected template, validated against the registry.
+ *
+ * Never trust the stored value here: it is interpolated into an `include` path
+ * and into asset URLs, so an unrecognised slug falls back to the default rather
+ * than reaching the filesystem.
+ *
+ * @param string $template Optional slug to validate instead of the stored one.
+ * @return string A slug that is guaranteed to exist in the registry.
+ */
+function cnfp_get_template( $template = '' ) {
+	$templates = cnfp_get_templates();
+
+	if ( ! is_string( $template ) || '' === $template ) {
+		$template = cnfp_get_option( 'colorlib_404_customizer_select_template' );
+	}
+
+	return isset( $templates[ $template ] ) ? $template : 'template_01';
+}
+
+/**
+ * Whether the active template offers a given feature.
+ *
+ * @param string $feature One of: content, button, social, contact, background_color.
+ * @return bool
+ */
+function cnfp_template_supports( $feature ) {
+	$templates = cnfp_get_templates();
+	$template  = cnfp_get_template();
+
+	return in_array( $feature, $templates[ $template ]['supports'], true );
+}
+
+/**
+ * Whether this request should render a plugin 404 page.
+ *
+ * Both the real 404 and the customizer preview (which previews the home URL with
+ * a marker query arg, so `is_404()` is false there) go through this.
+ *
+ * @return bool
+ */
+function cnfp_is_404_request() {
+	if ( '1' !== cnfp_get_option( 'colorlib_404_customizer_activation' ) ) {
+		return false;
+	}
+
+	if ( is_404() ) {
+		return true;
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only marker; the customizer enforces its own auth.
+	return is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] );
+}
+
+/**
+ * Skip the 404 takeover on wp-login.php.
+ *
+ * @return void
+ */
 function cnfp_skip_redirect_on_login() {
 	global $pagenow;
 
-	if ( 'wp-login.php' == $pagenow ) {
+	if ( 'wp-login.php' === $pagenow ) {
 		return;
-	} else {
-		add_action( 'template_redirect', 'cnfp_template_redirect' );
 	}
+
+	add_action( 'template_redirect', 'cnfp_template_redirect' );
 }
 
-/* 404 page Redirect to Template */
+/**
+ * Swap the theme's 404 handling for the selected template.
+ *
+ * @return void
+ */
 function cnfp_template_redirect() {
-
-	// global $wp_customize;
-	$cnfp_options = get_option( 'cnfp_settings' );
-	// Checks for if user is logged in and CNFP is activated  OR if customizer is open on CNFP customization panel
-
-	if ( ( is_404() && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) || ( is_customize_preview() && isset( $_REQUEST['colorlib-404-customization'] ) && $cnfp_options['colorlib_404_customizer_activation'] == '1' ) ) {
-
-		// get path of our 404 display page and redirecting
-		include CNFP_PATH . 'includes/colorlib-template.php';
-
-		exit();
+	if ( ! cnfp_is_404_request() ) {
+		return;
 	}
+
+	include CNFP_PATH . 'includes/colorlib-template.php';
+
+	exit;
 }
 
-// enqueue template styles
-function cnfp_style_enqueue( $template_name ) {
+/**
+ * Whether the 404 page is rendered inside the active theme's header and footer.
+ *
+ * @return bool
+ */
+function cnfp_use_theme_header_footer() {
+	return '1' === cnfp_get_option( 'colorlib_404_customizer_enable_header_footer' );
+}
 
-	// styles based on each template
-	$template_styles = array(
-		'template_01' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_02' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_03' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_04' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_05' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_06' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_07' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_08' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_09' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_10' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_11' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-			array(
-				'name'     => 'font-awesome',
-				'location' => 'assets/css/font-awesome.min.css',
-				'global'   => true,
-			),
-		),
-		'template_12' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_13' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_14' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-			array(
-				'name'     => 'font-awesome',
-				'location' => 'assets/css/font-awesome.min.css',
-				'global'   => true,
-			),
-		),
-		'template_15' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-			array(
-				'name'     => 'font-awesome',
-				'location' => 'assets/css/font-awesome.min.css',
-				'global'   => true,
-			),
-		),
-		'template_16' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-			array(
-				'name'     => 'font-awesome',
-				'location' => 'assets/css/font-awesome.min.css',
-				'global'   => true,
-			),
-		),
-		'template_17' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_18' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
-		'template_19' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-			array(
-				'name'     => 'font-awesome',
-				'location' => 'assets/css/font-awesome.min.css',
-				'global'   => true,
-			),
-		),
-		'template_20' => array(
-			array(
-				'name'     => 'main',
-				'location' => 'css/style.css',
-			),
-		),
+/**
+ * Build the combined Google Fonts URL for a template.
+ *
+ * One request per page instead of up to three, and `display=swap` so text paints
+ * immediately in a fallback face rather than staying invisible while the webfont
+ * downloads.
+ *
+ * Assembled by hand rather than with `add_query_arg()`, which would percent-encode
+ * the `+` that the Fonts API uses to mean a space inside family names. Every part
+ * comes from the hardcoded registry, so there is nothing user-supplied to escape.
+ *
+ * @param string $template Validated template slug.
+ * @return string Empty when the template uses no webfonts.
+ */
+function cnfp_google_fonts_url( $template ) {
+	$templates = cnfp_get_templates();
+	$families  = $templates[ $template ]['fonts'];
+
+	if ( empty( $families ) ) {
+		return '';
+	}
+
+	return 'https://fonts.googleapis.com/css?family=' . implode( '|', $families ) . '&display=swap';
+}
+
+/**
+ * Warm up the Google Fonts connection on pages that use one.
+ *
+ * Only reachable when the theme's header is in play; the plugin's own document
+ * prints the hint itself, since `wp_resource_hints()` never runs there.
+ *
+ * @param string[] $urls          URLs already queued for this relation type.
+ * @param string   $relation_type The hint type being filtered.
+ * @return string[]
+ */
+function cnfp_resource_hints( $urls, $relation_type ) {
+	if ( 'preconnect' !== $relation_type || ! cnfp_use_theme_header_footer() || ! cnfp_is_404_request() ) {
+		return $urls;
+	}
+
+	if ( '' === cnfp_google_fonts_url( cnfp_get_template() ) ) {
+		return $urls;
+	}
+
+	$urls[] = array(
+		'href' => 'https://fonts.gstatic.com',
+		'crossorigin',
 	);
 
-	$google_fonts_styles = array(
-		'template_01' => array(
-			array(
-				'name'     => 'Montserrat',
-				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:500',
-			),
-			array(
-				'name'     => 'Titillium',
-				'location' => 'https://fonts.googleapis.com/css?family=Titillium+Web:700,900',
-			),
-		),
-		'template_02' => array(
-			array(
-				'name'     => 'Roboto',
-				'location' => 'https://fonts.googleapis.com/css?family=Roboto:400,700',
-			),
-		),
-		'template_03' => array(
-			array(
-				'name'     => 'Cabin',
-				'location' => 'https://fonts.googleapis.com/css?family=Cabin:400,700',
-			),
-			array(
-				'name'     => 'Montserrat',
-				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:900',
-			),
-		),
-		'template_04' => array(
-			array(
-				'name'     => 'Montserrat',
-				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:200,400,700',
-			),
-		),
-		'template_05' => array(
-			array(
-				'name'     => 'Poppins',
-				'location' => 'https://fonts.googleapis.com/css?family=Poppins:400,700',
-			),
-		),
-		'template_06' => array(
-			array(
-				'name'     => 'Montserrat',
-				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:700,900',
-			),
-		),
-		'template_07' => array(
-			array(
-				'name'     => 'Fredoka One',
-				'location' => 'https://fonts.googleapis.com/css?family=Fredoka+One',
-			),
-			array(
-				'name'     => 'Raleway',
-				'location' => 'https://fonts.googleapis.com/css?family=Raleway:400,700',
-			),
-		),
-		'template_08' => array(
-			array(
-				'name'     => 'Josefin',
-				'location' => 'https://fonts.googleapis.com/css?family=Josefin+Sans:400,700',
-			),
-		),
-		'template_09' => array(
-			array(
-				'name'     => 'Cabin',
-				'location' => 'https://fonts.googleapis.com/css?family=Cabin:400,700',
-			),
-		),
-		'template_10' => array(
-			array(
-				'name'     => 'Montserrat',
-				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:400,700,900',
-			),
-		),
-		'template_11' => array(
-			array(
-				'name'     => 'Muli',
-				'location' => 'https://fonts.googleapis.com/css?family=Muli:400',
-			),
-			array(
-				'name'     => 'Passion One',
-				'location' => 'https://fonts.googleapis.com/css?family=Passion+One',
-			),
-		),
-		'template_12' => array(
-			array(
-				'name'     => 'Montserrat',
-				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:300,700',
-			),
-		),
-		'template_13' => array(
-			array(
-				'name'     => 'Montserrat',
-				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:400',
-			),
-			array(
-				'name'     => 'Chango',
-				'location' => 'https://fonts.googleapis.com/css?family=Chango',
-			),
-		),
-		'template_14' => array(
-			array(
-				'name'     => 'Quicksand',
-				'location' => 'https://fonts.googleapis.com/css?family=Quicksand:700',
-			),
-		),
-		'template_15' => array(
-			array(
-				'name'     => 'Oswald',
-				'location' => 'https://fonts.googleapis.com/css?family=Oswald:700',
-			),
-			array(
-				'name'     => 'Lato',
-				'location' => 'https://fonts.googleapis.com/css?family=Lato:400',
-			),
-		),
-		'template_16' => array(
-			array(
-				'name'     => 'Montserrat',
-				'location' => 'https://fonts.googleapis.com/css?family=Montserrat:700,900',
-			),
-		),
-		'template_17' => array(
-			array(
-				'name'     => 'Raleway',
-				'location' => 'https://fonts.googleapis.com/css?family=Raleway:400,700',
-			),
-			array(
-				'name'     => 'Passion One',
-				'location' => 'https://fonts.googleapis.com/css?family=Passion+One:900',
-			),
-		),
-		'template_18' => array(
-			array(
-				'name'     => 'Nunito',
-				'location' => 'https://fonts.googleapis.com/css?family=Nunito:400,700',
-			),
-		),
-		'template_19' => array(
-			array(
-				'name'     => 'Kanit',
-				'location' => 'https://fonts.googleapis.com/css?family=Kanit:200',
-			),
-		),
-		'template_20' => array(
-			array(
-				'name'     => 'Maven',
-				'location' => 'https://fonts.googleapis.com/css?family=Maven+Pro:400,900',
-			),
-		),
+	return $urls;
+}
+
+/**
+ * Print or enqueue the stylesheets the active template needs.
+ *
+ * Runs in two very different contexts:
+ *
+ *  - `cnfp_header`, from the plugin's own minimal document, where nothing else
+ *    has been printed and the styles go straight out via `wp_print_styles()`.
+ *  - `wp_enqueue_scripts`, when the theme's header is in use, where they join the
+ *    normal enqueue pipeline and get printed in `<head>` with everything else.
+ *
+ * The theme-header path is guarded: before 1.1.0 this was hooked to `wp_head` on
+ * every front-end request, which shipped the 404 stylesheet, its webfonts and
+ * jQuery site-wide — and did so too late in `wp_head` to be printed in `<head>`.
+ *
+ * @param string $template Slug passed by the `cnfp_header` action; empty otherwise.
+ * @return void
+ */
+function cnfp_style_enqueue( $template = '' ) {
+	if ( ! cnfp_is_404_request() ) {
+		return;
+	}
+
+	$standalone = ( 'cnfp_header' === current_action() );
+
+	// Each mode has exactly one entry point; ignore the other hook.
+	if ( $standalone === cnfp_use_theme_header_footer() ) {
+		return;
+	}
+
+	$template = cnfp_get_template( $template );
+
+	$styles = array(
+		$template . '-main' => CNFP_URL . 'templates/' . $template . '/css/style.css',
 	);
 
-	$cnfp_options = get_option( 'cnfp_settings' );
-
-	// check if template_name exists, if not get it from options
-	if ( ! $template_name || '' == $template_name ) {
-		$template_name = $cnfp_options['colorlib_404_customizer_select_template'];
+	if ( cnfp_template_supports( 'social' ) ) {
+		$styles['cnfp-social-icons'] = CNFP_URL . 'assets/css/social-icons.css';
 	}
 
-	// check if template and get the template arrays
-	if ( $template_name ) {
-		$encript_styles     = $template_styles[ $template_name ];
-		$google_fonts_style = $google_fonts_styles[ $template_name ];
-	}
+	$fonts_url = cnfp_google_fonts_url( $template );
 
-	if ( ! isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) || '0' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
-		// print WordPress default jquery
-		wp_print_scripts( 'jquery' );
-	}
+	if ( '' !== $fonts_url ) {
+		$styles['cnfp-fonts'] = $fonts_url;
 
-	// print styles depending on template
-	if ( $encript_styles != null && is_array( $encript_styles ) ) {
-		foreach ( $encript_styles as $encript_style ) {
-			if ( ! isset( $encript_style['global'] ) || true != $encript_style['global'] ) {
-
-				wp_register_style( $template_name . '-' . $encript_style['name'], CNFP_URL . 'templates/' . $template_name . '/' . $encript_style['location'] );
-				if ( isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
-					wp_enqueue_style( $template_name . '-' . $encript_style['name'] );
-				} else {
-					wp_print_styles( $template_name . '-' . $encript_style['name'] );
-				}
-			} else {
-
-				wp_register_style( $encript_style['name'], CNFP_URL . $encript_style['location'] );
-
-				if ( isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
-
-					wp_enqueue_style( $encript_style['name'] );
-				} else {
-					wp_print_styles( $encript_style['name'] );
-				}
-			}
+		if ( $standalone ) {
+			echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 		}
 	}
 
-	if ( $google_fonts_style != null && is_array( $google_fonts_style ) ) {
-		foreach ( $google_fonts_style as $google_font ) {
-			wp_register_style( $google_font['name'], $google_font['location'] );
+	foreach ( $styles as $handle => $src ) {
+		// Google's endpoint carries its own cache key; ours are versioned by the plugin.
+		$version = ( 'cnfp-fonts' === $handle ) ? null : CNFP_VERSION;
 
-			if ( isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
-				wp_enqueue_style( $google_font['name'] );
-			} else {
-				wp_print_styles( $google_font['name'] );
-			}
+		wp_register_style( $handle, $src, array(), $version );
+
+		if ( $standalone ) {
+			wp_print_styles( $handle );
+		} else {
+			wp_enqueue_style( $handle );
 		}
 	}
 }
 
+/**
+ * Clamp a stored colour to something that cannot escape a CSS declaration.
+ *
+ * Hand-rolled rather than using `sanitize_hex_color()`, which lives in the
+ * customizer class file and is not guaranteed to be loaded on the front end.
+ * Accepts hex, CSS colour functions and bare keywords, because older versions
+ * stored whatever the free-text sanitiser let through; anything containing
+ * characters that could terminate the declaration is dropped.
+ *
+ * @param string $color Raw stored value.
+ * @return string A usable CSS colour, or an empty string.
+ */
+function cnfp_sanitize_color( $color ) {
+	$color = trim( (string) $color );
 
+	if ( '' === $color ) {
+		return '';
+	}
+
+	$pattern = '/^(#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})'
+		. '|[a-z]+'
+		. '|(?:rgb|rgba|hsl|hsla)\([0-9.,%\s\/deg]+\))$/i';
+
+	return preg_match( $pattern, $color ) ? $color : '';
+}
+
+/**
+ * Strip anything that could break out of a `<style>` element.
+ *
+ * @param string $css Raw stored CSS.
+ * @return string
+ */
+function cnfp_sanitize_css( $css ) {
+	return str_replace( array( '<', '>' ), '', wp_strip_all_tags( (string) $css ) );
+}
+
+/**
+ * Emit the settings-driven CSS overrides.
+ *
+ * Hooked to `wp_head` at priority 10, i.e. after core prints enqueued styles at
+ * priority 8, so these overrides win the cascade. The plugin's own document calls
+ * this directly instead.
+ *
+ * @return void
+ */
+function cnfp_inline_style() {
+	if ( ! cnfp_is_404_request() ) {
+		return;
+	}
+
+	// The standalone document calls this itself; don't emit it twice in the
+	// customizer preview, where `wp_head()` also runs.
+	if ( 'wp_head' === current_action() && ! cnfp_use_theme_header_footer() ) {
+		return;
+	}
+
+	$choices    = cnfp_background_choices();
+	$text_color = cnfp_sanitize_color( cnfp_get_option( 'colorlib_404_customizer_text_color' ) );
+	$bg_color   = cnfp_sanitize_color( cnfp_get_option( 'colorlib_404_customizer_background_color' ) );
+	$background = cnfp_get_option( 'colorlib_404_customizer_background_image' );
+	$bg_repeat  = cnfp_get_option( 'colorlib_404_customizer_background_repeat' );
+	$bg_size    = cnfp_get_option( 'colorlib_404_customizer_background_size' );
+
+	$css = '';
+
+	if ( '' !== $text_color ) {
+		$css .= 'h1, h2, h3, h4, span, li, p, div, a { color: ' . $text_color . ' !important; }';
+	}
+
+	$css .= '#colorlib-notfound, #colorlib-notfound .colorlib-notfound-bg {';
+
+	if ( '' !== $background ) {
+		$css .= 'background-image: url("' . esc_url( $background ) . '") !important;';
+	}
+	if ( '' !== $bg_color ) {
+		$css .= 'background-color: ' . $bg_color . ' !important;';
+	}
+	if ( in_array( $bg_repeat, $choices['repeat'], true ) ) {
+		$css .= 'background-repeat: ' . $bg_repeat . ';';
+	}
+	if ( in_array( $bg_size, $choices['size'], true ) ) {
+		$css .= 'background-size: ' . $bg_size . ';';
+	}
+
+	$css .= '}';
+
+	$css .= '.colorlib-copyright { position: absolute; left: 0; right: 0; bottom: 0; margin: 0 auto; text-align: center; }';
+	$css .= '.colorlib-copyright span { opacity: 0.8; }';
+	$css .= '.colorlib-copyright a { opacity: 1; }';
+
+	$css .= cnfp_get_option( 'colorlib_404_customizer_custom_css_control' );
+
+	printf(
+		"<style id=\"cnfp-inline-css\">\n%s\n</style>\n",
+		cnfp_sanitize_css( $css ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS cannot be HTML-escaped; sanitised for tag breakout instead.
+	);
+}
+
+/**
+ * Render the social links shared by templates 11, 14, 15, 16 and 19.
+ *
+ * Previously duplicated verbatim in all five template files.
+ *
+ * @return void
+ */
+function cnfp_social_links() {
+	$networks = array(
+		'facebook'  => __( 'Facebook', 'colorlib-404-customizer' ),
+		'twitter'   => __( 'X', 'colorlib-404-customizer' ),
+		'pinterest' => __( 'Pinterest', 'colorlib-404-customizer' ),
+		'email'     => __( 'Email', 'colorlib-404-customizer' ),
+		'youtube'   => __( 'YouTube', 'colorlib-404-customizer' ),
+		'instagram' => __( 'Instagram', 'colorlib-404-customizer' ),
+	);
+
+	echo '<div class="colorlib-notfound-social">';
+
+	foreach ( $networks as $network => $label ) {
+		$value = cnfp_get_option( 'colorlib_404_customizer_social_' . $network );
+
+		if ( '' === $value ) {
+			continue;
+		}
+
+		if ( 'email' === $network ) {
+			// `antispambot()` returns HTML entities; `esc_attr()` leaves those intact
+			// because it does not double-encode. `esc_url()` would mangle them.
+			$href = esc_attr( 'mailto:' . antispambot( $value ) );
+		} else {
+			$href = esc_url( $value );
+
+			if ( '' === $href ) {
+				continue;
+			}
+		}
+
+		printf(
+			'<a href="%1$s" id="colorlib_404_customizer_social_%2$s">%3$s<span class="screen-reader-text">%4$s</span></a>',
+			$href, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above for its scheme.
+			esc_attr( $network ),
+			cnfp_get_icon( $network ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from a hardcoded, escaped icon table.
+			esc_html( $label )
+		);
+	}
+
+	echo '</div>';
+}
+
+/**
+ * Build one inline SVG icon.
+ *
+ * @param string $name Icon key from includes/cnfp-icons.php.
+ * @return string Safe markup, or an empty string for an unknown icon.
+ */
+function cnfp_get_icon( $name ) {
+	static $icons = null;
+
+	if ( null === $icons ) {
+		$icons = require CNFP_PATH . 'includes/cnfp-icons.php';
+	}
+
+	if ( ! isset( $icons[ $name ] ) ) {
+		return '';
+	}
+
+	$icon = $icons[ $name ];
+	$path = '<path d="' . esc_attr( $icon['path'] ) . '"/>';
+
+	// Outlines lifted from the Font Awesome SVG font are Y-up.
+	if ( $icon['flip'] ) {
+		$path = '<g transform="translate(0,1536) scale(1,-1)">' . $path . '</g>';
+	}
+
+	return sprintf(
+		'<svg class="cnfp-icon" viewBox="%s" fill="currentColor" aria-hidden="true" focusable="false">%s</svg>',
+		esc_attr( $icon['viewbox'] ),
+		$path
+	);
+}
+
+/**
+ * Add Settings and Support links to the plugin row.
+ *
+ * @param string[] $actions Existing row action links.
+ * @return string[]
+ */
+function cnfp_add_settings_link( $actions ) {
+	return array_merge(
+		array(
+			'support'  => '<a href="https://colorlib.com/wp/forums/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Support', 'colorlib-404-customizer' ) . '</a>',
+			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=cnfp_settings' ) ) . '">' . esc_html__( 'Settings', 'colorlib-404-customizer' ) . '</a>',
+		),
+		$actions
+	);
+}
+
+/**
+ * Register the customizer preview script.
+ *
+ * @return void
+ */
 function cnfp_customizer_preview_scripts() {
-	wp_register_script(
+	wp_enqueue_script(
 		'colorlib-cnfp-customizer-preview',
 		CNFP_URL . 'assets/js/customizer-preview.js',
-		array(
-			'jquery',
-			'customize-preview',
-		),
-		'',
+		array( 'customize-preview', 'customize-selective-refresh' ),
+		CNFP_VERSION,
 		true
 	);
-	wp_enqueue_script( 'colorlib-cnfp-customizer-preview' );
-	wp_enqueue_script( 'customize-selective-refresh' );
-
 }
 
-
+/**
+ * Register the customizer control scripts and styles.
+ *
+ * @return void
+ */
 function cnfp_customizer_scripts() {
 	wp_enqueue_editor();
-	wp_register_script( 'colorlib-cnfp-customizer-js', CNFP_URL . 'assets/js/customizer.js', array( 'customize-controls' ) );
-	wp_enqueue_script( 'colorlib-cnfp-customizer-js' );
-	wp_register_style( 'colorlib-cnfp-custom-controls-css', CNFP_URL . 'assets/css/cnfp-custom-controls.css', array(), '1.0', 'all' );
-	wp_enqueue_style( 'colorlib-cnfp-custom-controls-css' );
+
+	wp_enqueue_script(
+		'colorlib-cnfp-customizer-js',
+		CNFP_URL . 'assets/js/customizer.js',
+		array( 'customize-controls' ),
+		CNFP_VERSION,
+		true
+	);
+
+	wp_enqueue_style(
+		'colorlib-cnfp-custom-controls-css',
+		CNFP_URL . 'assets/css/cnfp-custom-controls.css',
+		array(),
+		CNFP_VERSION
+	);
+
 	wp_localize_script(
 		'colorlib-cnfp-customizer-js',
 		'CNFPurls',
 		array(
-			'siteurl' => get_option( 'siteurl' ),
+			'siteurl' => home_url( '/' ),
 		)
 	);
 }
 
-
-// check if default settings are stored in db, else store them
-register_activation_hook( __FILE__, 'cnfp_check_on_activation' );
-
+/**
+ * Seed defaults on activation.
+ *
+ * @return void
+ */
 function cnfp_check_on_activation() {
-	if ( get_option( 'cnfp_settings' ) == null ) {
-		$defaultSets = array(
-			'colorlib_404_customizer_activation'           => '1',
-			'colorlib_404_customizer_select_template'      => 'template_01',
-			'colorlib_404_customizer_page_heading'         => 'Oops !',
-			'colorlib_404_customizer_content'              => 'Page Not Found!',
-			'colorlib_404_customizer_button_text'          => 'Back to homepage',
-			'colorlib_404_customizer_social_facebook'      => 'https://facebook.com/',
-			'colorlib_404_customizer_social_twitter'       => 'https://twitter.com/',
-			'colorlib_404_customizer_social_pinterest'     => 'https://pinterest.com/',
-			'colorlib_404_customizer_social_youtube'       => 'https://youtube.com/',
-			'colorlib_404_customizer_social_email'         => 'your@domain.to',
-			'colorlib_404_customizer_social_instagram'     => 'https://instagram.com/',
-			'colorlib_404_customizer_custom_css_control'   => '',
-			'colorlib_404_customizer_background_image'     => '',
-			'colorlib_404_customizer_background_repeat'    => 'no-repeat',
-			'colorlib_404_customizer_background_size'      => 'auto',
-			'colorlib_404_customizer_background_color'     => '',
-			'colorlib_404_customizer_text_color'           => '',
-			'colorlib_404_customizer_contact_link'         => '#',
-			'colorlib_404_customizer_enable_header_footer' => '',
-		);
-		update_option( 'cnfp_settings', $defaultSets );
+	if ( null === get_option( 'cnfp_settings', null ) ) {
+		add_option( 'cnfp_settings', cnfp_default_options() );
 	}
 }
 
-
-function cnfp_template_has_contact_link() {
-	$cnfp_options              = get_option( 'cnfp_settings' );
-	$template_has_contact_link = array(
-		'template_16',
-	);
-
-	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_contact_link ) ) {
-		return true;
-	}
-
-	return false;
-}
-
-function cnfp_template_has_social_links() {
-	$cnfp_options              = get_option( 'cnfp_settings' );
-	$template_has_social_links = array(
-		'template_11',
-		'template_14',
-		'template_15',
-		'template_16',
-		'template_19',
-	);
-
-	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_social_links ) ) {
-		return true;
-	}
-
-	return false;
-}
-
-function cnfp_template_has_content() {
-	$cnfp_options         = get_option( 'cnfp_settings' );
-	$template_has_content = array(
-		'template_01',
-		'template_03',
-		'template_04',
-		'template_09',
-		'template_10',
-		'template_12',
-		'template_13',
-		'template_14',
-		'template_15',
-		'template_17',
-		'template_18',
-		'template_19',
-		'template_20',
-	);
-
-	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_content ) ) {
-		return true;
-	}
-
-	return false;
-}
-
-function cnfp_template_has_back_button() {
-	$cnfp_options             = get_option( 'cnfp_settings' );
-	$template_has_back_button = array(
-		'template_01',
-		'template_04',
-		'template_05',
-		'template_06',
-		'template_07',
-		'template_08',
-		'template_09',
-		'template_10',
-		'template_11',
-		'template_12',
-		'template_13',
-		'template_14',
-		'template_15',
-		'template_16',
-		'template_17',
-		'template_18',
-		'template_19',
-		'template_20',
-	);
-
-	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_back_button ) ) {
-		return true;
-	}
-
-	return false;
-}
-
-function cnfp_template_has_background_color() {
-	$cnfp_options                  = get_option( 'cnfp_settings' );
-	$template_has_background_color = array(
-		'template_16',
-	);
-
-	if ( in_array( $cnfp_options['colorlib_404_customizer_select_template'], $template_has_background_color ) ) {
-		return false;
-	}
-
-	return true;
-}
-
+/**
+ * Boot the review prompt.
+ *
+ * @return void
+ */
 function cnfp_check_for_review() {
-
 	require_once CNFP_PATH . 'includes/class-cnfp-review.php';
 
-	CNFP_Review::get_instance(
-		array(
-			'slug' => 'colorlib-404-customizer',
-		)
-	);
+	CNFP_Review::get_instance( array( 'slug' => 'colorlib-404-customizer' ) );
 }
 
-function cnfp_check_footer_header() {
-	$cnfp_options = get_option( 'cnfp_settings' );
-	if ( isset( $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) && '1' == $cnfp_options['colorlib_404_customizer_enable_header_footer'] ) {
-		add_action( 'wp_head', 'cnfp_inline_style' );
-	}
+/*
+ * Backwards-compatible wrappers. These names are referenced as customizer
+ * `active_callback` strings and may be relied on by third-party snippets.
+ */
+
+/**
+ * Whether the active template shows a contact link.
+ *
+ * @return bool
+ */
+function cnfp_template_has_contact_link() {
+	return cnfp_template_supports( 'contact' );
 }
 
-function cnfp_inline_style() {
-
-	$cnfp_options = get_option( 'cnfp_settings' );
-
-	$inline_css = '<style type="text/css">';
-	if ( $cnfp_options['colorlib_404_customizer_text_color'] ) {
-		$inline_css .= 'h1, h2, h3, h4, span, li, p, div, a { color: ' . esc_attr( $cnfp_options['colorlib_404_customizer_text_color'] ) . ' !important; }';
-	}
-
-	$inline_css .= '#colorlib-notfound, #colorlib-notfound .colorlib-notfound-bg {';
-
-	$inline_css .= ( $cnfp_options['colorlib_404_customizer_background_image'] ) ? 'background-image:url("' . esc_url( $cnfp_options['colorlib_404_customizer_background_image'] ) . '") !important;' : '';
-
-	$inline_css .= ( $cnfp_options['colorlib_404_customizer_background_color'] ) ? 'background-color:' . esc_attr( $cnfp_options['colorlib_404_customizer_background_color'] ) . ' !important;' : '';
-
-	$inline_css .= ( $cnfp_options['colorlib_404_customizer_background_repeat'] ) ? 'background-repeat:' . esc_attr( $cnfp_options['colorlib_404_customizer_background_repeat'] ) . ';' : '';
-
-	$inline_css .= ( $cnfp_options['colorlib_404_customizer_background_size'] ) ? 'background-size:' . esc_attr( $cnfp_options['colorlib_404_customizer_background_size'] ) . ';' : '';
-
-	$inline_css .= '}';
-
-	$inline_css .= $cnfp_options['colorlib_404_customizer_custom_css_control'];
-
-	$inline_css .= '.colorlib-copyright {position: absolute;left: 0;right: 0;bottom: 0;margin: 0 auto;
-    text-align: center;
-    }';
-
-	$inline_css .= '.colorlib-copyright span {opacity: 0.8;}';
-
-	$inline_css .= '.colorlib-copyright a {opacity: 1;}';
-	$inline_css .= '</style>';
-
-	echo $inline_css;
+/**
+ * Whether the active template shows social links.
+ *
+ * @return bool
+ */
+function cnfp_template_has_social_links() {
+	return cnfp_template_supports( 'social' );
 }
 
+/**
+ * Whether the active template shows the heading.
+ *
+ * Template 13 hardcodes its own "Error 404" wordmark and has nowhere to put the
+ * setting, so the control is hidden there rather than silently doing nothing.
+ *
+ * @return bool
+ */
+function cnfp_template_has_heading() {
+	return cnfp_template_supports( 'heading' );
+}
 
-add_action( 'admin_init', 'cnfp_check_for_review' );
-// Loading Plugin Theme Customizer Options
-require_once 'includes/class-cnfp-customizer.php';
+/**
+ * Whether the active template shows the main content block.
+ *
+ * @return bool
+ */
+function cnfp_template_has_content() {
+	return cnfp_template_supports( 'content' );
+}
+
+/**
+ * Whether the active template shows the back-to-home button.
+ *
+ * @return bool
+ */
+function cnfp_template_has_back_button() {
+	return cnfp_template_supports( 'button' );
+}
+
+/**
+ * Whether the active template honours the background colour setting.
+ *
+ * @return bool
+ */
+function cnfp_template_has_background_color() {
+	return cnfp_template_supports( 'background_color' );
+}
+
+require_once CNFP_PATH . 'includes/class-cnfp-customizer.php';

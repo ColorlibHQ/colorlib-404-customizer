@@ -1,118 +1,146 @@
-jQuery(window).on('load', function () {
+/**
+ * Customizer control-frame behaviour.
+ *
+ * Three jobs: turn the plain textareas into TinyMCE editors, point the preview at
+ * the 404 view while the panel is open, and drive the theme-picker-style template
+ * section.
+ *
+ * @package Colorlib_404_Customizer
+ */
 
-    jQuery('textarea.js-cnfp-editor').each(function () {
-        var textareaId = jQuery(this).attr('id');
-        var textareaEditor = jQuery(this);
+( function ( api ) {
+	'use strict';
 
-        wp.editor.initialize(textareaId, {
-            tinymce: {
-                wpautop: true,
-                browser_spellcheck: true,
-                mediaButtons: false,
-                wp_autoresize_on: true,
-                toolbar1: 'bold,italic,link,strikethrough',
-                setup: function (editor) {
-                    editor.on('change', function () {
-                        editor.save();
-                        jQuery(textareaEditor).trigger('change');
-                    });
-                }
-            },
-            quicktags: true
-        });
-    });
+	var TEMPLATE_SETTING = 'cnfp_settings[colorlib_404_customizer_select_template]';
 
-    wp.customize.panel('colorlib_404_customizer_panel', function (section) {
-        section.expanded.bind(function (isExpanding) {
-            var loginURL = CNFPurls.siteurl + '?colorlib-404-customization=true';
-            // Value of isExpanding will = true if you're entering the section, false if you're leaving it.
-            if (isExpanding) {
-                wp.customize.previewer.previewUrl.set(loginURL);
-            } else {
-                wp.customize.previewer.previewUrl.set(CNFPurls.siteurl);
+	/**
+	 * Upgrade the plugin's textareas to the block-free TinyMCE editor.
+	 */
+	function initEditors() {
+		if ( ! window.wp || ! window.wp.editor || ! window.wp.editor.initialize ) {
+			return;
+		}
 
-            }
-        });
-    });
+		document.querySelectorAll( 'textarea.js-cnfp-editor' ).forEach( function ( textarea ) {
+			window.wp.editor.initialize( textarea.id, {
+				tinymce: {
+					wpautop: true,
+					browser_spellcheck: true,
+					mediaButtons: false,
+					wp_autoresize_on: true,
+					toolbar1: 'bold,italic,link,strikethrough',
+					setup: function ( editor ) {
+						editor.on( 'change', function () {
+							editor.save();
 
-});
+							// The customizer listens for `change` on the textarea;
+							// a native event reaches its jQuery handler just fine.
+							textarea.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+						} );
+					}
+				},
+				quicktags: true
+			} );
+		} );
+	}
 
+	/**
+	 * Show the 404 view in the preview for as long as the panel is open.
+	 */
+	function bindPreviewUrl() {
+		if ( ! window.CNFPurls ) {
+			return;
+		}
 
+		api.panel( 'colorlib_404_customizer_panel', function ( panel ) {
+			panel.expanded.bind( function ( isExpanding ) {
+				var url = isExpanding
+					? window.CNFPurls.siteurl + '?colorlib-404-customization=true'
+					: window.CNFPurls.siteurl;
 
-( function( $, api ) {
+				api.previewer.previewUrl.set( url );
+			} );
+		} );
+	}
 
-    // Extends our custom "allegiant-pro-section" section.
-    api.sectionConstructor['cnfp-templates-section'] = api.OuterSection.extend( {
+	window.addEventListener( 'load', function () {
+		initEditors();
+		bindPreviewUrl();
+	} );
 
-        // No events for this type of section.
-        attachEvents: function () {
-            var section = this;
+	/*
+	 * The template chooser mirrors core's theme browser: a collapsed summary row
+	 * with a Change button that slides out a full-height section.
+	 */
+	api.sectionConstructor['cnfp-templates-section'] = api.OuterSection.extend( {
+		attachEvents: function () {
+			var section = this,
+				container = section.container[ 0 ],
+				head = section.headContainer[ 0 ],
+				toggle = head.querySelector( 'button.change-theme' );
 
-            section.container.find( 'button.change-theme' ).on( 'click', function( event ) {
+			if ( toggle ) {
+				toggle.addEventListener( 'click', function () {
+					if ( section.expanded() ) {
+						section.collapse();
+					} else {
+						section.expand();
+					}
+				} );
+			}
 
-                if ( ! section.expanded() ) {
-                    section.expand();
-                }else{
-                    section.collapse();
-                }
-                
-            });
+			container.querySelectorAll( '.customize-section-back' ).forEach( function ( button ) {
+				button.addEventListener( 'click', function ( event ) {
+					event.preventDefault();
+					section.collapse();
+				} );
 
-            // Expand/Collapse accordion sections on click.
-            section.container.find( '.customize-section-back' ).on( 'click keydown', function( event ) {
-                if ( api.utils.isKeydownButNotEnterEvent( event ) ) {
-                    return;
-                }
-                event.preventDefault(); // Keep this AFTER the key filter above
+				button.addEventListener( 'keydown', function ( event ) {
+					if ( 13 !== event.which && 32 !== event.which ) {
+						return;
+					}
 
-                if ( section.expanded() ) {
-                    section.collapse();
-                } else {
-                    section.expand();
-                }
-            });
+					event.preventDefault();
+					section.collapse();
+				} );
+			} );
+		},
 
-        },
+		// Always selectable, regardless of which controls are currently active.
+		isContextuallyActive: function () {
+			return true;
+		},
 
-        // Always make the section active.
-        isContextuallyActive: function () {
-            return true;
-        },
+		changeLabel: function ( template ) {
+			var label = this.headContainer[ 0 ].querySelector( '.cnfp-active_template' );
 
-        changeLabel: function( template ){
-            var section = this,
-                activeTemplateContiner = section.headContainer.find( '.cnfp-active_template' ),
-                templateName;
+			if ( label ) {
+				label.textContent = template.replace( /_/g, ' ' );
+			}
+		}
+	} );
 
-            templateName = template.replace( '_', ' ' );
-            activeTemplateContiner.text( templateName );
-        }
-        
-    } );
+	api.controlConstructor['cnfp-templates'] = api.Control.extend( {
+		ready: function () {
+			var control = this;
 
-    api.controlConstructor['cnfp-templates'] = api.Control.extend({
-        ready: function() {
-            var control = this;
+			control.container[ 0 ].addEventListener( 'change', function ( event ) {
+				if ( event.target.matches( 'input[type="radio"]' ) ) {
+					control.setting( event.target.value );
+				}
+			} );
+		}
+	} );
 
-            this.container.on( 'change', 'input:radio', function() {
-                var template = $( this ).val();
-                control.setting( template );
-            });
-        }
-    });
+	api.bind( 'ready', function () {
+		api( TEMPLATE_SETTING, function ( setting ) {
+			setting.bind( function ( template ) {
+				var section = api.section( api.control( TEMPLATE_SETTING ).section() );
 
-    api.bind( 'ready', function() {
-
-        api( 'cnfp_settings[colorlib_404_customizer_select_template]', function( value ) {
-                value.bind( function( to ) {
-
-                    // Change template label
-                    var section = api.control( 'cnfp_settings[colorlib_404_customizer_select_template]' ).section();
-                    api.section( section ).changeLabel( to );
-
-                });
-            });
-
-    });
-
-} )( jQuery, wp.customize );
+				if ( section && section.changeLabel ) {
+					section.changeLabel( template );
+				}
+			} );
+		} );
+	} );
+} )( wp.customize );
