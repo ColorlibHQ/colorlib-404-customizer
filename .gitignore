@@ -1,6 +1,9 @@
-node_modules/*
-.idea/*
+node_modules/
+.idea/
+.sass-cache/
+build/
 .DS_Store
 .standard.json
 package-lock.json
+*.map
 colorlib-404-customizer.zip
