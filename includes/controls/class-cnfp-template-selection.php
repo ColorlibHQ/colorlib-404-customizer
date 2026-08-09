@@ -1,31 +1,56 @@
 <?php
-if ( class_exists( 'WP_Customize_Control' ) ) {
-	if ( ! class_exists( 'CNFP_Template_Selection' ) ) {
+/**
+ * The template picker control.
+ *
+ * @package Colorlib_404_Customizer
+ */
 
-		class CNFP_Template_Selection extends WP_Customize_Control {
-			/**
-			 * The type of control being rendered
-			 */
-			public $type = 'cnfp-templates';
+defined( 'ABSPATH' ) || exit;
 
-			/**
-			 * Render the control in the customizer
-			 */
-			public function render_content() {
-				$cnfp_options = get_option( 'cnfp_settings' );
-				?>
-                <div class="colorlib_template_selection_radio">
-                    <div class="colorlib-templates-wrapper">
-						<?php foreach ( $this->choices as $key => $value ) { ?>
-                            <label class="colorlib-single-template-wrapper">
-                            	<input class="colorlib-template-radio" type="radio" name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $key ); ?>" <?php $this->link(); ?> <?php checked( esc_attr( $key ), $this->value() ); ?>/>
-                                <img src="<?php echo CNFP_URL . 'templates/' . esc_attr( $key ) . '/' . esc_attr( $key ) . '.png' ?>">
-                            </label>
-						<?php } ?>
-                    </div>
-                </div>
-				<?php
-			}
+if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'CNFP_Template_Selection' ) ) {
+
+	/**
+	 * A grid of preview thumbnails backed by radio inputs.
+	 */
+	class CNFP_Template_Selection extends WP_Customize_Control {
+
+		/**
+		 * Control type.
+		 *
+		 * @var string
+		 */
+		public $type = 'cnfp-templates';
+
+		/**
+		 * Render the grid.
+		 *
+		 * @return void
+		 */
+		public function render_content() {
+			?>
+			<div class="colorlib_template_selection_radio">
+				<div class="colorlib-templates-wrapper">
+					<?php foreach ( $this->choices as $key => $label ) : ?>
+						<label class="colorlib-single-template-wrapper">
+							<input class="colorlib-template-radio" type="radio"
+								name="<?php echo esc_attr( $this->id ); ?>"
+								value="<?php echo esc_attr( $key ); ?>"
+								<?php $this->link(); ?>
+								<?php checked( $key, $this->value() ); ?> />
+							<?php
+							/*
+							 * Twenty thumbnails on one panel; let the browser skip the
+							 * ones the user never scrolls to.
+							 */
+							?>
+							<img src="<?php echo esc_url( CNFP_URL . 'templates/' . $key . '/' . $key . '.png' ); ?>"
+								alt="<?php echo esc_attr( $label ); ?>"
+								loading="lazy" decoding="async" />
+						</label>
+					<?php endforeach; ?>
+				</div>
+			</div>
+			<?php
 		}
 	}
 }

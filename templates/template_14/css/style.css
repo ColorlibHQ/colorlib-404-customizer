@@ -1,5 +1,4 @@
 * {
-  -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
@@ -22,8 +21,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -38,8 +35,6 @@ body.colorlib-body {
   left: 0px;
   right: 0px;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   z-index: -1;
 }
@@ -52,22 +47,17 @@ body.colorlib-body {
 }
 
 .colorlib-notfound .colorlib-notfound-bg > div:nth-child(1) {
-  -webkit-box-shadow: 5px 5px 0px 0px #f3f3f3;
           box-shadow: 5px 5px 0px 0px #f3f3f3;
 }
 
 .colorlib-notfound .colorlib-notfound-bg > div:nth-child(2) {
-  -webkit-transform: scale(1.3);
-      -ms-transform: scale(1.3);
           transform: scale(1.3);
-  -webkit-box-shadow: 5px 5px 0px 0px #f3f3f3;
           box-shadow: 5px 5px 0px 0px #f3f3f3;
   position: relative;
   z-index: 10;
 }
 
 .colorlib-notfound .colorlib-notfound-bg > div:nth-child(3) {
-  -webkit-box-shadow: 5px 5px 0px 0px #f3f3f3;
           box-shadow: 5px 5px 0px 0px #f3f3f3;
   position: relative;
   z-index: 90;
@@ -126,7 +116,6 @@ body.colorlib-body {
   background-color: #dedede;
   margin: 3px;
   padding: 0px;
-  -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
 .colorlib-notfound-social>a>i {

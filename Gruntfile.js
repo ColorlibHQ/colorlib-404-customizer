@@ -1,22 +1,18 @@
 'use strict';
-module.exports = function( grunt ) {
 
-	// load all tasks
+module.exports = function ( grunt ) {
+
 	require( 'load-grunt-tasks' )( grunt, { scope: 'devDependencies' } );
 
 	grunt.config.init( {
 		pkg: grunt.file.readJSON( 'package.json' ),
 
-		dirs: {
-			css: '/assets/css',
-			js: '/assets/js'
-		},
 		checktextdomain: {
 			standard: {
 				options: {
-					text_domain: [ 'colorlib-404-customizer' ], //Specify allowed domain(s)
-					create_report_file: 'true',
-					keywords: [ //List keyword specifications
+					text_domain: [ 'colorlib-404-customizer' ],
+					create_report_file: true,
+					keywords: [
 						'__:1,2d',
 						'_e:1,2d',
 						'_x:1,2c,3d',
@@ -37,53 +33,69 @@ module.exports = function( grunt ) {
 					{
 						src: [
 							'**/*.php',
-							'!**/node_modules/**',
-						], //all php
+							'!node_modules/**',
+							'!build/**'
+						],
 						expand: true
 					}
 				]
 			}
 		},
-        makepot: {
-	        target: {
-	            options: {
-	                cwd: '',                          // Directory of files to internationalize.
-	                domainPath: 'languages/',         // Where to save the POT file.
-	                exclude: [],                      // List of files or directories to ignore.
-	                include: [],                      // List of files or directories to include.
-	                mainFile: 'colorlib-404-customizer.php',                     // Main project file.
-	                potComments: '',                  // The copyright at the beginning of the POT file.
-	                potFilename: 'colorlib-404-customizer.po',                  // Name of the POT file.
-	                potHeaders: {
-	                    poedit: true,                 // Includes common Poedit headers.
-	                    'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
-	                },                                // Headers to add to the generated POT file.
-	                processPot: null,                 // A callback function for manipulating the POT file.
-	                type: 'wp-plugin',                // Type of project (wp-plugin or wp-theme).
-	                updateTimestamp: true,            // Whether the POT-Creation-Date should be updated without other changes.
-	                updatePoFiles: false              // Whether to update PO files in the same directory as the POT file.
-	            }
-	        }
-	    },
-		cssmin: {
+
+		makepot: {
 			target: {
+				options: {
+					cwd: '',
+					domainPath: 'languages/',
+					exclude: [ 'build/.*', 'node_modules/.*' ],
+					include: [],
+					mainFile: 'colorlib-404-customizer.php',
+					potComments: '',
+					// A .pot is the template catalogue; the .po beside it is a
+					// translation. Generating a .po here was a long-standing
+					// mislabelling of the same file.
+					potFilename: 'colorlib-404-customizer.pot',
+					potHeaders: {
+						poedit: true,
+						'x-poedit-keywordslist': true
+					},
+					processPot: null,
+					type: 'wp-plugin',
+					updateTimestamp: true,
+					updatePoFiles: false
+				}
+			}
+		},
+
+		/*
+		 * Minify the staged copy in place, keeping the original filenames.
+		 *
+		 * The plugin enqueues `style.css`, never `style.min.css`, so writing
+		 * `.min.css` siblings into assets/ (as this task used to) produced files
+		 * nothing ever loaded — and it only covered the admin stylesheets, not the
+		 * 20 template stylesheets visitors actually download. Minifying the build
+		 * staging directory instead means the shipped zip serves minified CSS under
+		 * the names the plugin already asks for, while the sources stay readable.
+		 */
+		cssmin: {
+			build: {
 				files: [
 					{
 						expand: true,
-						cwd: 'assets/css',
-						src: [ '*.css', '!*.min.css' ],
-						dest: 'assets/css',
-						ext: '.min.css'
+						cwd: 'build/',
+						src: [ '**/*.css' ],
+						dest: 'build/'
 					}
 				]
 			}
 		},
+
 		clean: {
-			css: [ 'assets/css/*.min.css', '!assets/css/jquery-ui.min.css' ],
-			init: {
+			build: {
 				src: [ 'build/' ]
-			},
+			}
 		},
+
 		copy: {
 			build: {
 				expand: true,
@@ -94,7 +106,14 @@ module.exports = function( grunt ) {
 					'!build/**',
 					'!readme.md',
 					'!README.md',
+					'!CLAUDE.md',
+					'!.claude/**',
+					'!.github/**',
+					// Listing images live in the SVN /assets/ directory, not in the plugin.
+					'!.wordpress-org/**',
 					'!phpcs.ruleset.xml',
+					'!phpcs.xml',
+					'!phpcs.xml.dist',
 					'!package-lock.json',
 					'!svn-ignore.txt',
 					'!Gruntfile.js',
@@ -112,7 +131,7 @@ module.exports = function( grunt ) {
 		compress: {
 			build: {
 				options: {
-					pretty: true,                           // Pretty print file sizes when logging.
+					pretty: true,
 					archive: '<%= pkg.name %>.zip'
 				},
 				expand: true,
@@ -120,27 +139,23 @@ module.exports = function( grunt ) {
 				src: [ '**/*' ],
 				dest: '<%= pkg.name %>/'
 			}
-		},
+		}
 
 	} );
 
-	grunt.loadNpmTasks( 'grunt-contrib-clean' );
-	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+	grunt.registerTask( 'textdomain', [ 'checktextdomain' ] );
 
-	grunt.registerTask( 'textdomain', [
-		'checktextdomain'
-	] );
-	grunt.registerTask( 'i18n', ['checktextdomain', 'makepot']);
-	grunt.registerTask( 'mincss', [  // Minify CSS
-		'clean:css',
-		'cssmin'
-	] );
-	// Build task
+	grunt.registerTask( 'i18n', [ 'checktextdomain', 'makepot' ] );
+
+	// Stage, minify the staged CSS, zip, then throw the staging directory away.
 	grunt.registerTask( 'build-archive', [
 		'i18n',
-		'clean:init',
-		'copy',
+		'clean:build',
+		'copy:build',
+		'cssmin:build',
 		'compress:build',
-		'clean:init'
+		'clean:build'
 	] );
+
+	grunt.registerTask( 'default', [ 'build-archive' ] );
 };

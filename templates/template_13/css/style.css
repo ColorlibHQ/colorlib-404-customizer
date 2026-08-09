@@ -1,5 +1,4 @@
 * {
-  -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
@@ -21,8 +20,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -47,7 +44,6 @@ body.colorlib-body {
   height: 170px;
   background: #e01818;
   border-radius: 7px;
-  -webkit-box-shadow: 0px 0px 0px 10px #e01818 inset, 0px 0px 0px 20px #fff inset;
           box-shadow: 0px 0px 0px 10px #e01818 inset, 0px 0px 0px 20px #fff inset;
 }
 
@@ -59,8 +55,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   display: inline-block;
   height: 60px;

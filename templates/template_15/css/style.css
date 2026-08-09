@@ -1,5 +1,4 @@
 * {
-  -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
@@ -21,8 +20,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -64,23 +61,10 @@ body.colorlib-body {
   position: absolute;
   top: 0px;
   left: -0.5px;
-  -webkit-transform: translateY(-160px);
-      -ms-transform: translateY(-160px);
           transform: translateY(-160px);
   height: 160px;
   width: 2px;
   background-color: #00ffc0;
-}
-
-@-webkit-keyframes drop {
-  90% {
-    height: 20px;
-  }
-  100% {
-    height: 160px;
-    -webkit-transform: translateY(calc(100vh + 160px));
-            transform: translateY(calc(100vh + 160px));
-  }
 }
 
 @keyframes drop {
@@ -89,36 +73,27 @@ body.colorlib-body {
   }
   100% {
     height: 160px;
-    -webkit-transform: translateY(calc(100vh + 160px));
             transform: translateY(calc(100vh + 160px));
   }
 }
 
 #colorlib-notfound .colorlib-notfound-bg>div:nth-child(1):after {
-  -webkit-animation: drop 3s infinite linear;
           animation: drop 3s infinite linear;
-  -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s;
 }
 
 #colorlib-notfound .colorlib-notfound-bg>div:nth-child(2):after {
-  -webkit-animation: drop 2s infinite linear;
           animation: drop 2s infinite linear;
-  -webkit-animation-delay: 0.7s;
           animation-delay: 0.7s;
 }
 
 #colorlib-notfound .colorlib-notfound-bg>div:nth-child(3):after {
-  -webkit-animation: drop 3s infinite linear;
           animation: drop 3s infinite linear;
-  -webkit-animation-delay: 0.9s;
           animation-delay: 0.9s;
 }
 
 #colorlib-notfound .colorlib-notfound-bg>div:nth-child(4):after {
-  -webkit-animation: drop 2s infinite linear;
           animation: drop 2s infinite linear;
-  -webkit-animation-delay: 1.2s;
           animation-delay: 1.2s;
 }
 
@@ -165,16 +140,13 @@ body.colorlib-body {
   color: #000;
   font-weight: 400;
   text-transform: uppercase;
-  -webkit-box-shadow: 0px 0px 0px 2px #000, 2px 2px 0px 2px #00ffc0;
           box-shadow: 0px 0px 0px 2px #000, 2px 2px 0px 2px #00ffc0;
   text-decoration: none;
-  -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
 
 .colorlib-notfound a:hover {
   background-color: #00ffc0;
-  -webkit-box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;
           box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;
 }
 
@@ -196,7 +168,6 @@ body.colorlib-body {
 
 .colorlib-notfound-social>a:hover {
   background-color: #00ffc0;
-  -webkit-box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;
           box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 2px #00ffc0;
 }
 

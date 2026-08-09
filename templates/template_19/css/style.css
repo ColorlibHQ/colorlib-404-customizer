@@ -1,5 +1,4 @@
 * {
-  -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
@@ -21,8 +20,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -44,8 +41,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   font-size: 186px;
   font-weight: 200;
@@ -67,7 +62,6 @@ body.colorlib-body {
   letter-spacing: 3px;
 }
 
-
 .colorlib-notfound p {
   font-family: 'Kanit', sans-serif;
   font-size: 16px;
@@ -75,7 +69,6 @@ body.colorlib-body {
   margin-top: 0px;
   margin-bottom: 25px;
 }
-
 
 .colorlib-notfound a {
   font-family: 'Kanit', sans-serif;
@@ -96,7 +89,6 @@ body.colorlib-body {
   border: 1px solid #efefef;
   border-radius: 50%;
   margin: 3px;
-  -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
 

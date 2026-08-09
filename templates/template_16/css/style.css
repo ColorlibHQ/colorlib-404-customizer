@@ -1,5 +1,4 @@
 * {
-  -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
@@ -36,8 +35,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
 
@@ -58,8 +55,6 @@ body.colorlib-body {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   font-size: 220px;
   font-weight: 900;
@@ -91,7 +86,6 @@ body.colorlib-body {
   font-size: 18px;
   border-radius: 40px;
   margin: 7px;
-  -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
 
@@ -121,7 +115,6 @@ body.colorlib-body {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.9);
   margin: 0px 6px;
-  -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
 .colorlib-notfound-social>a:hover {

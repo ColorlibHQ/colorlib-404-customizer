@@ -8,12 +8,12 @@
     clear: both;
 }
 
-/**
- * For IE 6/7 only
- * Include this rule to trigger hasLayout and contain floats.
- */
-.cf {
-    *zoom: 1;
+/* Keeps the toggle caption on one line with its switch, whatever the admin
+   stylesheet does to bare labels, and makes the caption itself clickable. */
+.colorlib_cnfp .right-toggle > label {
+    display: inline;
+    font-weight: inherit;
+    cursor: pointer;
 }
 
 .colorlib-template-radio {
@@ -162,7 +162,7 @@ body .epsilon-toggle > input.epsilon-toggle__input[type=checkbox]:checked + .eps
 }
 #customize-outer-theme-controls #sub-accordion-section-colorlib_404_customizer_template_selection #customize-control-cnfp_settings-colorlib_404_customizer_select_template {
     height: calc( 100vh - 74px );
-    overflow: scroll;
+    overflow: auto;
     padding: 10px 12px 0;
     margin-bottom: 0;
     box-sizing: border-box;
