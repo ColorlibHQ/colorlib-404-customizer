@@ -96,11 +96,18 @@ Sizing comes from [assets/css/social-icons.css](assets/css/social-icons.css), lo
 
 ## WordPress.org listing assets
 
-`.wordpress-org/` holds `screenshot-1.png` … `screenshot-7.png` at 1280x960. These belong in the
-**SVN `/assets/` directory**, not in the plugin — the Grunt build excludes the folder, and the
-official deploy action picks it up from this path by convention.
+`.wordpress-org/` holds the listing images: `screenshot-1.png` … `screenshot-7.png` at 1280x960,
+`icon-256x256.png` / `icon-128x128.png`, and `banner-1544x500.png` / `banner-772x250.png`. These
+belong in the **SVN `/assets/` directory**, not in the plugin — the Grunt build excludes the folder,
+and the official deploy action picks it up from this path by convention.
 
-The numbering must stay in step with the captions under `== Screenshots ==` in `readme.txt`.
+The screenshot numbering must stay in step with the captions under `== Screenshots ==` in
+`readme.txt`.
+
+Icon and banner are built from HTML rendered in headless Chrome, using the Colorlib brand colours
+sampled from `assets/images/logo.jpg` — green `#77cc6e`, purple `#6f5499` — with the diagonal cue
+from the Colorlib mark. Both are authored at 2x and downscaled, and the icon was checked at 40px
+because that is roughly the size the admin plugin list uses.
 
 Two things learned from shooting them, worth repeating if they are ever redone:
 
