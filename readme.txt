@@ -139,37 +139,49 @@ Significant performance and security release. The plugin no longer loads its sty
 
 == Changelog ==
 
-= 1.1.0 - 07.08.2026 =
-Fixed: The 404 stylesheet, its Google Fonts and jQuery were being loaded on every page of the site instead of only on 404 pages.
-Fixed: Dropped the manual `load_plugin_textdomain()` call, clearing the `_load_textdomain_just_in_time` notice on WordPress 6.7+. WordPress has resolved plugin translations automatically since 4.6. ( https://github.com/ColorlibHQ/colorlib-404-customizer/issues/30 )
-Fixed: The admin menu entry now stops after redirecting to the Customizer, which is what produced the "does not have a method settings_page" fatal error. ( https://github.com/ColorlibHQ/colorlib-404-customizer/issues/28 )
-Fixed: The Customizer preview loaded its stylesheet from a filesystem path, which is why editing shortcuts rendered oversized when header and footer were disabled. ( https://github.com/ColorlibHQ/colorlib-404-customizer/issues/25 )
-Fixed: Templates 10, 15 and 16 had misspelt element ids, so their heading and back-to-home text never updated in the live preview.
-Fixed: The Heading control is now hidden for template 13, which has no heading and silently ignored the setting.
-Fixed: Template 4 printed the main content setting without sanitisation.
-Fixed: Undefined array key warnings on PHP 8 when the settings row was incomplete.
-Security: The template setting is now validated against the list of bundled templates before it is used to build an include path.
-Security: Custom CSS, colours and background values are sanitised on save and again on output, so nothing can break out of the `<style>` element.
-Security: The review notice AJAX handler now requires the `manage_options` capability.
-Security: Escaped all remaining admin and front-end output.
-Changed: Replaced the Font Awesome 4 webfont with inline SVG icons, removing about 1 MB of font files and a 32 KB stylesheet.
-Changed: Replaced the Twitter bird with the current X mark.
-Changed: Google Fonts are now requested once per page with `display=swap` and a preconnect hint, instead of up to three separate requests.
-Changed: Rewrote the Customizer preview and review notice scripts in vanilla JavaScript; the 404 page no longer loads jQuery.
-Changed: Consolidated the seven parallel per-template arrays into a single registry.
-Changed: Social links are rendered from one shared function instead of being duplicated across five templates.
-Added: Accessible names for the icon-only social links.
-Added: Lazy loading for the twenty template thumbnails in the Customizer.
-Added: `noindex` meta tag on the standalone 404 document.
-Added: Uninstall now removes the plugin's option and transient, including on multisite.
-Removed: Obsolete vendor prefixes from the template stylesheets, and an unused Customizer stylesheet.
-Changed: Stylesheets are now minified into the release archive, cutting the shipped CSS by about 20%. The previous task wrote `.min.css` files that nothing loaded, and only covered the admin stylesheets.
-Changed: Translations are generated as `languages/colorlib-404-customizer.pot`; the identically-empty `.po` beside it has been removed.
-Changed: Updated the build toolchain and dropped a stray runtime dependency on npm itself.
-Removed: Two bundled background images that no stylesheet referenced, one of them 4.2 MB.
-Changed: Resized the template preview thumbnails, which were 1920px wide for a 300px slot. Together with the above, the plugin download drops from 9.0 MB to 1.1 MB.
-Fixed: Added the missing direct-file-access guard to one Customizer section class.
-Added: A short description in readme.txt, as wordpress.org expects.
+= 1.1.0 - 10.08.2026 =
+
+Fixed:
+* The 404 stylesheet, its Google Fonts and jQuery were loaded on every page of the site instead of only on 404 pages.
+* Dropped the manual `load_plugin_textdomain()` call, clearing the `_load_textdomain_just_in_time` notice on WordPress 6.7+. WordPress has resolved plugin translations automatically since 4.6. ( https://github.com/ColorlibHQ/colorlib-404-customizer/issues/30 )
+* The admin menu entry now stops after redirecting to the Customizer, which is what produced the "does not have a method settings_page" fatal error. ( https://github.com/ColorlibHQ/colorlib-404-customizer/issues/28 )
+* The Customizer preview loaded its stylesheet from a filesystem path, which is why editing shortcuts rendered unstyled when header and footer were disabled. ( https://github.com/ColorlibHQ/colorlib-404-customizer/issues/25 )
+* Templates 10, 15 and 16 had misspelt element ids, so their heading and back-to-home text never updated in the live preview.
+* The Heading control is now hidden for template 13, which has no heading and silently ignored the setting.
+* Template 4 printed the main content setting without sanitisation.
+* Undefined array key warnings on PHP 8 when the settings row was incomplete.
+* The preview thumbnails for templates 11 and 16 showed background photos those designs do not render.
+* Added the missing direct-file-access guard to one Customizer section class.
+
+Security:
+* The template setting is now validated against the list of bundled templates before it is used to build an include path.
+* Custom CSS, colours and background values are sanitised on save and again on output, so nothing can break out of the `<style>` element.
+* The review notice AJAX handler now requires the `manage_options` capability.
+* Escaped all remaining admin and front-end output.
+
+Changed:
+* Replaced the Font Awesome 4 webfont with inline SVG icons, removing about 1 MB of font files and a 32 KB stylesheet.
+* Replaced the Twitter bird with the current X mark.
+* Google Fonts are requested once per page with `display=swap` and a preconnect hint, instead of up to three separate requests.
+* Rewrote the Customizer preview and review notice scripts in vanilla JavaScript; the 404 page no longer loads any JavaScript.
+* Consolidated the seven parallel per-template arrays into a single registry, and social links now render from one shared function instead of five copies.
+* Stylesheets are minified into the release archive, cutting the shipped CSS by about 20%.
+* Translations are generated as `languages/colorlib-404-customizer.pot`; the identically-empty `.po` beside it has been removed.
+* Updated the build toolchain and dropped a stray runtime dependency on npm itself.
+* Requires WordPress 6.0 and PHP 7.4.
+
+Added:
+* Accessible names for the icon-only social links.
+* Lazy loading for the twenty template thumbnails in the Customizer.
+* `noindex` meta tag on the standalone 404 document.
+* Uninstall now removes the plugin's option and transient, including on multisite.
+* A short description in readme.txt, as wordpress.org expects.
+
+Removed:
+* Two bundled background images that no stylesheet referenced, one of them 4.2 MB.
+* Obsolete vendor prefixes from the template stylesheets, and an unused Customizer stylesheet.
+
+Together these take the plugin download from 9.0 MB to under 1 MB.
 
 = 1.0.98 - 05.06.2025 =
 Fixed: Textdomain fix for wordpress 6.8+
