@@ -96,27 +96,24 @@ Sizing comes from [assets/css/social-icons.css](assets/css/social-icons.css), lo
 
 ## WordPress.org listing assets
 
-`.wordpress-org/` holds the listing images: `screenshot-1.png` … `screenshot-7.png` at 1280x960,
-`icon-256x256.png` / `icon-128x128.png`, and `banner-1544x500.png` / `banner-772x250.png`. These
-belong in the **SVN `/assets/` directory**, not in the plugin — the Grunt build excludes the folder,
-and the official deploy action picks it up from this path by convention.
+`.wordpress-org/` is a **mirror of the SVN `/assets/` directory** — the listing images, not plugin
+files. The Grunt build excludes the folder and the deploy action syncs it to SVN.
 
-The screenshot numbering must stay in step with the captions under `== Screenshots ==` in
-`readme.txt`.
+It must stay a complete mirror. The deploy action rsyncs this directory with `--delete`, so
+anything live but missing here gets removed from the listing. That is why `icon-256x256.jpg` and
+`banner-772x250.jpg` are committed even though nothing in this repo generated them: they are the
+original illustrated artwork that has been on the listing since 2018, and dropping them from this
+folder would delete them from the directory on the next deploy.
 
-Icon and banner are built from HTML rendered in headless Chrome, using the Colorlib brand colours
-sampled from `assets/images/logo.jpg` — green `#77cc6e`, purple `#6f5499` — with the diagonal cue
-from the Colorlib mark. Both are authored at 2x and downscaled, and the icon was checked at 40px
-because that is roughly the size the admin plugin list uses.
+`screenshot-1.png` … `screenshot-7.png` are 1280x960 captures. Their numbering must stay in step
+with the captions under `== Screenshots ==` in `readme.txt`.
 
-Two things learned from shooting them, worth repeating if they are ever redone:
+Two things learned from shooting the screenshots, worth repeating if they are ever redone:
 
 - Use a **short heading**. Several designs (template 4 especially) set the heading at a very large
   size and a long string overflows the layout.
 - The Customizer's edit pencils sit on top of the previewed text. Inject
   `.customize-partial-edit-shortcut { display: none }` into the preview frame before capturing.
-
-The plugin **icon and banner** (`icon-256x256.png`, `banner-1544x500.png`) are not in this repo yet.
 
 ## Release conventions
 
