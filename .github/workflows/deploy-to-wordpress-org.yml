@@ -1,0 +1,67 @@
+name: Deploy to WordPress.org
+
+# Publishing a GitHub release ships that version to the plugin directory.
+# `workflow_dispatch` is there for re-running a deploy without cutting a new
+# release — for example after fixing only the listing assets.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Build and check out SVN without committing'
+        type: boolean
+        default: false
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install build toolchain
+        run: npm ci
+
+      - name: Verify the plugin parses
+        run: |
+          find . -name '*.php' -not -path './node_modules/*' -print0 \
+            | xargs -0 -n1 -P4 php -l
+
+      # Deploy the built archive rather than the repo, so trunk gets the same
+      # minified CSS the GitHub release zip does. The Grunt task already knows
+      # which development files to leave out.
+      - name: Build the release archive
+        run: |
+          npm run build
+          mkdir -p deploy
+          unzip -q colorlib-404-customizer.zip -d deploy
+
+      - name: Confirm nothing developer-only slipped in
+        run: |
+          cd deploy/colorlib-404-customizer
+          for unwanted in node_modules .github .wordpress-org Gruntfile.js package.json CLAUDE.md; do
+            if [ -e "$unwanted" ]; then
+              echo "::error::$unwanted must not ship inside the plugin"
+              exit 1
+            fi
+          done
+          test -f colorlib-404-customizer.php
+          test -f readme.txt
+
+      - name: Deploy to the plugin directory
+        if: ${{ github.event_name == 'release' || !inputs.dry_run }}
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: colorlib-404-customizer
+          BUILD_DIR: ./deploy/colorlib-404-customizer
+          # Screenshots, icon and banner live here and go to SVN /assets/.
+          ASSETS_DIR: .wordpress-org
