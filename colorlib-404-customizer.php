@@ -388,11 +388,15 @@ function cnfp_sanitize_color( $color ) {
 /**
  * Strip anything that could break out of a `<style>` element.
  *
+ * Only `<` is dangerous inside `<style>`: without it there is no `</style`. A
+ * bare `>` is the child combinator, and stripping it (as 1.1.0 did) silently
+ * turned `.a > .b` into the descendant selector `.a  .b`.
+ *
  * @param string $css Raw stored CSS.
  * @return string
  */
 function cnfp_sanitize_css( $css ) {
-	return str_replace( array( '<', '>' ), '', wp_strip_all_tags( (string) $css ) );
+	return str_replace( '<', '', wp_strip_all_tags( (string) $css ) );
 }
 
 /**
@@ -447,7 +451,9 @@ function cnfp_inline_style() {
 	$css .= '#colorlib-notfound, #colorlib-notfound .colorlib-notfound-bg {';
 
 	if ( '' !== $background ) {
-		$css .= 'background-image: url("' . esc_url( $background ) . '") !important;';
+		// `esc_url_raw()`, not `esc_url()`: CSS does not decode HTML entities, so
+		// the `&#038;` that `esc_url()` writes for `&` broke query-string URLs.
+		$css .= 'background-image: url("' . esc_url_raw( $background ) . '") !important;';
 	}
 	if ( '' !== $bg_color ) {
 		$css .= 'background-color: ' . $bg_color . ' !important;';
