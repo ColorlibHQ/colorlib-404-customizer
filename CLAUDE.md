@@ -17,7 +17,7 @@ npm install                  # installs the Grunt toolchain
 
 npm run textdomain           # verify all i18n calls use the 'colorlib-404-customizer' domain
 npm run i18n                 # checktextdomain + regenerate languages/colorlib-404-customizer.pot
-npm run lint                 # php -l across the tree
+npm run lint                 # php -l across the tree, node --check on assets/js
 npm run build                # the release archive -> colorlib-404-customizer.zip
 ```
 
@@ -40,7 +40,7 @@ For logic changes, a stub-WordPress smoke test is worth rebuilding — define th
 
 ### Request flow for a 404
 
-`colorlib-404-customizer.php` hooks `template_redirect` (via `cnfp_skip_redirect_on_login`, which bails on `wp-login.php`). `cnfp_is_404_request()` decides whether to take over: it requires the activation toggle, and accepts either a real `is_404()` or the Customizer preview, which previews the *home* URL carrying `?colorlib-404-customization=true` — so `is_404()` is false there. Any code that gates on "are we rendering a 404" must use this helper, not `is_404()` alone.
+`colorlib-404-customizer.php` hooks `template_redirect` at priority **999** (via `cnfp_skip_redirect_on_login`, which bails on `wp-login.php`), so core's canonical/old-slug redirects and redirect plugins get to rescue a URL before the plugin exits. `cnfp_is_404_request()` decides whether to take over: it requires the activation toggle, and accepts either a real `is_404()` or the Customizer preview, which previews the *home* URL carrying `?colorlib-404-customization=true` — so `is_404()` is false there. Any code that gates on "are we rendering a 404" must use this helper, not `is_404()` alone.
 
 On a match it includes [includes/colorlib-template.php](includes/colorlib-template.php) and calls `exit()`, short-circuiting the theme.
 
@@ -48,7 +48,7 @@ On a match it includes [includes/colorlib-template.php](includes/colorlib-templa
 
 | Aspect | Standalone (default) | Theme header/footer |
 | --- | --- | --- |
-| Document | plugin emits its own `<html>`/`<head>` | `get_header()` / `get_footer()` |
+| Document | plugin emits its own `<html>`/`<head>` | classic theme: `get_header()` / `get_footer()`; block theme: `block_header_area()` / `block_footer_area()` in a template-canvas-shaped document |
 | Stylesheets | `cnfp_header` action → `wp_print_styles()` | `wp_enqueue_scripts` → `wp_enqueue_style()` |
 | Inline overrides | `cnfp_inline_style()` called directly | `wp_head` at priority 10 |
 | Theme CSS | stripped in preview by `cnfp_remove_all_styles_preview()` | left alone |
@@ -56,13 +56,15 @@ On a match it includes [includes/colorlib-template.php](includes/colorlib-templa
 `cnfp_style_enqueue()` serves both and picks its behaviour from `current_action()`; the guard `if ( $standalone === cnfp_use_theme_header_footer() ) return;` is what keeps each mode to exactly one entry point. Two things this arrangement is deliberately fixing, so don't undo them:
 
 - Enqueuing on `wp_head` is **too late** — core prints styles at `wp_head` priority 8, so assets would land in the footer.
+- Block themes have no `header.php`/`footer.php`; `get_header()` there falls back to core's deprecated theme-compat markup. The block branch renders the template parts into buffers **before** `wp_head()` so their block styles are enqueued in time. It is taken only when neither theme directory has a `header.php` (checked with `file_exists` — `locate_template()` returns core's theme-compat file, so it never reports one missing) and when the parts render something; otherwise the classic path runs, as it always did.
+- The Text Color rule is the original unscoped `h1, h2, … a` list in standalone mode (the document holds only the design) and `:where(#colorlib-notfound) h1, …` in header/footer mode. `:where()` keeps the specificity identical, so users' Custom CSS overrides of it still win — don't "simplify" it to `#colorlib-notfound h1`.
 - Before 1.1.0 the enqueue callback was unguarded on `wp_head`, which shipped the 404 stylesheet, its webfonts and jQuery on *every page of the site*.
 
 ### Settings storage
 
 All settings live in a **single serialized option**, `cnfp_settings` (an array). Customizer settings are registered as `cnfp_settings[colorlib_404_customizer_*]` with `'type' => 'option'`.
 
-Read settings through `cnfp_get_option()` / `cnfp_get_options()`, never `get_option('cnfp_settings')` directly — the accessor backfills from `cnfp_default_options()`, which is what keeps templates free of undefined-key warnings. `cnfp_default_options()` is also the seed on activation, so **a new setting must be added there** or existing installs get an empty string instead of your default.
+Read settings through `cnfp_get_option()` / `cnfp_get_options()`, never `get_option('cnfp_settings')` directly — the accessor backfills from `cnfp_default_options()`, which is what keeps templates free of undefined-key warnings. `cnfp_default_options()` is also the seed on activation, so **a new setting must be added there** or existing installs get an empty string instead of your default. Social links and the contact link default to empty (hidden on the page) — never ship placeholder profiles as defaults; use `input_attrs` placeholders in the Customizer instead.
 
 `cnfp_get_options()` is deliberately *not* memoized: the Customizer previews changes by filtering `option_cnfp_settings`, and a request-lifetime cache would serve stale values into the preview.
 
@@ -79,12 +81,18 @@ Adding `template_NN` means: one registry entry, plus `templates/template_NN/temp
 ### Security invariants
 
 - **`cnfp_get_template()` is the only way to resolve a template slug.** The value is interpolated into an `include` path and into asset URLs; the function validates against the registry and falls back to `template_01`. `cnfp_sanitize_template()` wraps it as the setting's sanitize callback.
-- **Custom CSS and colours are sanitised twice** — on save and again on output — because stored values predate the current callbacks. `cnfp_sanitize_css()` strips tags and angle brackets so nothing can close the `<style>` element; `cnfp_sanitize_color()` matches a strict pattern rather than using `sanitize_hex_color()`, which lives in the Customizer class file and is not reliably loaded on the front end.
+- **Custom CSS and colours are sanitised twice** — on save and again on output — because stored values predate the current callbacks. `cnfp_sanitize_css()` strips tags and `<` so nothing can close the `<style>` element — it must **not** strip `>`, which is the child combinator; `cnfp_sanitize_color()` matches a strict pattern rather than using `sanitize_hex_color()`, which lives in the Customizer class file and is not reliably loaded on the front end.
 - Background repeat/size are re-validated against `cnfp_background_choices()` at output time.
 
 ### Live-preview contract
 
-Heading, content and button text use `postMessage` transport plus a selective-refresh partial, both keyed on a DOM **id equal to the setting key**. [assets/js/customizer-preview.js](assets/js/customizer-preview.js) swaps `#<setting_key>`'s innerHTML. A template that misspells one of these ids silently loses live preview — that was the bug in template 16 before 1.1.0.
+Heading, content and button text use `postMessage` transport plus a selective-refresh partial, both keyed on a DOM **id equal to the setting key**. [assets/js/customizer-preview.js](assets/js/customizer-preview.js) swaps `#<setting_key>`'s innerHTML instantly, then the partial re-renders it server-side. A template that misspells one of these ids silently loses live preview — that was the bug in template 16 before 1.1.0.
+
+A `postMessage` partial **must have a `render_callback`**. Without one, core treats every render as a failure and falls back to a full preview reload on each change — which is what 1.1.0 did.
+
+The three fields are TinyMCE editors, initialised per control (`controlConstructor['cnfp-editor']`) the first time their section opens. `wp_enqueue_editor()` alone is not enough in the Customizer: it prints TinyMCE on `admin_print_footer_scripts`, which only the Widgets component fires, and block themes have no widgets panel. `cnfp_print_editor_scripts()` covers that case.
+
+Colorlib's Coming Soon plugin reuses this plugin's picker class names (`.colorlib-template-radio` etc.), so picker CSS is scoped under `.customize-control-cnfp-templates`.
 
 Social settings use plain `refresh` transport: their value is an `href`, not element content, so a full preview refresh is the correct behaviour.
 
@@ -93,6 +101,10 @@ Social settings use plain `refresh` transport: their value is an `href`, not ele
 [includes/cnfp-icons.php](includes/cnfp-icons.php) holds path data for the six social icons, rendered by `cnfp_get_icon()`. Five outlines were extracted from the Font Awesome 4.7 SVG font the plugin used to ship, so they render identically to before; they are Y-up (units-per-em 1792, ascent 1536) and carry `flip => true`, which applies `translate(0,1536) scale(1,-1)`. The X mark is authored on a normal 24x24 grid with `flip => false`.
 
 Sizing comes from [assets/css/social-icons.css](assets/css/social-icons.css), loaded only for templates that declare `social` support. It switches the anchors to `inline-flex` centring (the templates' own `line-height` centring only worked for a text glyph) and ships `.screen-reader-text`, because the standalone document has no theme stylesheet to provide it.
+
+### Review notice
+
+[includes/class-cnfp-review.php](includes/class-cnfp-review.php) stores the first-seen time in the `cnfp_review_since` option (migrated from the 1.1.0 `cnfp_review` transient, which expired and restarted the count). The notice is due at days 5, 15 and 30; the dismiss X snoozes to the next milestone, and any of the three buttons ends it for good (`givemereview = already-rated` inside `cnfp_settings`).
 
 ## WordPress.org listing assets
 

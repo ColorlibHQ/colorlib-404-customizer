@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Colorlib 404 Customizer 1.1.0\n"
+"Project-Id-Version: Colorlib 404 Customizer 1.1.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/colorlib-404-customizer\n"
-"POT-Creation-Date: 2026-08-08 18:27:58+00:00\n"
+"POT-Creation-Date: 2026-09-29 13:06:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,35 +25,40 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.4\n"
 
-#: colorlib-404-customizer.php:468 includes/class-cnfp-customizer.php:300
+#: colorlib-404-customizer.php:507 includes/class-cnfp-customizer.php:312
 msgid "Facebook"
 msgstr ""
 
-#: colorlib-404-customizer.php:469
+#: colorlib-404-customizer.php:508
 msgid "X"
 msgstr ""
 
-#: colorlib-404-customizer.php:470 includes/class-cnfp-customizer.php:304
+#: colorlib-404-customizer.php:509 includes/class-cnfp-customizer.php:316
 msgid "Pinterest"
 msgstr ""
 
-#: colorlib-404-customizer.php:471 includes/class-cnfp-customizer.php:302
+#: colorlib-404-customizer.php:510 includes/class-cnfp-customizer.php:314
 msgid "Email"
 msgstr ""
 
-#: colorlib-404-customizer.php:472 includes/class-cnfp-customizer.php:303
+#: colorlib-404-customizer.php:511 includes/class-cnfp-customizer.php:315
 msgid "YouTube"
 msgstr ""
 
-#: colorlib-404-customizer.php:473 includes/class-cnfp-customizer.php:305
+#: colorlib-404-customizer.php:512 includes/class-cnfp-customizer.php:317
 msgid "Instagram"
 msgstr ""
 
-#: colorlib-404-customizer.php:550
+#: colorlib-404-customizer.php:580
+#. translators: %d: template number.
+msgid "Template %d"
+msgstr ""
+
+#: colorlib-404-customizer.php:643
 msgid "Support"
 msgstr ""
 
-#: colorlib-404-customizer.php:551
+#: colorlib-404-customizer.php:644
 msgid "Settings"
 msgstr ""
 
@@ -73,29 +78,32 @@ msgstr ""
 msgid "Social Links"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:77
+#: includes/class-cnfp-customizer.php:68
+msgid "Links left empty are not shown on the page."
+msgstr ""
+
+#: includes/class-cnfp-customizer.php:78
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:102
+#: includes/class-cnfp-customizer.php:103
 msgid "Activate Colorlib 404 Customizer ?"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:116
+#: includes/class-cnfp-customizer.php:117
 msgid "Enable header and footer on 404 pages"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:128
+#: includes/class-cnfp-customizer.php:129
 msgid "Enter Contact Link"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:143
-msgid "Custom CSS on 404 page"
+#: includes/class-cnfp-customizer.php:130
+msgid "Leave empty to hide the Contact us button."
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:161
-#. translators: %d: template number.
-msgid "Template %d"
+#: includes/class-cnfp-customizer.php:146
+msgid "Custom CSS on 404 page"
 msgstr ""
 
 #: includes/class-cnfp-customizer.php:170
@@ -170,7 +178,7 @@ msgstr ""
 msgid "Return to home text"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:301
+#: includes/class-cnfp-customizer.php:313
 msgid "X (Twitter)"
 msgstr ""
 
@@ -178,22 +186,22 @@ msgstr ""
 msgid "Colorlib 404 Customizer"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:377
+#: includes/class-cnfp-customizer.php:390
 msgid "404 Customizer"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:396
+#: includes/class-cnfp-customizer.php:409
 msgid ""
 "The 404 Customizer is a free WordPress plugin that allows you to create a "
 "custom and stylish 404 page quickly via the Live Customizer. You can "
 "preview your changes before you save them! Awesome, right?"
 msgstr ""
 
-#: includes/class-cnfp-customizer.php:404
+#: includes/class-cnfp-customizer.php:417
 msgid "Start Customizing!"
 msgstr ""
 
-#: includes/class-cnfp-review.php:78
+#: includes/class-cnfp-review.php:85
 #. translators: %s: number of days the plugin has been installed.
 msgid ""
 "Hey, I noticed you have installed our plugin for %s day(s) - that's "
@@ -201,15 +209,15 @@ msgid ""
 "WordPress? Just to help us spread the word and boost our motivation."
 msgstr ""
 
-#: includes/class-cnfp-review.php:79
+#: includes/class-cnfp-review.php:86
 msgid "Ok, you deserve it"
 msgstr ""
 
-#: includes/class-cnfp-review.php:80
+#: includes/class-cnfp-review.php:87
 msgid "I already did"
 msgstr ""
 
-#: includes/class-cnfp-review.php:81
+#: includes/class-cnfp-review.php:88
 msgid "No, not good enough"
 msgstr ""
 
@@ -217,19 +225,19 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: includes/controls/class-cnfp-template-section.php:60
+#: includes/controls/class-cnfp-template-section.php:68
 msgid "Active Template"
 msgstr ""
 
-#: includes/controls/class-cnfp-template-section.php:62
+#: includes/controls/class-cnfp-template-section.php:70
 msgid "Change Template"
 msgstr ""
 
-#: includes/controls/class-cnfp-template-section.php:70
+#: includes/controls/class-cnfp-template-section.php:78
 msgid "Back"
 msgstr ""
 
-#: includes/controls/class-cnfp-template-section.php:80
+#: includes/controls/class-cnfp-template-section.php:88
 msgid "Help"
 msgstr ""
 
@@ -248,7 +256,7 @@ msgstr ""
 #: templates/template_13/template_13.php:15
 #: templates/template_14/template_14.php:15
 #: templates/template_15/template_15.php:19
-#: templates/template_16/template_16.php:16
+#: templates/template_16/template_16.php:19
 #: templates/template_17/template_17.php:12
 #: templates/template_18/template_18.php:11
 #: templates/template_19/template_19.php:14
@@ -269,7 +277,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/template_16/template_16.php:13
+#: templates/template_16/template_16.php:15
 msgid "Contact us"
 msgstr ""
 
