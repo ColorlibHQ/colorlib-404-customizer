@@ -14,33 +14,35 @@
 	var TEMPLATE_SETTING = 'cnfp_settings[colorlib_404_customizer_select_template]';
 
 	/**
-	 * Upgrade the plugin's textareas to the block-free TinyMCE editor.
+	 * Upgrade one of the plugin's textareas to a small TinyMCE editor.
+	 *
+	 * @param {HTMLTextAreaElement} textarea The control's textarea.
 	 */
-	function initEditors() {
+	function initEditor( textarea ) {
 		if ( ! window.wp || ! window.wp.editor || ! window.wp.editor.initialize ) {
 			return;
 		}
 
-		document.querySelectorAll( 'textarea.js-cnfp-editor' ).forEach( function ( textarea ) {
-			window.wp.editor.initialize( textarea.id, {
-				tinymce: {
-					wpautop: true,
-					browser_spellcheck: true,
-					mediaButtons: false,
-					wp_autoresize_on: true,
-					toolbar1: 'bold,italic,link,strikethrough',
-					setup: function ( editor ) {
-						editor.on( 'change', function () {
-							editor.save();
+		window.wp.editor.initialize( textarea.id, {
+			tinymce: {
+				wpautop: true,
+				browser_spellcheck: true,
+				mediaButtons: false,
+				wp_autoresize_on: true,
+				toolbar1: 'bold,italic,link,strikethrough',
+				setup: function ( editor ) {
+					// TinyMCE only fires `change` on blur or a new undo level;
+					// `keyup` keeps the preview in step while typing.
+					editor.on( 'change keyup', function () {
+						editor.save();
 
-							// The customizer listens for `change` on the textarea;
-							// a native event reaches its jQuery handler just fine.
-							textarea.dispatchEvent( new Event( 'change', { bubbles: true } ) );
-						} );
-					}
-				},
-				quicktags: true
-			} );
+						// The customizer listens for `change` on the textarea;
+						// a native event reaches its jQuery handler just fine.
+						textarea.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+					} );
+				}
+			},
+			quicktags: true
 		} );
 	}
 
@@ -63,9 +65,35 @@
 		} );
 	}
 
-	window.addEventListener( 'load', function () {
-		initEditors();
-		bindPreviewUrl();
+	window.addEventListener( 'load', bindPreviewUrl );
+
+	/*
+	 * Each editor starts from its own control, the first time its section opens.
+	 * Scanning the document on `load` (as before) found nothing: the customizer
+	 * embeds control markup later than that. Waiting for the section also keeps
+	 * TinyMCE from measuring itself inside a hidden container.
+	 */
+	api.controlConstructor['cnfp-editor'] = api.Control.extend( {
+		ready: function () {
+			var control = this,
+				textarea = control.container[ 0 ].querySelector( 'textarea.js-cnfp-editor' );
+
+			if ( ! textarea ) {
+				return;
+			}
+
+			api.section( control.section(), function ( section ) {
+				function start( isExpanded ) {
+					if ( isExpanded ) {
+						section.expanded.unbind( start );
+						initEditor( textarea );
+					}
+				}
+
+				section.expanded.bind( start );
+				start( section.expanded() );
+			} );
+		}
 	} );
 
 	/*

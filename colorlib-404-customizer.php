@@ -47,6 +47,7 @@ add_action( 'wp_head', 'cnfp_inline_style', 10 );
 add_filter( 'wp_resource_hints', 'cnfp_resource_hints', 10, 2 );
 add_filter( 'plugin_action_links_' . CNFP_PLUGIN_BASE, 'cnfp_add_settings_link' );
 add_action( 'customize_controls_enqueue_scripts', 'cnfp_customizer_scripts', 30 );
+add_action( 'customize_controls_print_footer_scripts', 'cnfp_print_editor_scripts', 1000 );
 add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts', 30 );
 add_action( 'admin_init', 'cnfp_check_for_review' );
 register_activation_hook( __FILE__, 'cnfp_check_on_activation' );
@@ -599,6 +600,25 @@ function cnfp_customizer_scripts() {
 			'siteurl' => home_url( '/' ),
 		)
 	);
+}
+
+/**
+ * Make sure TinyMCE is actually printed in the Customizer.
+ *
+ * `wp_enqueue_editor()` defers the editor scripts to `admin_print_footer_scripts`,
+ * which the Customizer only fires from its Widgets component. Block themes have
+ * no widgets panel, so on them the heading, content and button fields silently
+ * stayed plain textareas: `wp.editor.initialize()` bails without the defaults
+ * this prints. Runs last, and only when that hook has not already done the job.
+ *
+ * @return void
+ */
+function cnfp_print_editor_scripts() {
+	if ( did_action( 'admin_print_footer_scripts' ) || ! class_exists( '_WP_Editors', false ) ) {
+		return;
+	}
+
+	_WP_Editors::print_default_editor_scripts();
 }
 
 /**
