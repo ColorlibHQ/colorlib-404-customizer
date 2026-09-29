@@ -425,7 +425,23 @@ function cnfp_inline_style() {
 	$css = '';
 
 	if ( '' !== $text_color ) {
-		$css .= 'h1, h2, h3, h4, span, li, p, div, a { color: ' . $text_color . ' !important; }';
+		$elements = array( 'h1', 'h2', 'h3', 'h4', 'span', 'li', 'p', 'div', 'a' );
+
+		if ( cnfp_use_theme_header_footer() ) {
+			// Scoped to the design: unscoped, this recoloured every element of
+			// the theme's header and footer. `:where()` adds no specificity, so
+			// Custom CSS that overrides this rule keeps working as before.
+			$elements = array_map(
+				static function ( $element ) {
+					return ':where(#colorlib-notfound) ' . $element;
+				},
+				$elements
+			);
+		}
+
+		// The standalone document holds nothing but the design, so its rule stays
+		// exactly as it always was.
+		$css .= implode( ', ', $elements ) . ' { color: ' . $text_color . ' !important; }';
 	}
 
 	$css .= '#colorlib-notfound, #colorlib-notfound .colorlib-notfound-bg {';
