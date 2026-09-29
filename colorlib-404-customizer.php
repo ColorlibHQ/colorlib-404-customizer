@@ -531,6 +531,21 @@ function cnfp_social_links() {
 
 
 /**
+ * Human-readable name of a template, e.g. "Template 7".
+ *
+ * Built at point of use because the registry must stay free of translation calls.
+ *
+ * @param string $template Template slug.
+ * @return string
+ */
+function cnfp_template_label( $template ) {
+	$index = array_search( $template, array_keys( cnfp_get_templates() ), true );
+
+	/* translators: %d: template number. */
+	return sprintf( __( 'Template %d', 'colorlib-404-customizer' ), false === $index ? 1 : $index + 1 );
+}
+
+/**
  * Deep link into the plugin's Customizer panel, previewing the 404 view.
  *
  * Passing the preview `url` up front means the Customizer loads the 404 view

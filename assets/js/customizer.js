@@ -181,10 +181,11 @@
 		},
 
 		changeLabel: function ( template ) {
-			var label = this.headContainer[ 0 ].querySelector( '.cnfp-active_template' );
+			var label = this.headContainer[ 0 ].querySelector( '.cnfp-active_template' ),
+				labels = this.params.template_labels || {};
 
 			if ( label ) {
-				label.textContent = template.replace( /_/g, ' ' );
+				label.textContent = labels[ template ] || template.replace( /_/g, ' ' );
 			}
 		}
 	} );

@@ -153,12 +153,9 @@ class CNFP_Customizer {
 
 		/* Template picker. */
 		$template_choices = array();
-		$index            = 0;
 
 		foreach ( array_keys( cnfp_get_templates() ) as $slug ) {
-			++$index;
-			/* translators: %d: template number. */
-			$template_choices[ $slug ] = sprintf( esc_html__( 'Template %d', 'colorlib-404-customizer' ), $index );
+			$template_choices[ $slug ] = cnfp_template_label( $slug );
 		}
 
 		$this->add_setting( $wp_customize, 'colorlib_404_customizer_select_template', 'cnfp_sanitize_template' );
