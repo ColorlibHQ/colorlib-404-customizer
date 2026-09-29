@@ -93,6 +93,10 @@ if ( cnfp_use_theme_header_footer() ) {
 
 	if ( is_customize_preview() ) {
 		wp_head();
+	} else {
+		// `wp_head()` is skipped here to keep the page lean, so print the one piece
+		// of it every visitor notices: without this the tab showed no favicon.
+		wp_site_icon();
 	}
 	?>
 </head>
