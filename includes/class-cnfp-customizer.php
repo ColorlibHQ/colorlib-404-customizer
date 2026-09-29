@@ -289,9 +289,21 @@ class CNFP_Customizer {
 
 			$wp_customize->add_control( new CNFP_Control_Text_Editor( $wp_customize, $this->id( $key ), $args ) );
 
+			/*
+			 * The render callback is what makes this a live preview. Without one
+			 * the partial "fails" on every change and selective refresh falls back
+			 * to reloading the whole preview, undoing the instant swap that
+			 * customizer-preview.js has just made.
+			 */
 			$wp_customize->selective_refresh->add_partial(
 				$this->id( $key ),
-				array( 'selector' => '#' . $key )
+				array(
+					'selector'            => '#' . $key,
+					'container_inclusive' => false,
+					'render_callback'     => static function () use ( $key ) {
+						return wp_kses_post( cnfp_get_option( $key ) );
+					},
+				)
 			);
 		}
 
