@@ -270,11 +270,33 @@ function cnfp_google_fonts_url( $template ) {
 	$templates = cnfp_get_templates();
 	$families  = $templates[ $template ]['fonts'];
 
-	if ( empty( $families ) ) {
-		return '';
-	}
+	$url = empty( $families )
+		? ''
+		: 'https://fonts.googleapis.com/css?family=' . implode( '|', $families ) . '&display=swap';
 
-	return 'https://fonts.googleapis.com/css?family=' . implode( '|', $families ) . '&display=swap';
+	/**
+	 * Filters the webfont stylesheet URL for a template.
+	 *
+	 * Return an empty string to load no webfonts (the designs fall back to system
+	 * faces), or the URL of a self-hosted copy to keep visitors' requests off
+	 * Google's servers.
+	 *
+	 * @since 1.1.1
+	 *
+	 * @param string $url      Stylesheet URL, or an empty string.
+	 * @param string $template Validated template slug.
+	 */
+	return (string) apply_filters( 'cnfp_google_fonts_url', $url, $template );
+}
+
+/**
+ * Whether a webfont URL is served by Google Fonts, and so wants a preconnect.
+ *
+ * @param string $url Stylesheet URL.
+ * @return bool
+ */
+function cnfp_is_google_fonts_url( $url ) {
+	return 0 === strpos( $url, 'https://fonts.googleapis.com/' );
 }
 
 /**
@@ -292,7 +314,7 @@ function cnfp_resource_hints( $urls, $relation_type ) {
 		return $urls;
 	}
 
-	if ( '' === cnfp_google_fonts_url( cnfp_get_template() ) ) {
+	if ( ! cnfp_is_google_fonts_url( cnfp_google_fonts_url( cnfp_get_template() ) ) ) {
 		return $urls;
 	}
 
@@ -348,7 +370,7 @@ function cnfp_style_enqueue( $template = '' ) {
 	if ( '' !== $fonts_url ) {
 		$styles['cnfp-fonts'] = $fonts_url;
 
-		if ( $standalone ) {
+		if ( $standalone && cnfp_is_google_fonts_url( $fonts_url ) ) {
 			echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 		}
 	}
