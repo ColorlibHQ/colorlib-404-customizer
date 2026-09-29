@@ -11,7 +11,8 @@
 ( function ( api ) {
 	'use strict';
 
-	var TEMPLATE_SETTING = 'cnfp_settings[colorlib_404_customizer_select_template]';
+	var TEMPLATE_SETTING = 'cnfp_settings[colorlib_404_customizer_select_template]',
+		PREVIEW_MARKER = 'colorlib-404-customization';
 
 	/**
 	 * Upgrade one of the plugin's textareas to a small TinyMCE editor.
@@ -47,25 +48,65 @@
 	}
 
 	/**
-	 * Show the 404 view in the preview for as long as the panel is open.
+	 * Whether a preview URL is already showing the 404 view.
+	 *
+	 * @param {string} url Preview URL.
+	 * @return {boolean}
+	 */
+	function isNotFoundView( url ) {
+		try {
+			return new URL( url, window.location.href ).searchParams.has( PREVIEW_MARKER );
+		} catch ( e ) {
+			return false;
+		}
+	}
+
+	/**
+	 * Show the 404 view in the preview for as long as the panel is open, then go
+	 * back to whichever page was being previewed before.
 	 */
 	function bindPreviewUrl() {
+		var returnUrl = null;
+
 		if ( ! window.CNFPurls ) {
 			return;
 		}
 
 		api.panel( 'colorlib_404_customizer_panel', function ( panel ) {
-			panel.expanded.bind( function ( isExpanding ) {
-				var url = isExpanding
-					? window.CNFPurls.siteurl + '?colorlib-404-customization=true'
-					: window.CNFPurls.siteurl;
+			function sync( isExpanded ) {
+				var current = api.previewer.previewUrl.get(),
+					url;
 
-				api.previewer.previewUrl.set( url );
-			} );
+				if ( isExpanded ) {
+					if ( isNotFoundView( current ) ) {
+						return;
+					}
+
+					returnUrl = current;
+
+					// The URL API, not string concatenation: the home URL can
+					// already carry a query string (plain permalinks, language
+					// plugins), and `?` twice would drop the marker.
+					url = new URL( window.CNFPurls.siteurl );
+					url.searchParams.set( PREVIEW_MARKER, 'true' );
+					api.previewer.previewUrl.set( url.toString() );
+				} else if ( isNotFoundView( current ) ) {
+					api.previewer.previewUrl.set( returnUrl || window.CNFPurls.siteurl );
+					returnUrl = null;
+				}
+			}
+
+			panel.expanded.bind( sync );
+
+			// The admin-menu deep link autofocuses the panel, which can happen
+			// before this binding exists.
+			if ( panel.expanded() ) {
+				sync( true );
+			}
 		} );
 	}
 
-	window.addEventListener( 'load', bindPreviewUrl );
+	api.bind( 'ready', bindPreviewUrl );
 
 	/*
 	 * Each editor starts from its own control, the first time its section opens.

@@ -412,24 +412,12 @@ class CNFP_Customizer {
 				?>
 			</p>
 			<p>
-				<a href="<?php echo esc_url( $this->customizer_url() ); ?>" class="button button-primary">
+				<a href="<?php echo esc_url( cnfp_customizer_url() ); ?>" class="button button-primary">
 					<?php esc_html_e( 'Start Customizing!', 'colorlib-404-customizer' ); ?>
 				</a>
 			</p>
 		</div>
 		<?php
-	}
-
-	/**
-	 * Deep link into the plugin's customizer panel.
-	 *
-	 * @return string
-	 */
-	private function customizer_url() {
-		return add_query_arg(
-			array( 'autofocus[panel]' => 'colorlib_404_customizer_panel' ),
-			admin_url( 'customize.php' )
-		);
 	}
 
 	/**
@@ -453,7 +441,7 @@ class CNFP_Customizer {
 			return;
 		}
 
-		wp_safe_redirect( $this->customizer_url() );
+		wp_safe_redirect( cnfp_customizer_url() );
 		exit;
 	}
 

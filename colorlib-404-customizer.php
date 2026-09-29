@@ -529,6 +529,26 @@ function cnfp_social_links() {
 	echo '</div>';
 }
 
+
+/**
+ * Deep link into the plugin's Customizer panel, previewing the 404 view.
+ *
+ * Passing the preview `url` up front means the Customizer loads the 404 view
+ * straight away, instead of loading the home page and then navigating once the
+ * panel has expanded.
+ *
+ * @return string Unescaped URL.
+ */
+function cnfp_customizer_url() {
+	return add_query_arg(
+		array(
+			'autofocus[panel]' => 'colorlib_404_customizer_panel',
+			'url'              => rawurlencode( add_query_arg( 'colorlib-404-customization', 'true', home_url( '/' ) ) ),
+		),
+		admin_url( 'customize.php' )
+	);
+}
+
 /**
  * Build one inline SVG icon.
  *
@@ -571,7 +591,7 @@ function cnfp_add_settings_link( $actions ) {
 	return array_merge(
 		array(
 			'support'  => '<a href="https://colorlib.com/wp/forums/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Support', 'colorlib-404-customizer' ) . '</a>',
-			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=cnfp_settings' ) ) . '">' . esc_html__( 'Settings', 'colorlib-404-customizer' ) . '</a>',
+			'settings' => '<a href="' . esc_url( cnfp_customizer_url() ) . '">' . esc_html__( 'Settings', 'colorlib-404-customizer' ) . '</a>',
 		),
 		$actions
 	);
