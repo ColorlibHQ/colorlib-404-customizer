@@ -20,11 +20,18 @@ class CNFP_Review {
 	private static $instance;
 
 	/**
-	 * Days of use on which the notice is shown.
+	 * Days of use after which the notice becomes due, in ascending order.
 	 *
 	 * @var int[]
 	 */
 	private $when = array( 5, 15, 30 );
+
+	/**
+	 * Option holding the Unix time the plugin was first seen.
+	 *
+	 * @var string
+	 */
+	private $since_option = 'cnfp_review_since';
 
 	/**
 	 * Days the plugin has been installed.
@@ -125,47 +132,67 @@ class CNFP_Review {
 	}
 
 	/**
+	 * The most recent milestone that has been reached, or 0 before the first.
+	 *
+	 * @return int
+	 */
+	private function due() {
+		$due = 0;
+
+		foreach ( $this->when as $day ) {
+			if ( $this->value >= $day ) {
+				$due = $day;
+			}
+		}
+
+		return $due;
+	}
+
+	/**
 	 * Whether the notice is due.
+	 *
+	 * Stored answers: `already-rated` for any of the three buttons, which ends the
+	 * prompt for good; otherwise the milestone the notice was dismissed at, which
+	 * snoozes it until the next one.
 	 *
 	 * @return bool
 	 */
 	private function check() {
 		$options = get_option( 'cnfp_settings' );
-		$option  = ( is_array( $options ) && isset( $options['givemereview'] ) ) ? $options['givemereview'] : '';
+		$option  = ( is_array( $options ) && isset( $options['givemereview'] ) ) ? (string) $options['givemereview'] : '';
+		$due     = $this->due();
 
-		if ( 'already-rated' === $option ) {
+		if ( 'already-rated' === $option || 0 === $due ) {
 			return false;
 		}
 
-		if ( '' !== $option && (string) $this->value === (string) $option ) {
-			return false;
-		}
-
-		return in_array( $this->value, $this->when, true );
+		return (int) $option < $due;
 	}
 
 	/**
 	 * Days since the plugin was first loaded.
 	 *
+	 * Kept in an option rather than the transient 1.1.0 and earlier used: that
+	 * expired after 30 days (or whenever an object cache evicted it) and restarted
+	 * the count, so the day-30 prompt never appeared and the earlier ones came
+	 * back every month.
+	 *
 	 * @return int
 	 */
 	private function value() {
-		$installed = get_transient( 'cnfp_review' );
+		$since = (int) get_option( $this->since_option, 0 );
 
-		if ( ! $installed ) {
-			// `gmdate()` keeps this independent of the site's timezone setting.
-			set_transient( 'cnfp_review', gmdate( 'Y-m-d' ), 30 * DAY_IN_SECONDS );
+		if ( $since <= 0 ) {
+			// Carry over the start date from the old transient where there is one.
+			$legacy = get_transient( 'cnfp_review' );
+			$since  = $legacy ? (int) strtotime( $legacy . ' UTC' ) : 0;
+			$since  = ( $since > 0 && $since <= time() ) ? $since : time();
 
-			return 0;
+			update_option( $this->since_option, $since );
+			delete_transient( 'cnfp_review' );
 		}
 
-		$started = strtotime( $installed . ' UTC' );
-
-		if ( ! $started ) {
-			return 0;
-		}
-
-		return (int) round( ( time() - $started ) / DAY_IN_SECONDS );
+		return (int) floor( max( 0, time() - $since ) / DAY_IN_SECONDS );
 	}
 
 	/**
@@ -206,7 +233,7 @@ class CNFP_Review {
 		$options = is_array( $options ) ? $options : array();
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified by check_ajax_referer() above.
-		$options['givemereview'] = isset( $_POST['epsilon-review'] ) ? 'already-rated' : (string) $this->value;
+		$options['givemereview'] = isset( $_POST['epsilon-review'] ) ? 'already-rated' : (string) $this->due();
 
 		update_option( 'cnfp_settings', $options );
 

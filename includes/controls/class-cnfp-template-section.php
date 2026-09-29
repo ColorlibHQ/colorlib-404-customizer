@@ -43,7 +43,15 @@ if ( class_exists( 'WP_Customize_Section' ) && ! class_exists( 'CNFP_Templates_S
 			$data = parent::json();
 
 			$data['button_label']    = esc_html__( 'Change', 'colorlib-404-customizer' );
-			$data['active_template'] = str_replace( '_', ' ', cnfp_get_template() );
+			$data['active_template'] = cnfp_template_label( cnfp_get_template() );
+
+			// Lets the script relabel the row with the same "Template N" names the
+			// picker uses, rather than the raw slug ("template 07").
+			$data['template_labels'] = array();
+
+			foreach ( array_keys( cnfp_get_templates() ) as $slug ) {
+				$data['template_labels'][ $slug ] = cnfp_template_label( $slug );
+			}
 
 			return $data;
 		}

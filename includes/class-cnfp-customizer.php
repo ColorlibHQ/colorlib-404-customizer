@@ -65,6 +65,7 @@ class CNFP_Customizer {
 			'colorlib_404_customizer_social_settings',
 			array(
 				'title'           => esc_html__( 'Social Links', 'colorlib-404-customizer' ),
+				'description'     => esc_html__( 'Links left empty are not shown on the page.', 'colorlib-404-customizer' ),
 				'panel'           => 'colorlib_404_customizer_panel',
 				'priority'        => 35,
 				'active_callback' => 'cnfp_template_has_social_links',
@@ -126,7 +127,9 @@ class CNFP_Customizer {
 			$this->id( 'colorlib_404_customizer_contact_link' ),
 			array(
 				'label'           => esc_html__( 'Enter Contact Link', 'colorlib-404-customizer' ),
+				'description'     => esc_html__( 'Leave empty to hide the Contact us button.', 'colorlib-404-customizer' ),
 				'section'         => 'colorlib_404_customizer_general',
+				'input_attrs'     => array( 'placeholder' => 'https://' ),
 				'priority'        => 10,
 				'type'            => 'url',
 				'active_callback' => 'cnfp_template_has_contact_link',
@@ -153,12 +156,9 @@ class CNFP_Customizer {
 
 		/* Template picker. */
 		$template_choices = array();
-		$index            = 0;
 
 		foreach ( array_keys( cnfp_get_templates() ) as $slug ) {
-			++$index;
-			/* translators: %d: template number. */
-			$template_choices[ $slug ] = sprintf( esc_html__( 'Template %d', 'colorlib-404-customizer' ), $index );
+			$template_choices[ $slug ] = cnfp_template_label( $slug );
 		}
 
 		$this->add_setting( $wp_customize, 'colorlib_404_customizer_select_template', 'cnfp_sanitize_template' );
@@ -289,25 +289,37 @@ class CNFP_Customizer {
 
 			$wp_customize->add_control( new CNFP_Control_Text_Editor( $wp_customize, $this->id( $key ), $args ) );
 
+			/*
+			 * The render callback is what makes this a live preview. Without one
+			 * the partial "fails" on every change and selective refresh falls back
+			 * to reloading the whole preview, undoing the instant swap that
+			 * customizer-preview.js has just made.
+			 */
 			$wp_customize->selective_refresh->add_partial(
 				$this->id( $key ),
-				array( 'selector' => '#' . $key )
+				array(
+					'selector'            => '#' . $key,
+					'container_inclusive' => false,
+					'render_callback'     => static function () use ( $key ) {
+						return wp_kses_post( cnfp_get_option( $key ) );
+					},
+				)
 			);
 		}
 
 		/* Social links. */
 		$networks = array(
-			'facebook'  => esc_html__( 'Facebook', 'colorlib-404-customizer' ),
-			'twitter'   => esc_html__( 'X (Twitter)', 'colorlib-404-customizer' ),
-			'email'     => esc_html__( 'Email', 'colorlib-404-customizer' ),
-			'youtube'   => esc_html__( 'YouTube', 'colorlib-404-customizer' ),
-			'pinterest' => esc_html__( 'Pinterest', 'colorlib-404-customizer' ),
-			'instagram' => esc_html__( 'Instagram', 'colorlib-404-customizer' ),
+			'facebook'  => array( esc_html__( 'Facebook', 'colorlib-404-customizer' ), 'https://facebook.com/' ),
+			'twitter'   => array( esc_html__( 'X (Twitter)', 'colorlib-404-customizer' ), 'https://x.com/' ),
+			'email'     => array( esc_html__( 'Email', 'colorlib-404-customizer' ), 'name@example.com' ),
+			'youtube'   => array( esc_html__( 'YouTube', 'colorlib-404-customizer' ), 'https://youtube.com/' ),
+			'pinterest' => array( esc_html__( 'Pinterest', 'colorlib-404-customizer' ), 'https://pinterest.com/' ),
+			'instagram' => array( esc_html__( 'Instagram', 'colorlib-404-customizer' ), 'https://instagram.com/' ),
 		);
 
 		$priority = 10;
 
-		foreach ( $networks as $network => $label ) {
+		foreach ( $networks as $network => list( $label, $placeholder ) ) {
 			$key       = 'colorlib_404_customizer_social_' . $network;
 			$sanitizer = ( 'email' === $network ) ? 'cnfp_sanitize_email' : 'cnfp_sanitize_url';
 
@@ -316,10 +328,11 @@ class CNFP_Customizer {
 			$wp_customize->add_control(
 				$this->id( $key ),
 				array(
-					'label'    => $label,
-					'section'  => 'colorlib_404_customizer_social_settings',
-					'type'     => ( 'email' === $network ) ? 'email' : 'url',
-					'priority' => $priority,
+					'label'       => $label,
+					'section'     => 'colorlib_404_customizer_social_settings',
+					'type'        => ( 'email' === $network ) ? 'email' : 'url',
+					'priority'    => $priority,
+					'input_attrs' => array( 'placeholder' => $placeholder ),
 				)
 			);
 
@@ -400,24 +413,12 @@ class CNFP_Customizer {
 				?>
 			</p>
 			<p>
-				<a href="<?php echo esc_url( $this->customizer_url() ); ?>" class="button button-primary">
+				<a href="<?php echo esc_url( cnfp_customizer_url() ); ?>" class="button button-primary">
 					<?php esc_html_e( 'Start Customizing!', 'colorlib-404-customizer' ); ?>
 				</a>
 			</p>
 		</div>
 		<?php
-	}
-
-	/**
-	 * Deep link into the plugin's customizer panel.
-	 *
-	 * @return string
-	 */
-	private function customizer_url() {
-		return add_query_arg(
-			array( 'autofocus[panel]' => 'colorlib_404_customizer_panel' ),
-			admin_url( 'customize.php' )
-		);
 	}
 
 	/**
@@ -441,7 +442,7 @@ class CNFP_Customizer {
 			return;
 		}
 
-		wp_safe_redirect( $this->customizer_url() );
+		wp_safe_redirect( cnfp_customizer_url() );
 		exit;
 	}
 

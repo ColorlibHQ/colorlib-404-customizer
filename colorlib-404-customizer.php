@@ -3,11 +3,11 @@
  * Plugin Name: Colorlib 404 Customizer
  * Plugin URI: https://colorlib.com/
  * Description: Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that comes with well designed 404 pages and lots of useful features including customization via Live Customizer.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Colorlib
  * Author URI: https://colorlib.com/
  * Requires at least: 6.0
- * Tested up to: 7.0
+ * Tested up to: 7.1
  * Requires PHP: 7.4
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -34,7 +34,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CNFP_VERSION', '1.1.0' );
+define( 'CNFP_VERSION', '1.1.1' );
 define( 'CNFP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CNFP_URL', plugin_dir_url( __FILE__ ) );
 define( 'CNFP_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -47,6 +47,7 @@ add_action( 'wp_head', 'cnfp_inline_style', 10 );
 add_filter( 'wp_resource_hints', 'cnfp_resource_hints', 10, 2 );
 add_filter( 'plugin_action_links_' . CNFP_PLUGIN_BASE, 'cnfp_add_settings_link' );
 add_action( 'customize_controls_enqueue_scripts', 'cnfp_customizer_scripts', 30 );
+add_action( 'customize_controls_print_footer_scripts', 'cnfp_print_editor_scripts', 1000 );
 add_action( 'customize_preview_init', 'cnfp_customizer_preview_scripts', 30 );
 add_action( 'admin_init', 'cnfp_check_for_review' );
 register_activation_hook( __FILE__, 'cnfp_check_on_activation' );
@@ -76,19 +77,22 @@ function cnfp_default_options() {
 		'colorlib_404_customizer_page_heading'         => 'Oops !',
 		'colorlib_404_customizer_content'              => 'Page Not Found!',
 		'colorlib_404_customizer_button_text'          => 'Back to homepage',
-		'colorlib_404_customizer_social_facebook'      => 'https://facebook.com/',
-		'colorlib_404_customizer_social_twitter'       => 'https://x.com/',
-		'colorlib_404_customizer_social_pinterest'     => 'https://pinterest.com/',
-		'colorlib_404_customizer_social_youtube'       => 'https://youtube.com/',
-		'colorlib_404_customizer_social_email'         => 'your@domain.to',
-		'colorlib_404_customizer_social_instagram'     => 'https://instagram.com/',
+		// Empty, so a social template never publishes placeholder profiles. Before
+		// 1.1.1 these were generic network homepages and `your@domain.to`, which
+		// went live on any site that picked such a template without filling them in.
+		'colorlib_404_customizer_social_facebook'      => '',
+		'colorlib_404_customizer_social_twitter'       => '',
+		'colorlib_404_customizer_social_pinterest'     => '',
+		'colorlib_404_customizer_social_youtube'       => '',
+		'colorlib_404_customizer_social_email'         => '',
+		'colorlib_404_customizer_social_instagram'     => '',
 		'colorlib_404_customizer_custom_css_control'   => '',
 		'colorlib_404_customizer_background_image'     => '',
 		'colorlib_404_customizer_background_repeat'    => 'no-repeat',
 		'colorlib_404_customizer_background_size'      => 'auto',
 		'colorlib_404_customizer_background_color'     => '',
 		'colorlib_404_customizer_text_color'           => '',
-		'colorlib_404_customizer_contact_link'         => '#',
+		'colorlib_404_customizer_contact_link'         => '',
 		'colorlib_404_customizer_enable_header_footer' => '',
 	);
 }
@@ -216,7 +220,12 @@ function cnfp_skip_redirect_on_login() {
 		return;
 	}
 
-	add_action( 'template_redirect', 'cnfp_template_redirect' );
+	/*
+	 * Run late. Core's canonical and old-slug redirects, and any redirect plugin
+	 * that rescues 404s, all hook `template_redirect` too; exiting at the default
+	 * priority cut off everything registered after it.
+	 */
+	add_action( 'template_redirect', 'cnfp_template_redirect', 999 );
 }
 
 /**
@@ -261,11 +270,33 @@ function cnfp_google_fonts_url( $template ) {
 	$templates = cnfp_get_templates();
 	$families  = $templates[ $template ]['fonts'];
 
-	if ( empty( $families ) ) {
-		return '';
-	}
+	$url = empty( $families )
+		? ''
+		: 'https://fonts.googleapis.com/css?family=' . implode( '|', $families ) . '&display=swap';
 
-	return 'https://fonts.googleapis.com/css?family=' . implode( '|', $families ) . '&display=swap';
+	/**
+	 * Filters the webfont stylesheet URL for a template.
+	 *
+	 * Return an empty string to load no webfonts (the designs fall back to system
+	 * faces), or the URL of a self-hosted copy to keep visitors' requests off
+	 * Google's servers.
+	 *
+	 * @since 1.1.1
+	 *
+	 * @param string $url      Stylesheet URL, or an empty string.
+	 * @param string $template Validated template slug.
+	 */
+	return (string) apply_filters( 'cnfp_google_fonts_url', $url, $template );
+}
+
+/**
+ * Whether a webfont URL is served by Google Fonts, and so wants a preconnect.
+ *
+ * @param string $url Stylesheet URL.
+ * @return bool
+ */
+function cnfp_is_google_fonts_url( $url ) {
+	return 0 === strpos( $url, 'https://fonts.googleapis.com/' );
 }
 
 /**
@@ -283,7 +314,7 @@ function cnfp_resource_hints( $urls, $relation_type ) {
 		return $urls;
 	}
 
-	if ( '' === cnfp_google_fonts_url( cnfp_get_template() ) ) {
+	if ( ! cnfp_is_google_fonts_url( cnfp_google_fonts_url( cnfp_get_template() ) ) ) {
 		return $urls;
 	}
 
@@ -339,7 +370,7 @@ function cnfp_style_enqueue( $template = '' ) {
 	if ( '' !== $fonts_url ) {
 		$styles['cnfp-fonts'] = $fonts_url;
 
-		if ( $standalone ) {
+		if ( $standalone && cnfp_is_google_fonts_url( $fonts_url ) ) {
 			echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 		}
 	}
@@ -387,11 +418,15 @@ function cnfp_sanitize_color( $color ) {
 /**
  * Strip anything that could break out of a `<style>` element.
  *
+ * Only `<` is dangerous inside `<style>`: without it there is no `</style`. A
+ * bare `>` is the child combinator, and stripping it (as 1.1.0 did) silently
+ * turned `.a > .b` into the descendant selector `.a  .b`.
+ *
  * @param string $css Raw stored CSS.
  * @return string
  */
 function cnfp_sanitize_css( $css ) {
-	return str_replace( array( '<', '>' ), '', wp_strip_all_tags( (string) $css ) );
+	return str_replace( '<', '', wp_strip_all_tags( (string) $css ) );
 }
 
 /**
@@ -424,13 +459,31 @@ function cnfp_inline_style() {
 	$css = '';
 
 	if ( '' !== $text_color ) {
-		$css .= 'h1, h2, h3, h4, span, li, p, div, a { color: ' . $text_color . ' !important; }';
+		$elements = array( 'h1', 'h2', 'h3', 'h4', 'span', 'li', 'p', 'div', 'a' );
+
+		if ( cnfp_use_theme_header_footer() ) {
+			// Scoped to the design: unscoped, this recoloured every element of
+			// the theme's header and footer. `:where()` adds no specificity, so
+			// Custom CSS that overrides this rule keeps working as before.
+			$elements = array_map(
+				static function ( $element ) {
+					return ':where(#colorlib-notfound) ' . $element;
+				},
+				$elements
+			);
+		}
+
+		// The standalone document holds nothing but the design, so its rule stays
+		// exactly as it always was.
+		$css .= implode( ', ', $elements ) . ' { color: ' . $text_color . ' !important; }';
 	}
 
 	$css .= '#colorlib-notfound, #colorlib-notfound .colorlib-notfound-bg {';
 
 	if ( '' !== $background ) {
-		$css .= 'background-image: url("' . esc_url( $background ) . '") !important;';
+		// `esc_url_raw()`, not `esc_url()`: CSS does not decode HTML entities, so
+		// the `&#038;` that `esc_url()` writes for `&` broke query-string URLs.
+		$css .= 'background-image: url("' . esc_url_raw( $background ) . '") !important;';
 	}
 	if ( '' !== $bg_color ) {
 		$css .= 'background-color: ' . $bg_color . ' !important;';
@@ -507,6 +560,54 @@ function cnfp_social_links() {
 }
 
 /**
+ * The contact link, or an empty string when there is nowhere useful to send people.
+ *
+ * `#` was the default before 1.1.1 and is still stored on older installs; a
+ * "Contact us" button that goes nowhere is worse than no button.
+ *
+ * @return string Unescaped URL, or an empty string.
+ */
+function cnfp_contact_url() {
+	$url = trim( cnfp_get_option( 'colorlib_404_customizer_contact_link' ) );
+
+	return ( '#' === $url ) ? '' : $url;
+}
+
+/**
+ * Human-readable name of a template, e.g. "Template 7".
+ *
+ * Built at point of use because the registry must stay free of translation calls.
+ *
+ * @param string $template Template slug.
+ * @return string
+ */
+function cnfp_template_label( $template ) {
+	$index = array_search( $template, array_keys( cnfp_get_templates() ), true );
+
+	/* translators: %d: template number. */
+	return sprintf( __( 'Template %d', 'colorlib-404-customizer' ), false === $index ? 1 : $index + 1 );
+}
+
+/**
+ * Deep link into the plugin's Customizer panel, previewing the 404 view.
+ *
+ * Passing the preview `url` up front means the Customizer loads the 404 view
+ * straight away, instead of loading the home page and then navigating once the
+ * panel has expanded.
+ *
+ * @return string Unescaped URL.
+ */
+function cnfp_customizer_url() {
+	return add_query_arg(
+		array(
+			'autofocus[panel]' => 'colorlib_404_customizer_panel',
+			'url'              => rawurlencode( add_query_arg( 'colorlib-404-customization', 'true', home_url( '/' ) ) ),
+		),
+		admin_url( 'customize.php' )
+	);
+}
+
+/**
  * Build one inline SVG icon.
  *
  * @param string $name Icon key from includes/cnfp-icons.php.
@@ -548,7 +649,7 @@ function cnfp_add_settings_link( $actions ) {
 	return array_merge(
 		array(
 			'support'  => '<a href="https://colorlib.com/wp/forums/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Support', 'colorlib-404-customizer' ) . '</a>',
-			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=cnfp_settings' ) ) . '">' . esc_html__( 'Settings', 'colorlib-404-customizer' ) . '</a>',
+			'settings' => '<a href="' . esc_url( cnfp_customizer_url() ) . '">' . esc_html__( 'Settings', 'colorlib-404-customizer' ) . '</a>',
 		),
 		$actions
 	);
@@ -599,6 +700,25 @@ function cnfp_customizer_scripts() {
 			'siteurl' => home_url( '/' ),
 		)
 	);
+}
+
+/**
+ * Make sure TinyMCE is actually printed in the Customizer.
+ *
+ * `wp_enqueue_editor()` defers the editor scripts to `admin_print_footer_scripts`,
+ * which the Customizer only fires from its Widgets component. Block themes have
+ * no widgets panel, so on them the heading, content and button fields silently
+ * stayed plain textareas: `wp.editor.initialize()` bails without the defaults
+ * this prints. Runs last, and only when that hook has not already done the job.
+ *
+ * @return void
+ */
+function cnfp_print_editor_scripts() {
+	if ( did_action( 'admin_print_footer_scripts' ) || ! class_exists( '_WP_Editors', false ) ) {
+		return;
+	}
+
+	_WP_Editors::print_default_editor_scripts();
 }
 
 /**

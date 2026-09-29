@@ -16,17 +16,43 @@
     cursor: pointer;
 }
 
-.colorlib-template-radio {
-    visibility: hidden;
+/* Visually hidden but still focusable, so the picker works from the keyboard
+   (arrow keys move between designs). `visibility: hidden` took the radios out of
+   the tab order altogether.
+
+   Scoped to this control's type class: Colorlib's Coming Soon plugin uses the
+   same class names for its own picker, and its stylesheet was re-hiding ours. */
+.customize-control-cnfp-templates .colorlib-single-template-wrapper {
+    position: relative;
+    display: block;
 }
 
-.colorlib-single-template-wrapper img {
+.customize-control-cnfp-templates .colorlib-template-radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    visibility: visible;
+}
+
+.customize-control-cnfp-templates .colorlib-single-template-wrapper img {
+    display: block;
+    max-width: 100%;
+    height: auto;
     border: 1px solid transparent;
 }
 
-.colorlib-single-template-wrapper input[type="radio"]:checked + img,
-.colorlib-single-template-wrapper:hover img {
+.customize-control-cnfp-templates .colorlib-single-template-wrapper input[type="radio"]:checked + img,
+.customize-control-cnfp-templates .colorlib-single-template-wrapper:hover img {
     box-shadow: 0 0 0 1px #5b9dd9, 0 0 3px rgba(0, 115, 170, 0.8);
+}
+
+.customize-control-cnfp-templates .colorlib-single-template-wrapper input[type="radio"]:focus-visible + img {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
 }
 
 #sub-accordion-section-colorlib_404_customizer_general .customize-control-cnfp-editor iframe {

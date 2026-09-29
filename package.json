@@ -1,6 +1,6 @@
 {
   "name": "colorlib-404-customizer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Build tooling for the Colorlib 404 Customizer WordPress plugin. Not published to npm.",
   "private": true,
   "license": "GPL-3.0-or-later",
@@ -14,17 +14,19 @@
     "url": "https://github.com/ColorlibHQ/colorlib-404-customizer/issues"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "build": "grunt build-archive",
     "i18n": "grunt i18n",
     "textdomain": "grunt textdomain",
-    "lint": "npm run lint:php",
-    "lint:php": "find . -name '*.php' -not -path './node_modules/*' -not -path './build/*' -print0 | xargs -0 -n1 -P4 php -l"
+    "lint": "npm run lint:php && npm run lint:js",
+    "lint:php": "find . -name '*.php' -not -path './node_modules/*' -not -path './build/*' -print0 | xargs -0 -n1 -P4 php -l",
+    "lint:js": "find assets/js -name '*.js' -print0 | xargs -0 -n1 node --check"
   },
   "overrides": {
-    "adm-zip": "^0.6.0"
+    "adm-zip": "^0.6.1",
+    "js-yaml": "^3.15.2"
   },
   "devDependencies": {
     "grunt": "^1.6.3",

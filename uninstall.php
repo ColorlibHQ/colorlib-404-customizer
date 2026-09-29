@@ -14,6 +14,7 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
  */
 function cnfp_uninstall_cleanup() {
 	delete_option( 'cnfp_settings' );
+	delete_option( 'cnfp_review_since' );
 	delete_transient( 'cnfp_review' );
 }
 

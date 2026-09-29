@@ -19,16 +19,19 @@
 	/**
 	 * Record the answer, then collapse the notice.
 	 *
-	 * @param {boolean}     rated  Whether the user says they left a review.
-	 * @param {string|null} review URL to open once the answer is stored.
+	 * @param {boolean}     isFinal True for any of the three answers, which stop
+	 *                              the prompt for good; false for the dismiss
+	 *                              button, which only snoozes it until the next
+	 *                              milestone.
+	 * @param {string|null} review  URL to open once the answer is stored.
 	 */
-	function respond( rated, review ) {
+	function respond( isFinal, review ) {
 		var body = new FormData();
 
 		body.append( 'action', 'cnfp_epsilon_review' );
 		body.append( 'security', window.CNFPReview.nonce );
 
-		if ( rated ) {
+		if ( isFinal ) {
 			body.append( 'epsilon-review', '1' );
 		}
 
@@ -65,10 +68,7 @@
 
 		event.preventDefault();
 
-		if ( 'epsilon-rate' === button.id ) {
-			respond( true, button.getAttribute( 'href' ) );
-		} else {
-			respond( 'epsilon-rated' === button.id, null );
-		}
+		// "No, not good enough" is an answer too; asking again next month is nagging.
+		respond( true, 'epsilon-rate' === button.id ? button.getAttribute( 'href' ) : null );
 	} );
 } )();

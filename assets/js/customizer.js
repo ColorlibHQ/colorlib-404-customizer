@@ -11,61 +11,130 @@
 ( function ( api ) {
 	'use strict';
 
-	var TEMPLATE_SETTING = 'cnfp_settings[colorlib_404_customizer_select_template]';
+	var TEMPLATE_SETTING = 'cnfp_settings[colorlib_404_customizer_select_template]',
+		PREVIEW_MARKER = 'colorlib-404-customization';
 
 	/**
-	 * Upgrade the plugin's textareas to the block-free TinyMCE editor.
+	 * Upgrade one of the plugin's textareas to a small TinyMCE editor.
+	 *
+	 * @param {HTMLTextAreaElement} textarea The control's textarea.
 	 */
-	function initEditors() {
+	function initEditor( textarea ) {
 		if ( ! window.wp || ! window.wp.editor || ! window.wp.editor.initialize ) {
 			return;
 		}
 
-		document.querySelectorAll( 'textarea.js-cnfp-editor' ).forEach( function ( textarea ) {
-			window.wp.editor.initialize( textarea.id, {
-				tinymce: {
-					wpautop: true,
-					browser_spellcheck: true,
-					mediaButtons: false,
-					wp_autoresize_on: true,
-					toolbar1: 'bold,italic,link,strikethrough',
-					setup: function ( editor ) {
-						editor.on( 'change', function () {
-							editor.save();
+		window.wp.editor.initialize( textarea.id, {
+			tinymce: {
+				wpautop: true,
+				browser_spellcheck: true,
+				mediaButtons: false,
+				wp_autoresize_on: true,
+				toolbar1: 'bold,italic,link,strikethrough',
+				setup: function ( editor ) {
+					// TinyMCE only fires `change` on blur or a new undo level;
+					// `keyup` keeps the preview in step while typing.
+					editor.on( 'change keyup', function () {
+						editor.save();
 
-							// The customizer listens for `change` on the textarea;
-							// a native event reaches its jQuery handler just fine.
-							textarea.dispatchEvent( new Event( 'change', { bubbles: true } ) );
-						} );
-					}
-				},
-				quicktags: true
-			} );
+						// The customizer listens for `change` on the textarea;
+						// a native event reaches its jQuery handler just fine.
+						textarea.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+					} );
+				}
+			},
+			quicktags: true
 		} );
 	}
 
 	/**
-	 * Show the 404 view in the preview for as long as the panel is open.
+	 * Whether a preview URL is already showing the 404 view.
+	 *
+	 * @param {string} url Preview URL.
+	 * @return {boolean}
+	 */
+	function isNotFoundView( url ) {
+		try {
+			return new URL( url, window.location.href ).searchParams.has( PREVIEW_MARKER );
+		} catch ( e ) {
+			return false;
+		}
+	}
+
+	/**
+	 * Show the 404 view in the preview for as long as the panel is open, then go
+	 * back to whichever page was being previewed before.
 	 */
 	function bindPreviewUrl() {
+		var returnUrl = null;
+
 		if ( ! window.CNFPurls ) {
 			return;
 		}
 
 		api.panel( 'colorlib_404_customizer_panel', function ( panel ) {
-			panel.expanded.bind( function ( isExpanding ) {
-				var url = isExpanding
-					? window.CNFPurls.siteurl + '?colorlib-404-customization=true'
-					: window.CNFPurls.siteurl;
+			function sync( isExpanded ) {
+				var current = api.previewer.previewUrl.get(),
+					url;
 
-				api.previewer.previewUrl.set( url );
-			} );
+				if ( isExpanded ) {
+					if ( isNotFoundView( current ) ) {
+						return;
+					}
+
+					returnUrl = current;
+
+					// The URL API, not string concatenation: the home URL can
+					// already carry a query string (plain permalinks, language
+					// plugins), and `?` twice would drop the marker.
+					url = new URL( window.CNFPurls.siteurl );
+					url.searchParams.set( PREVIEW_MARKER, 'true' );
+					api.previewer.previewUrl.set( url.toString() );
+				} else if ( isNotFoundView( current ) ) {
+					api.previewer.previewUrl.set( returnUrl || window.CNFPurls.siteurl );
+					returnUrl = null;
+				}
+			}
+
+			panel.expanded.bind( sync );
+
+			// The admin-menu deep link autofocuses the panel, which can happen
+			// before this binding exists.
+			if ( panel.expanded() ) {
+				sync( true );
+			}
 		} );
 	}
 
-	window.addEventListener( 'load', function () {
-		initEditors();
-		bindPreviewUrl();
+	api.bind( 'ready', bindPreviewUrl );
+
+	/*
+	 * Each editor starts from its own control, the first time its section opens.
+	 * Scanning the document on `load` (as before) found nothing: the customizer
+	 * embeds control markup later than that. Waiting for the section also keeps
+	 * TinyMCE from measuring itself inside a hidden container.
+	 */
+	api.controlConstructor['cnfp-editor'] = api.Control.extend( {
+		ready: function () {
+			var control = this,
+				textarea = control.container[ 0 ].querySelector( 'textarea.js-cnfp-editor' );
+
+			if ( ! textarea ) {
+				return;
+			}
+
+			api.section( control.section(), function ( section ) {
+				function start( isExpanded ) {
+					if ( isExpanded ) {
+						section.expanded.unbind( start );
+						initEditor( textarea );
+					}
+				}
+
+				section.expanded.bind( start );
+				start( section.expanded() );
+			} );
+		}
 	} );
 
 	/*
@@ -112,10 +181,11 @@
 		},
 
 		changeLabel: function ( template ) {
-			var label = this.headContainer[ 0 ].querySelector( '.cnfp-active_template' );
+			var label = this.headContainer[ 0 ].querySelector( '.cnfp-active_template' ),
+				labels = this.params.template_labels || {};
 
 			if ( label ) {
-				label.textContent = template.replace( /_/g, ' ' );
+				label.textContent = labels[ template ] || template.replace( /_/g, ' ' );
 			}
 		}
 	} );

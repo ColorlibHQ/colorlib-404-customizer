@@ -2,9 +2,9 @@
 Contributors: silkalns
 Tags: 404 page, error page, 404 error, custom 404, page not found
 Requires at least: 6.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -80,7 +80,7 @@ Yes. The plugin renders the 404 page itself instead of relying on your theme's `
 
 = Can I keep my theme's header and footer? =
 
-Yes. Turn on **Enable header and footer on 404 pages** in the General section. The design is then placed inside your normal layout, so your menu and footer stay put. Leave it off for a clean full-screen page.
+Yes. Turn on **Enable header and footer on 404 pages** in the General section. The design is then placed inside your normal layout, so your menu and footer stay put. This works with classic themes and with block themes, where the theme's own header and footer template parts are used. Leave it off for a clean full-screen page.
 
 = How do I go back to my theme's 404 page? =
 
@@ -112,7 +112,9 @@ You can restyle any template with the **Custom CSS** box, which has syntax highl
 
 = Does it use Google Fonts? =
 
-Each template uses one webfont from Google Fonts, requested only on the 404 page. If your site must avoid third-party requests entirely, you can override the font in the Custom CSS box.
+Each template uses one webfont from Google Fonts, requested only on the 404 page. If your site must avoid third-party requests, the `cnfp_google_fonts_url` filter lets you turn the request off (return an empty string) or point it at a self-hosted copy:
+
+`add_filter( 'cnfp_google_fonts_url', '__return_empty_string' );`
 
 = Does it work on multisite? =
 
@@ -134,10 +136,42 @@ Deleting the plugin removes its settings so nothing is left behind in your datab
 
 == Upgrade Notice ==
 
+= 1.1.1 =
+Live preview now updates in place instead of reloading. Fixes the rich-text editor and header/footer mode on block themes, custom CSS that used `>`, and a review notice that kept coming back.
+
 = 1.1.0 =
 Significant performance and security release. The plugin no longer loads its stylesheet, fonts and jQuery on every page of your site — only on 404s. Font Awesome has been replaced with inline SVG icons, removing about 1 MB of files. Requires WordPress 6.0 and PHP 7.4.
 
 == Changelog ==
+
+= 1.1.1 - 29.09.2026 =
+
+Fixed:
+* Editing the heading, message or button text reloaded the whole preview after every change instead of updating it in place.
+* The rich-text editor for those fields never loaded on block themes, leaving plain text boxes.
+* With header and footer enabled on a block theme, the page showed a generic fallback header and footer instead of the theme's own, and logged two deprecation notices on every 404. Classic themes, and block themes that still include `header.php`, are unchanged.
+* With header and footer enabled, the Text Color setting also recoloured the theme's header, footer and the admin bar. It now applies to the 404 design only, and Custom CSS that overrides it keeps working.
+* Custom CSS lost the `>` child combinator on save, so `.a > .b` quietly became `.a .b`.
+* Background image URLs containing `&` were written into the CSS as `&#038;` and failed to load.
+* The template picker could not be used with the keyboard. When Colorlib Coming Soon was active, its styles also hid this plugin's picker controls.
+* Opening the plugin from the admin menu loaded the home page in the preview first, and closing the panel always went back to the home page rather than the page you were previewing.
+* The review notice came back every month and ignored "No, not good enough"; its day-30 reminder never appeared.
+
+Changed:
+* New installs no longer publish placeholder social profiles (facebook.com, x.com, `your@domain.to`, and so on). Empty social fields are hidden, and the fields show example URLs instead.
+* Template 16's Contact us button is hidden until a contact link is set, instead of linking to `#`.
+* The 404 page runs after other `template_redirect` handlers, so redirect plugins can rescue a missing URL before the 404 page is shown.
+* The standalone 404 page now shows the site icon.
+* The template 10 background is 79% smaller and the template 12 emoji 79% smaller, with no visible difference.
+* The active template is shown as "Template 7" rather than "template 07".
+* Tested up to WordPress 7.1.
+* Build tooling now targets Node 22+, with patched development dependencies.
+
+Added:
+* `cnfp_google_fonts_url` filter to turn off Google Fonts or serve them from your own server.
+
+Removed:
+* Two unused images from `assets/images`.
 
 = 1.1.0 - 10.08.2026 =
 
