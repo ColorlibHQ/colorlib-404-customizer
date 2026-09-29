@@ -9,8 +9,11 @@
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="colorlib-home-btn"
            id="colorlib_404_customizer_button_text"><?php echo wp_kses_post( cnfp_get_option( 'colorlib_404_customizer_button_text' ) ); ?></a>
 
-        <a href="<?php echo esc_url( cnfp_get_option( 'colorlib_404_customizer_contact_link' ) ); ?>"
+        <?php $cnfp_contact_url = cnfp_contact_url(); ?>
+        <?php if ( '' !== $cnfp_contact_url ) : ?>
+        <a href="<?php echo esc_url( $cnfp_contact_url ); ?>"
            class="colorlib-contact-btn"><?php echo esc_html__( 'Contact us', 'colorlib-404-customizer' ); ?></a>
+        <?php endif; ?>
 		<?php cnfp_social_links(); ?>
     </div>
     <p style="color:#fff;" class="colorlib-copyright"><span><?php esc_html_e( '404 Page Template designed by', 'colorlib-404-customizer' ); ?></span> <a href="https://colorlib.com/" style="color:#fff;" target="_blank" rel="noopener">Colorlib.</a></p>

@@ -77,19 +77,22 @@ function cnfp_default_options() {
 		'colorlib_404_customizer_page_heading'         => 'Oops !',
 		'colorlib_404_customizer_content'              => 'Page Not Found!',
 		'colorlib_404_customizer_button_text'          => 'Back to homepage',
-		'colorlib_404_customizer_social_facebook'      => 'https://facebook.com/',
-		'colorlib_404_customizer_social_twitter'       => 'https://x.com/',
-		'colorlib_404_customizer_social_pinterest'     => 'https://pinterest.com/',
-		'colorlib_404_customizer_social_youtube'       => 'https://youtube.com/',
-		'colorlib_404_customizer_social_email'         => 'your@domain.to',
-		'colorlib_404_customizer_social_instagram'     => 'https://instagram.com/',
+		// Empty, so a social template never publishes placeholder profiles. Before
+		// 1.1.1 these were generic network homepages and `your@domain.to`, which
+		// went live on any site that picked such a template without filling them in.
+		'colorlib_404_customizer_social_facebook'      => '',
+		'colorlib_404_customizer_social_twitter'       => '',
+		'colorlib_404_customizer_social_pinterest'     => '',
+		'colorlib_404_customizer_social_youtube'       => '',
+		'colorlib_404_customizer_social_email'         => '',
+		'colorlib_404_customizer_social_instagram'     => '',
 		'colorlib_404_customizer_custom_css_control'   => '',
 		'colorlib_404_customizer_background_image'     => '',
 		'colorlib_404_customizer_background_repeat'    => 'no-repeat',
 		'colorlib_404_customizer_background_size'      => 'auto',
 		'colorlib_404_customizer_background_color'     => '',
 		'colorlib_404_customizer_text_color'           => '',
-		'colorlib_404_customizer_contact_link'         => '#',
+		'colorlib_404_customizer_contact_link'         => '',
 		'colorlib_404_customizer_enable_header_footer' => '',
 	);
 }
@@ -529,6 +532,19 @@ function cnfp_social_links() {
 	echo '</div>';
 }
 
+/**
+ * The contact link, or an empty string when there is nowhere useful to send people.
+ *
+ * `#` was the default before 1.1.1 and is still stored on older installs; a
+ * "Contact us" button that goes nowhere is worse than no button.
+ *
+ * @return string Unescaped URL, or an empty string.
+ */
+function cnfp_contact_url() {
+	$url = trim( cnfp_get_option( 'colorlib_404_customizer_contact_link' ) );
+
+	return ( '#' === $url ) ? '' : $url;
+}
 
 /**
  * Human-readable name of a template, e.g. "Template 7".
