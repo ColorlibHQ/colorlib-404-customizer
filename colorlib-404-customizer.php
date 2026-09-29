@@ -220,7 +220,12 @@ function cnfp_skip_redirect_on_login() {
 		return;
 	}
 
-	add_action( 'template_redirect', 'cnfp_template_redirect' );
+	/*
+	 * Run late. Core's canonical and old-slug redirects, and any redirect plugin
+	 * that rescues 404s, all hook `template_redirect` too; exiting at the default
+	 * priority cut off everything registered after it.
+	 */
+	add_action( 'template_redirect', 'cnfp_template_redirect', 999 );
 }
 
 /**
