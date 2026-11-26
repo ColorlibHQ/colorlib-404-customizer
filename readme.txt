@@ -4,7 +4,7 @@ Tags: 404 page, error page, 404 error, custom 404, page not found
 Requires at least: 6.0
 Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,9 @@ Deleting the plugin removes its settings so nothing is left behind in your datab
 
 == Upgrade Notice ==
 
+= 1.1.2 =
+Compatibility release for WordPress 7.2 and PHP 8.6. No functional changes.
+
 = 1.1.1 =
 Live preview now updates in place instead of reloading. Fixes the rich-text editor and header/footer mode on block themes, custom CSS that used `>`, and a review notice that kept coming back.
 
@@ -143,6 +146,11 @@ Live preview now updates in place instead of reloading. Fixes the rich-text edit
 Significant performance and security release. The plugin no longer loads its stylesheet, fonts and jQuery on every page of your site — only on 404s. Font Awesome has been replaced with inline SVG icons, removing about 1 MB of files. Requires WordPress 6.0 and PHP 7.4.
 
 == Changelog ==
+
+= 1.1.2 - 26.11.2026 =
+
+* Tested up to WordPress 7.2 and PHP 8.6.
+* `Tested up to` now lives only in readme.txt. Plugin Check reports it in the plugin header as an error, and the plugin directory kept showing the older header value.
 
 = 1.1.1 - 29.09.2026 =
 

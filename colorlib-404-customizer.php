@@ -3,7 +3,7 @@
  * Plugin Name: Colorlib 404 Customizer
  * Plugin URI: https://colorlib.com/
  * Description: Colorlib 404 Customizer is a responsive 404 customizer WordPress plugin that comes with well designed 404 pages and lots of useful features including customization via Live Customizer.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Colorlib
  * Author URI: https://colorlib.com/
  * Requires at least: 6.0
@@ -33,7 +33,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CNFP_VERSION', '1.1.1' );
+define( 'CNFP_VERSION', '1.1.2' );
 define( 'CNFP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CNFP_URL', plugin_dir_url( __FILE__ ) );
 define( 'CNFP_PLUGIN_BASE', plugin_basename( __FILE__ ) );

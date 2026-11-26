@@ -129,7 +129,7 @@ Two things learned from shooting the screenshots, worth repeating if they are ev
 
 ## Release conventions
 
-The version string lives in four places and must be kept in sync: the plugin header, the `CNFP_VERSION` constant (used for asset cache-busting), `package.json`, and `readme.txt` (`Stable tag:` plus a new `== Changelog ==` entry). Bump `Tested up to:` in both the plugin header and `readme.txt`.
+The version string lives in four places and must be kept in sync: the plugin header, the `CNFP_VERSION` constant (used for asset cache-busting), `package.json`, and `readme.txt` (`Stable tag:` plus a new `== Changelog ==` entry). Bump `Tested up to:` in `readme.txt` only. Since 1.1.2 it is no longer in the plugin header: Plugin Check rejects it there (`plugin_header_tested_up_to_not_allowed`), and while it was there the plugin directory showed the header's older value instead of the readme's.
 
 `readme.txt` is the wordpress.org readme — the canonical changelog lives there; there is no CHANGELOG.md.
 

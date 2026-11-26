@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Colorlib 404 Customizer 1.1.1\n"
+"Project-Id-Version: Colorlib 404 Customizer 1.1.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/colorlib-404-customizer\n"
-"POT-Creation-Date: 2026-09-29 13:26:18+00:00\n"
+"POT-Creation-Date: 2026-11-26 14:25:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,40 +25,40 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.4\n"
 
-#: colorlib-404-customizer.php:521 includes/class-cnfp-customizer.php:312
+#: colorlib-404-customizer.php:520 includes/class-cnfp-customizer.php:312
 msgid "Facebook"
 msgstr ""
 
-#: colorlib-404-customizer.php:522
+#: colorlib-404-customizer.php:521
 msgid "X"
 msgstr ""
 
-#: colorlib-404-customizer.php:523 includes/class-cnfp-customizer.php:316
+#: colorlib-404-customizer.php:522 includes/class-cnfp-customizer.php:316
 msgid "Pinterest"
 msgstr ""
 
-#: colorlib-404-customizer.php:524 includes/class-cnfp-customizer.php:314
+#: colorlib-404-customizer.php:523 includes/class-cnfp-customizer.php:314
 msgid "Email"
 msgstr ""
 
-#: colorlib-404-customizer.php:525 includes/class-cnfp-customizer.php:315
+#: colorlib-404-customizer.php:524 includes/class-cnfp-customizer.php:315
 msgid "YouTube"
 msgstr ""
 
-#: colorlib-404-customizer.php:526 includes/class-cnfp-customizer.php:317
+#: colorlib-404-customizer.php:525 includes/class-cnfp-customizer.php:317
 msgid "Instagram"
 msgstr ""
 
-#: colorlib-404-customizer.php:588
+#: colorlib-404-customizer.php:587
 #. translators: %d: template number.
 msgid "Template %d"
 msgstr ""
 
-#: colorlib-404-customizer.php:651
+#: colorlib-404-customizer.php:650
 msgid "Support"
 msgstr ""
 
-#: colorlib-404-customizer.php:652
+#: colorlib-404-customizer.php:651
 msgid "Settings"
 msgstr ""
 
