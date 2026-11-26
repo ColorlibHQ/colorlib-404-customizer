@@ -2,7 +2,7 @@
 Contributors: silkalns
 Tags: 404 page, error page, 404 error, custom 404, page not found
 Requires at least: 6.0
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 7.4
 Stable tag: 1.1.1
 License: GPLv3 or later
